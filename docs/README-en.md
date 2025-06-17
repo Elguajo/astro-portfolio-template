@@ -77,7 +77,7 @@ DesignPhotographyPortfolio is an **Astro template** designed for quickly buildin
 │   └──  styles
 │       └──  global.css
 ├── 󱧼 source-image
-│   └── 󱧼 works
+│   └── 󱧼 works-name
 │       ├──  *.jpg
 │       ├──  *.png
 │       ├──  main.[png/jpg]

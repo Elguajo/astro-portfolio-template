@@ -77,7 +77,7 @@ DesignPhotographyPortfolio是一个Astro模版，用于快速构建适合设计�
 │   └──  styles
 │       └──  global.css
 ├── 󱧼 source-image
-│   └── 󱧼 works
+│   └── 󱧼 works-name
 │       ├──  *.jpg
 │       ├──  *.png
 │       ├──  main.[png/jpg]
