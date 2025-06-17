@@ -1,0 +1,51 @@
+{
+  "name": "DesignPhotographyPortfolio",
+  "type": "module",
+  "version": "0.0.1",
+	"description": "About Design/Photography Portfolio is a free Astro template for showcasing Design/Photography artists.",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "compress-images": "node scripts/compress-images.js",
+    "auto-deploy-website": "npm run build && python scripts/auto-deploy-website.py"
+  },
+	"keywords": [
+		"astro",
+		"react",
+		"heroui",
+		"tailwindcss"
+	],
+	"author": {
+		"name": "草木一秋",
+		"email": "chinaitlearner@gmail.com"
+	},
+  "dependencies": {
+    "@astrojs/react": "^4.3.0",
+    "@astrojs/sitemap": "^3.4.1",
+    "@fortawesome/fontawesome-svg-core": "^6.7.2",
+    "@fortawesome/free-brands-svg-icons": "^6.7.2",
+    "@fortawesome/free-solid-svg-icons": "^6.7.2",
+    "@fortawesome/react-fontawesome": "^0.2.2",
+    "@heroicons/react": "^2.2.0",
+    "@heroui/react": "^2.7.9",
+    "@heroui/use-theme": "^2.1.8",
+    "@tailwindcss/vite": "^4.1.8",
+    "@types/react": "^19.1.6",
+    "@types/react-dom": "^19.1.6",
+    "astro": "^5.9.0",
+    "astro-icon": "^1.1.5",
+    "astro-seo": "^0.8.4",
+    "framer-motion": "^12.16.0",
+    "lodash": "^4.17.21",
+    "node-emoji": "^2.2.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "tailwindcss": "^4.1.8"
+  },
+  "devDependencies": {
+    "p-limit": "^6.2.0",
+    "vite-plugin-svgr": "^4.3.0"
+  }
+}

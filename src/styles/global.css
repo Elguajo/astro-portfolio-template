@@ -1,0 +1,52 @@
+@import "tailwindcss";
+@source '../../node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}';
+/* @custom-variant dark (&:is(.dark *)); */
+@custom-variant dark (&:where(.dark, .dark *));
+/* @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *)); */
+@theme {
+  --font-gillsans: "Gillsans", "sans-serif"; 
+}
+
+html, a, button {
+  cursor: none;
+}
+#cursor-circle {
+  /* border: 2px solid rgba(255, 255, 255, 0.8); */
+  position: fixed;
+  width: 1.3rem;
+  height: 1.3rem;
+  border-radius: 50%;
+  pointer-events: none;
+  mix-blend-mode: difference;
+  background: white;
+  transform: translate(-100%, -100%);
+  z-index: 9999;
+  transition:
+    width 0.3s ease,
+    height 0.3s ease,
+    background 0.3s ease,
+    border 0.3s ease;
+}
+#cursor-circle.active {
+  width: 2rem;
+  height: 2rem;
+}
+.custom-fill-svg {
+  fill: currentColor;
+  path, rect {
+    fill: currentColor;
+  }
+}
+@font-face {
+  font-family: Gillsans;
+  src: url('/fonts/gillsans.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+img {
+  -webkit-touch-callout: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  user-select: none;
+}

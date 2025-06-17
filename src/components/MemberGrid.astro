@@ -1,0 +1,18 @@
+---
+import Image from './Image.tsx';
+
+const { work } = Astro.props;
+---
+
+<div class="gap-1 pt-4 columns-1 sm:columns-2 xl:columns-3">
+  {Object.entries(work.data.members).map(([mem, info]) => <div class="overflow-hidden mb-1 shadow-xl">
+    <Image
+      client:load
+      src={`${work.data.base}/${mem}`}
+      imageInfo={{ width: info[0], height: info[1] }}
+      classNames={{
+        img: "transition duration-300 ease-in-out hover:scale-108"
+      }}
+    />
+  </div>)}
+</div>

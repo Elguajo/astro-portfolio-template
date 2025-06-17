@@ -1,0 +1,55 @@
+---
+import Layout from '@layouts/Layout.astro';
+import { render } from "astro:content";
+import MemberGrid from '@components/MemberGrid.astro'
+import {Button} from "@heroui/react";
+import {getWorks} from '@lib/getWorks.ts';
+
+const works = await getWorks()
+
+export const getStaticPaths = async () => {
+  const works = await getWorks()
+  const paths = works.map((work) => {
+    return {
+      params: { work_id: work.id },
+      props: { work },
+    };
+  });
+
+  return paths;
+};
+
+const { work }: Props = Astro.props;
+const { Content } = await render(work);
+
+const currentIdx = works.findIndex(it => it.id === work.id)
+let preIdx = currentIdx - 1, nextIdx = currentIdx + 1;
+if (preIdx < 0) preIdx = works.length - 1;
+if (nextIdx >= works.length) nextIdx = 0;
+---
+<Layout>
+  <div class="fixed flex flex-col right-0 top-14 z-99 md:right-4 bottom-8">
+    <Button
+      color="primary"
+      as="a"
+      variant="light"
+      href={`/${works[preIdx].id}`}
+      className=" font-bold drop-shadow-[0_0_8px_rgba(0,123,255,0.8)] text-sm md:text-xl h-auto"
+    >
+        PRE
+    </Button>
+    <Button
+      color="primary"
+      as="a"
+      variant="light"
+      href={`/${works[nextIdx].id}`}
+      className="font-bold drop-shadow-[0_0_8px_rgba(0,123,255,0.8)] text-sm md:text-xl h-auto"
+    >
+        NEXT
+    </Button>
+  </div>
+  <div class="w-full px-4">
+    <Content/>
+  </div>
+  <MemberGrid work={work} />
+</Layout>

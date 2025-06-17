@@ -1,0 +1,41 @@
+---
+import Layout from '@layouts/Layout.astro';
+import { Button, Image, Link } from '@heroui/react';
+import * as emoji from 'node-emoji';
+---
+
+<Layout>
+	<main class="container mx-auto max-w-6xl p-10">
+		<div class="flex flex-col gap-8 w-full h-full mt-10">
+			<div class="md:text-6xl text-5xl text-center">
+				{emoji.emojify(':grimacing:')} 糟糕!
+			</div>
+			<div class="text-center md:text-2xl text-xl">
+				当前访问的页面不存在，不确定要访问的页面地址？ {
+					emoji.emojify(':cloud:')
+				}
+			</div>
+			<div class="flex w-full justify-center">
+				<Image
+					isBlurred
+					src="/images/lost.jpg"
+					classNames={{ img: 'animate-levitate w-72 md:w-96' }}
+					alt="Lost Memoji"
+					client:load
+				/>
+			</div>
+			<div class="flex w-full justify-center">
+				<Button
+					className="w-full md:w-auto"
+					as={Link}
+					href="/"
+					color="primary"
+					size="lg"
+				>
+					进入首页
+				</Button>
+			</div>
+		</div>
+	</main>
+</Layout>
+

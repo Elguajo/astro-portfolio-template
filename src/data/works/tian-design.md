@@ -1,0 +1,8 @@
+---
+base: "/images/works/tian-design"
+---
+**website: https://tian-design.com/**
+
+TEN BUTTONS®  is Tian Bo founding as a graphic design studio based in Guangzhou, China. They dedicates to experimental, academic visual design exploration. TEN BUTTONS® provides groundbreaking visual expression for design and cultural needs, focusing on projects designed for visual identities, books and spatial objects, with a design methodology based on the possibilities of typography and material representation. TEN BUTTONS® is engaged in design education and promotional activities. In addition to teaching at the university, they also offer design courses and workshops.
+
+TIAN BO is a graphic designer and art director based in Guangzhou. He earned a PhD in Design from the China Academy of Art and has worked as a graphic designer in both Hangzhou and Berlin. In 2019, he launched his independent design practice and founded his studio, TEN BUTTONS®. Over the years, he has built deep and lasting collaborations with numerous cultural institutions and individuals. Tian Bo’s works consistently advance the development of modernist graphic design in China. Characterized by a strong experimental spirit, his projects have received numerous prestigious international design awards. He is currently an associate professor at the Guangzhou Academy of Fine Arts, and has lectured at institutions including the Central Academy of Fine Arts, Tongji University, Nanjing University of the Arts, Sichuan Fine Arts Institute, Xi’an Academy of Fine Arts, and Xiamen University. He has also led numerous workshops across a variety of venues. Since 2024, he has been a member of the Alliance Graphique Internationale (AGI).

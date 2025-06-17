@@ -1,0 +1,11 @@
+---
+import Layout from '@layouts/Layout.astro';
+import WorksGrid from "@components/WorksGrid.astro";
+import {getWorks} from '@lib/getWorks.ts';
+
+const works = await getWorks()
+---
+
+<Layout>
+	<WorksGrid works={works}/>
+</Layout>

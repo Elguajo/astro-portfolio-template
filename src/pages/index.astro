@@ -1,0 +1,16 @@
+---
+import Layout from '@layouts/Layout.astro';
+import MemberGrid from '@components/AllImageGrid.tsx'
+import { getCollection } from "astro:content";
+
+const imageInfo = await getCollection('imageInfo');
+const members = imageInfo.reduce((ans, item) => {
+  return [
+    ...ans,
+    ...Object.entries(item.data).map(([it, info]) => ({ name: `${item.id}/${it}`, width: info[0], height: info[1] }))
+  ];
+}, []).sort(() => Math.random() - 0.5);
+---
+<Layout>
+  <MemberGrid members={members} client:load />
+</Layout>
