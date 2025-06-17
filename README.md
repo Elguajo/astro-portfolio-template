@@ -12,7 +12,18 @@ Please check the files in the `docs` directory for more details:
 
 ## Shows
 
-![light mode](./public/images/screenshot-light.png)
+**light mode**
+
+![light mode](./public/images/screenshot-light.webp)
+
+**dark mode**
+
 ![dark mode](./public/images/screenshot-dark.webp)
+
+**iphone**
+
 ![iphone](./public/images/screenshot-iphone.webp)
+
+**ipad**
+
 ![ipad](./public/images/screenshot-ipad.webp)
