@@ -35,7 +35,7 @@ export default function App({ members }) {
       {
         !isOpen && <Button
           onPress={() => refresh()}
-          className="fixed z-99 top-[95vh] left-1/2 -translate-x-1/2 -translate-y-1/2 transition-tansform duration-1000 hover:scale-150"
+          className="fixed z-99 top-[95dvh] left-1/2 -translate-x-1/2 -translate-y-1/2 transition-tansform duration-1000 hover:scale-150"
           isIconOnly
           aria-label="refush"
           variant="faded"
@@ -68,7 +68,7 @@ export default function App({ members }) {
         backdrop="opaque"
         classNames={{
           base: "w-full h-full object-cover object-center max-w-full max-h-full !m-0",
-          closeButton: "size-10 min-w-[unset] opacity-80 fixed z-99 top-[95vh] left-1/2 -translate-x-1/2 -translate-y-1/2",
+          closeButton: "size-10 min-w-[unset] opacity-80 fixed z-99 top-[95dvh] left-1/2 -translate-x-1/2 -translate-y-1/2",
           backdrop: "bg-[#292f46]/60 backdrop-opacity-40",
         }}
         closeButton={
@@ -89,7 +89,7 @@ export default function App({ members }) {
             <>
               <Button
                 onPress={() => debouncedSetCurrent(current - 1 < 0 ? mems.length - 1 : current - 1)}
-                className="size-8 min-w-[unset] fixed z-99 top-1/2 left-[1vw] -translate-y-1/2 opacity-80"
+                className="size-8 min-w-[unset] fixed z-99 top-1/2 left-[1dvw] -translate-y-1/2 opacity-80"
                 isIconOnly
                 aria-label="left"
                 variant="faded"
@@ -100,7 +100,7 @@ export default function App({ members }) {
                 <source srcSet={`${mems[current].name}.avif`} type="image/avif" />
                 <source srcSet={`${mems[current].name}.webp`} type="image/webp" />
                 <img
-                  className="max-w-full max-h-full w-[90vw] h-[90vh] object-contain m-auto mt-[5vh]"
+                  className="max-w-full max-h-full w-[90dvw] h-[90dvh] object-contain m-auto mt-[5dvh]"
                   src={`${mems[current].name}.webp`}
                   onContextMenu={e => e.preventDefault()}
                   onTouchStart={e => e.preventDefault()}
@@ -109,7 +109,7 @@ export default function App({ members }) {
               </picture>
               <Button
                 onPress={() => debouncedSetCurrent(current + 1 >= mems.length ? 0 : current + 1)}
-                className="size-8 min-w-[unset] fixed z-99 top-1/2 right-[1vw] -translate-y-1/2 opacity-80"
+                className="size-8 min-w-[unset] fixed z-99 top-1/2 right-[1dvw] -translate-y-1/2 opacity-80"
                 isIconOnly
                 aria-label="right"
                 variant="faded"

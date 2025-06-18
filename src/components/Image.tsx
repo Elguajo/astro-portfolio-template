@@ -13,7 +13,7 @@ export default React.memo(function({ src, alt, classNames = {}, onClick, imageIn
         base: clsx([
           "w-full text-white/0",
           !isLoad && "animate-[pulse_1s_ease-in-out_infinite] bg-[#f6f9f0] dark:bg-[#222] transform-gpu",
-          !isLoad && !radio && 'h-[40vh]',
+          !isLoad && !radio && 'h-[40dvh]',
           classNames.skeleton,
         ]),
       }}
