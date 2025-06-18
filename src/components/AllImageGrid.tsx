@@ -35,7 +35,7 @@ export default function App({ members }) {
       {
         !isOpen && <Button
           onPress={() => refresh()}
-          className="fixed z-99 top-[95dvh] left-1/2 -translate-x-1/2 -translate-y-1/2 transition-tansform duration-1000 hover:scale-150"
+          className="fixed z-10 top-[95dvh] left-1/2 -translate-x-1/2 -translate-y-1/2 transition-tansform duration-1000 hover:scale-150"
           isIconOnly
           aria-label="refush"
           variant="faded"

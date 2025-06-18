@@ -22,13 +22,13 @@ const { works } = Astro.props;
         img: "transition duration-300 ease-in-out hover:scale-108",
       }}
     />
-    <!-- <span class=" -->
-    <!--   text-sm md:text-base text-white -->
-    <!--   block absolute overflow-hidden -->
-    <!--   py-1 bottom-0 px-2 z-10 w-full -->
-    <!--   bg-black/40 backdrop-blur truncate -->
-    <!-- "> -->
-    <!--   {work.data.image.alt} -->
-    <!-- </span> -->
+    <span class="
+      text-sm md:text-base text-white
+      block absolute overflow-hidden
+      py-1 bottom-0 px-2 z-10 w-full
+      bg-black/40 backdrop-blur truncate
+    ">
+      {work.data.desc || work.id}
+    </span>
   </a>)}
 </div>
