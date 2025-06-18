@@ -37,11 +37,18 @@ export default function App({ pathname, children }) {
       isMenuOpen={isMenuOpen}
       onMenuOpenChange={setIsMenuOpen}
       maxWidth="full"
+      // isBlurred={false}
       classNames={{
         menuItem: [
           "text-[#aaa]",
           "data-[active=true]:text-[#333]",
           "dark:data-[active=true]:text-[#eee]",
+        ],
+        base: [
+          "bg-inherit"
+        ],
+        menu: [
+          "bg-inherit"
         ],
         item: [
           "flex",
