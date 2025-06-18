@@ -20,10 +20,6 @@ Please check the files in the `docs` directory for more details:
 
 ![dark mode](./public/images/screenshot-dark.webp)
 
-**iphone**
+**phone**
 
-![iphone](./public/images/screenshot-iphone.webp)
-
-**ipad**
-
-![ipad](./public/images/screenshot-ipad.webp)
+![phone](./public/images/screenshot-phone.webp)
