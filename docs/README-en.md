@@ -6,88 +6,24 @@ DesignPhotographyPortfolio is an **Astro template** designed for quickly buildin
 
 ## Features
 
-- **Content Collections and Content-layer API**: Manage portfolio and page content with Markdown files.
-- **Image Compression and Efficient Management**: Store images by portfolio and automatically generate compressed versions.
-- **Interaction Design**: Enhance user experience with mouse hover effects and font animations.
-- **SEO-optimized**: Integrated with **Astro SEO** and **sitemap** for greater search engine visibility.
-- **Image Display Handling**: Displays images in a responsive column layout, employing compression and dimension metadata to avoid rendering shift and enable lazy loading.
-- **Dark Mode Support**: Easily enable **dark mode** with Tailwind’s dark mode configuration.
+**Features supported by this Astro theme**:
 
-## Directory Structure
-
-```text
-❯ lsd --tree -I node_modules -I .git -I source-image -I works -I dist -I .astro
- .
-├──  public
-│   ├──  favicon
-│   │   ├──  favicon-16*16.png
-│   │   ├──  favicon-180*180.png
-│   │   ├──  favicon-192*192.png
-│   │   ├──  favicon-32*32.png
-│   │   ├──  favicon-512*512.png
-│   │   └──  favicon.svg
-│   ├──  fonts
-│   │   └──  gillsans.ttf
-│   ├──  images
-│   │   ├──  works
-│   │   │   ├──  *.webp
-│   │   │   └──  *.avif
-│   │   ├──  lost.jpg
-│   │   └──  screenshot.png
-│   └──  site.webmanifest
-├──  scripts
-│   ├──  auto-deploy-website.py
-│   └──  compress-images.js
-├── 󱧼 src
-│   ├──  components
-│   │   ├──  AllImageGrid.tsx
-│   │   ├──  Footer.astro
-│   │   ├──  Header.tsx
-│   │   ├──  Image.tsx
-│   │   ├──  MemberGrid.astro
-│   │   ├──  ScrambleText.tsx
-│   │   ├──  ThemeSwitcher.tsx
-│   │   └──  WorksGrid.astro
-│   ├──  content.config.ts
-│   ├──  data
-│   │   ├──  imageInfo.json
-│   │   ├──  works
-│   │   │   └──  *.md
-│   │   └──  pages
-│   │       └──  about.md
-│   ├──  icons
-│   │   ├──  close.svg
-│   │   ├──  left.svg
-│   │   ├──  logo.svg
-│   │   ├──  rabbitit.svg
-│   │   ├──  refresh.svg
-│   │   └──  right.svg
-│   ├──  js
-│   │   └──  cursor.ts
-│   ├──  layouts
-│   │   └──  Layout.astro
-│   ├──  lib
-│   │   └──  getWorks.ts
-│   ├──  pages
-│   │   ├──  404.astro
-│   │   ├──  [work_id].astro
-│   │   ├──  about.astro
-│   │   ├──  index.astro
-│   │   └──  works.astro
-│   └──  styles
-│       └──  global.css
-├── 󱧼 source-image
-│   └── 󱧼 works-name
-│       ├──  *.jpg
-│       ├──  *.png
-│       ├──  main.[png/jpg]
-│       └──  main.md
-├──  astro.config.mjs
-├──  README.md
-├──  package-lock.json
-├──  package.json
-└──  tsconfig.json
-```
+1. Light/Dark theme toggle;
+2. Multi-language support based on i18n;
+3. Built with React, Tailwind CSS, DaisyUI, AlpineJS, and HeroUI;
+4. SEO-friendly;
+5. Responsive design;
+6. Highly customizable;
+7. Sitemap;
+8. Built-in analytics;
+9. Ready to use out of the box;
+10. Manage portfolios and page content with Markdown files;
+11. Store images by portfolio and automatically generate compressed versions;
+12. Enhance user experience with hover effects and font animations;
+13. Masonry-style image display with stable rendering;
+14. Integrated Giscus-based comment system;
+15. Open Graph tags and dynamic OG image generation for social media sharing;
+16. PWA support, allowing one-click installation to desktop from the browser.
 
 ## Commands
 
@@ -152,3 +88,4 @@ fukunaga-print idea-mag
 ./source-image/typo-d:
 1.png    10.jpg   11.jpg   2.jpeg   3.jpeg   4.jpg    5.jpeg   6.jpg    7.png    8.png    9.png    main.jpg main.md
 ```
+

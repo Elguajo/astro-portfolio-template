@@ -8,6 +8,10 @@ const works = defineCollection({
   }),
 });
 
+const imageInfo = defineCollection({
+  loader: file("src/data/imageInfo.json"),
+});
+
 const pages = defineCollection({
   loader: glob({ pattern: '**/*.md', base: "./src/data/pages" }),
   schema: z.object({
@@ -15,10 +19,7 @@ const pages = defineCollection({
   }),
 });
 
-const imageInfo = defineCollection({
-  loader: file("src/data/imageInfo.json"),
-});
- 
 // Export all collections
-export const collections = {works, pages, imageInfo};
+export const collections = { works, imageInfo, pages };
+
 

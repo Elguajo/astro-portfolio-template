@@ -1,0 +1,32 @@
+---
+import Giscus from '@/components/common/Giscus.astro';
+import Layout from '@/layouts/PageLayout.astro';
+import { getEntry, render } from "astro:content";
+
+import { getI18n } from "@/i18n/index"
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { siteConfig } from '@/site.config';
+
+const { currentLocale } = Astro
+const i18n = await getI18n(currentLocale, 'design')
+
+const mates = {
+  title: i18n('menus.about'),
+	description: i18n('mate.description'),
+	author: siteConfig.author,
+	email: siteConfig.email,
+	local: currentLocale,
+	ogImage: getRelativeLocaleUrl(currentLocale, '/og-image/site-image.png'),
+}
+const about = await getEntry("pages", ["about", currentLocale].join('_'));
+
+const { Content } = await render(about);
+---
+
+<Layout {...mates}>
+  <div class="prose prose-tao dark:prose-invert mx-auto w-[90%] md:w-[80%] xl:w-[70%] pt-20">
+    <Content />
+    <Giscus />
+  </div>
+</Layout>
+

@@ -1,0 +1,32 @@
+---
+import FloatBtns from '@hdud/common/components/FloatBtns.astro';
+import Layout from '@/layouts/PageLayout.astro';
+import WorksGrid from "@/components/works/WorksGrid.astro";
+import getWorks from '@/lib/getWorks.ts';
+import { getI18n } from "@/i18n/index"
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { siteConfig } from '@/site.config';
+
+const { currentLocale } = Astro
+const i18n = await getI18n(currentLocale, 'design')
+
+const mates = {
+  title: i18n('menus.works'),
+	description: i18n('mate.description'),
+	author: siteConfig.author,
+	email: siteConfig.email,
+	local: currentLocale,
+	ogImage: getRelativeLocaleUrl(currentLocale, '/og-image/site-image.png'),
+}
+const works = await getWorks()
+---
+
+<Layout {...mates}>
+	<WorksGrid works={works}/>
+  <FloatBtns btns={[{
+    type: 'theme',
+    props: { themes: siteConfig.themes }
+  }, {
+    type: 'top',
+  }]} />
+</Layout>

@@ -1,0 +1,37 @@
+---
+import FloatBtns from '@hdud/common/components/FloatBtns.astro';
+import PageLayout from '@/layouts/PageLayout.astro';
+import MemberGrid from '@/components/index/AllImageGrid.tsx'
+import { getCollection } from "astro:content";
+import { getI18n } from "@/i18n/index"
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { siteConfig } from '@/site.config';
+
+const { currentLocale } = Astro
+const i18n = await getI18n(currentLocale, 'design')
+
+const imageInfo = await getCollection('imageInfo');
+const members = imageInfo.reduce((ans, item) => {
+  return [
+    ...ans,
+    ...Object.entries(item.data).map(([it, info]) => ({ name: `${item.id}/${it}`, width: info[0], height: info[1] }))
+  ];
+}, []).sort(() => Math.random() - 0.5);
+const mates = {
+  title: i18n('menus.all'),
+	description: i18n('mate.description'),
+	author: siteConfig.author,
+	email: siteConfig.email,
+	local: currentLocale,
+	ogImage: getRelativeLocaleUrl(currentLocale, '/og-image/site-image.png'),
+}
+---
+<PageLayout {...mates}>
+  <MemberGrid members={members} client:load />
+  <FloatBtns btns={[{
+    type: 'theme',
+    props: { themes: siteConfig.themes }
+  }, {
+    type: 'top',
+  }]} />
+</PageLayout>

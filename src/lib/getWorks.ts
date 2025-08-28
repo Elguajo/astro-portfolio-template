@@ -21,3 +21,5 @@ export const getWorks = async () => {
   }, []);
   return works;
 }
+
+export default getWorks;

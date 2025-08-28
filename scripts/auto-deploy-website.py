@@ -2,7 +2,7 @@ import os
 import shutil
 import subprocess
 
-repo_url = "git@*.git"
+branch_name = 'designer'
 
 def run_cmd(cmd, cwd=None):
     print(f"👉 执行命令: {cmd}")
@@ -12,17 +12,20 @@ def run_cmd(cmd, cwd=None):
         exit(1)
 
 def main():
+    # 1. 删除 website 目录
     website_dir = os.path.join(os.getcwd(), "website")
     if os.path.exists(website_dir):
         print("🧹 正在删除 website 目录...")
         shutil.rmtree(website_dir)
 
-    print("📥 正在克隆 docs 分支到 website...")
-    run_cmd(f"git clone --depth 1 {repo_url} website")
+    # 2. git clone docs 分支到 website 目录
+    repo_url = "git@github.com:rnetao/howduudu.tech.git"
+    print("📥 正在克隆 blog 分支到 website...")
+    run_cmd(f"git clone --depth 1 -b {branch_name} {repo_url} website")
 
     site_dir = os.path.join(os.getcwd(), "dist")
     if not os.path.exists(site_dir):
-        print("❌ 错误: site 目录不存在！")
+        print("❌ 错误: dist 目录不存在！")
         exit(1)
 
     print("📋 正在复制 dist 内容到 website...")
@@ -36,6 +39,7 @@ def main():
         else:
             shutil.copy2(s, d)
 
+    # 4. 在 website 目录执行 git push
     print("🚀 准备 push 到远程仓库...")
     run_cmd("git add .", cwd=website_dir)
     run_cmd('git commit -m "自动更新 website 内容"', cwd=website_dir)
@@ -45,5 +49,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 

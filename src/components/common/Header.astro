@@ -1,0 +1,29 @@
+---
+import HdudHeader from '@hdud/common/components/Header.astro';
+import siteConfig from '@/site.config';
+import { getI18n } from "@/i18n/index"
+import { getMenus } from '@/config/menus';
+
+const { currentLocale } = Astro
+const i18n = await getI18n(currentLocale, 'design')
+---
+<HdudHeader
+  menus={getMenus(i18n('menus'), currentLocale)}
+  class="max-w-none"
+  themes={siteConfig.themes}
+  langs={siteConfig.langs}
+>
+  <div class="flex items-center gap-2">
+    <a href={siteConfig.site} class="inline-block max-md:hidden xl:hidden">
+      <img src="/images/hdud-logo.svg" class="size-8 md:size-10 xl:size-12 h-auto" />
+    </a>
+    <span class="max-md:hidden text-md max-md:text-xl xl:text-xl">Designer</span>
+  </div>
+  <div class="flex items-center gap-2" slot="center">
+    <a href={siteConfig.site} class="md:hidden xl:block">
+      <img src="/images/hdud-logo.svg" class="size-8 md:size-10 xl:size-12 h-auto" />
+    </a>
+    <span class="md:hidden text-md xl:text-xl">Designer</span>
+  </div>
+</HdudHeader>
+

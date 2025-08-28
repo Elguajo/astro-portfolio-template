@@ -2,7 +2,7 @@
 
 Astro Theme: https://astro.build/themes/details/designphotographyportfolio/
 
-Live Demo: https://cosmic-cactus-65b8d8.netlify.app/
+Live Demo: https://cosmic-cactus-65b8d8.netlify.app/en/
 
 ## Documentation
 

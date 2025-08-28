@@ -1,0 +1,57 @@
+---
+import Layout from '@/layouts/PageLayout.astro';
+import { render } from "astro:content";
+import FloatBtns from '@hdud/common/components/FloatBtns.astro';
+import MemberGrid from '@/components/common/MemberGrid.astro'
+import getWorks from '@/lib/getWorks.ts';
+import { getI18n } from "@/i18n/index"
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { siteConfig } from '@/site.config';
+
+const { work }: Props = Astro.props;
+
+const { currentLocale } = Astro
+const i18n = await getI18n(currentLocale, 'design')
+
+const mates = {
+  title: i18n('page_works.title', { name: work.id }),
+	description: i18n('mate.description'),
+	author: siteConfig.author,
+	email: siteConfig.email,
+	local: currentLocale,
+	ogImage: getRelativeLocaleUrl(currentLocale, '/og-image/site-image.png'),
+}
+
+const works = await getWorks()
+
+const { Content } = await render(work);
+
+const currentIdx = works.findIndex(it => it.id === work.id)
+let preIdx = currentIdx - 1, nextIdx = currentIdx + 1;
+if (preIdx < 0) preIdx = works.length - 1;
+if (nextIdx >= works.length) nextIdx = 0;
+---
+<Layout {...mates}>
+  <div class="w-full px-4">
+    <Content/>
+  </div>
+  <div class="divider"></div>
+  <MemberGrid work={work} />
+  <FloatBtns btns={[{
+    type: 'link',
+    href: `/${works[preIdx].id}`,
+    icon: 'icon-[ooui--arrow-previous-ltr]',
+    label: i18n('page_detail.prev'),
+  }, {
+    type: 'link',
+    href: `/${works[nextIdx].id}`,
+    icon: 'icon-[ooui--arrow-previous-rtl]',
+    label: i18n('page_detail.next'),
+  }, {
+    type: 'theme',
+    props: { themes: siteConfig.themes }
+  }, {
+    type: 'top',
+    label: i18n('btns.backToTop'),
+  }]} />
+</Layout>

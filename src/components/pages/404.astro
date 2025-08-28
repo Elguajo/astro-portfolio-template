@@ -1,0 +1,23 @@
+---
+import PageLayout from '@/layouts/PageLayout.astro';
+import Page_404 from '@hdud/common/pages/404.astro'
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { getI18n } from "@/i18n/index"
+import { siteConfig } from '@/site.config';
+
+const { currentLocale } = Astro
+const i18n = await getI18n(currentLocale, 'design')
+const homeUrl = getRelativeLocaleUrl(currentLocale, "/");
+const mates = {
+	title: '404',
+	description: i18n('mate.description'),
+	author: siteConfig.author,
+	email: siteConfig.email,
+	local: currentLocale,
+	ogImage: getRelativeLocaleUrl(currentLocale, '/og-image/site-image.png'),
+}
+---
+
+<PageLayout {...mates}>
+	<Page_404 shows={i18n('page_404')} homeUrl={homeUrl} />
+</PageLayout>

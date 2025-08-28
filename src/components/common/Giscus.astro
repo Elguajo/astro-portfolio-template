@@ -1,0 +1,24 @@
+---
+const { currentLocale } = Astro
+const lang = {
+  'zh': 'zh-CN',
+  'zh-hant': 'zh-HK',
+}[currentLocale] || currentLocale;
+---
+<script
+  src="https://giscus.app/client.js"
+  data-repo="rnetao/howduudu.tech"
+  data-repo-id="R_kgDOPKloKg"
+  data-category="Blog Post Comments"
+  data-category-id="DIC_kwDOPKloKs4CszS2"
+  data-mapping="url"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="transparent_dark"
+  data-lang={lang}
+  crossorigin="anonymous"
+  async
+  data-astro-rerun
+/>
