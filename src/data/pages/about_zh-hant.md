@@ -1,7 +1,7 @@
 ---
 name: "about"
 ---
-**作者官網**：https://howduudu.tech
+**作者官網**：https://howduudu.tech/zh-hant/
 
 **主題地址**：https://astro.build/themes/details/designphotographyportfolio/
 

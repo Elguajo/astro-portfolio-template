@@ -1,7 +1,7 @@
 ---
 name: "about"
 ---
-**作者公式サイト**：https://howduudu.tech
+**作者公式サイト**：https://howduudu.tech/en/
 
 **テーマURL**：https://astro.build/themes/details/designphotographyportfolio/
 

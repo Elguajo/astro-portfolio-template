@@ -1,7 +1,7 @@
 ---
 name: "about"
 ---
-**Author Website**: https://howduudu.tech
+**Author Website**: https://howduudu.tech/en/
 
 **Theme URL**: https://astro.build/themes/details/designphotographyportfolio/
 
