@@ -112,7 +112,7 @@ export default function App({ members }: AppProps) {
         classNames={{
           base: 'w-full h-full object-cover object-center max-w-full max-h-full !m-0',
           closeButton:
-            'size-10 min-w-[unset] opacity-80 fixed z-99 top-[95dvh] left-1/2 -translate-x-1/2 -translate-y-1/2',
+            'size-10 min-w-[unset] opacity-80 fixed z-99 top-4 right-4',
           backdrop: 'bg-[#292f46]/60 backdrop-opacity-40',
         }}
         closeButton={
