@@ -96,6 +96,7 @@ export default function App({ members }) {
                 <img
                   className="max-w-full max-h-full w-[90dvw] h-[90dvh] object-contain m-auto mt-[5dvh]"
                   src={`${mems[current].name}.webp`}
+                  alt={`Portfolio work: ${mems[current].name.split('/').pop()}`}
                   onContextMenu={e => e.preventDefault()}
                   onTouchStart={e => e.preventDefault()}
                   onTouchEnd={e => e.preventDefault()}
