@@ -21,5 +21,9 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# VS Code workspace files
+*.code-workspace
+
 website/
 source-image/
