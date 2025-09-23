@@ -2,7 +2,7 @@
 
 DesignPhotographyPortfolio is an **Astro template** designed for quickly building static portfolio websites for designers and photographers.
 
-**Tech Stack**: [Astro](https://astro.build/) + React + HeroUI + [Tailwind CSS](https://tailwindcss.com/)  
+**Tech Stack**: [Astro](https://astro.build/) + React + HeroUI + [Tailwind CSS](https://tailwindcss.com/)
 
 ## Features
 
@@ -27,17 +27,16 @@ DesignPhotographyPortfolio is an **Astro template** designed for quickly buildin
 
 ## Commands
 
-| Command | Action |
-|---------|---------|
-| `npm install` | Install dependencies |
-| `npm run dev` | Start the development server at `http://localhost:4321` |
-| `npm run build` | Build for production into `./dist/` |
-| `npm run preview` | Preview the production build locally |
-| `npm run astro …` | Run an `Astro` command, e.g.: `astro add` or `astro check` |
-| `npm run astro -- --help` | Get help for `Astro` commands |
-| `npm run auto-deploy-website` | Build and deploy to GitHub repository |
-| `npm run compress-images` | Compress images and output to `./public/images/works/` | 
-
+| Command                       | Action                                                     |
+| ----------------------------- | ---------------------------------------------------------- |
+| `npm install`                 | Install dependencies                                       |
+| `npm run dev`                 | Start the development server at `http://localhost:4321`    |
+| `npm run build`               | Build for production into `./dist/`                        |
+| `npm run preview`             | Preview the production build locally                       |
+| `npm run astro …`             | Run an `Astro` command, e.g.: `astro add` or `astro check` |
+| `npm run astro -- --help`     | Get help for `Astro` commands                              |
+| `npm run auto-deploy-website` | Build and deploy to GitHub repository                      |
+| `npm run compress-images`     | Compress images and output to `./public/images/works/`     |
 
 ## Quick Start
 
@@ -88,4 +87,3 @@ fukunaga-print idea-mag
 ./source-image/typo-d:
 1.png    10.jpg   11.jpg   2.jpeg   3.jpeg   4.jpg    5.jpeg   6.jpg    7.png    8.png    9.png    main.jpg main.md
 ```
-

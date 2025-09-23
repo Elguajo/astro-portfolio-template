@@ -27,16 +27,16 @@ DesignPhotographyPortfolio是一个Astro模版，用于快速构建适合设计�
 
 ## 命令
 
-命令 | 动作
----- | ----
-`npm install` | 安装依赖
-`npm run dev` | 启动开发环境 `localhost:4321`
-`npm run build` | 打包至目录 `./dist/`
-`npm run preview` | 本地打包完预览网站成品
-`npm run astro ...` | 运行astro命令, 如：`astro add`, `astro check`
-`npm run astro -- --help` | 获取astro命令帮助
-`npm run auto-deploy-website` | 打包并将成本上传到github仓库
-`npm run compress-images` | 图片压缩并放入`./public/images/works/`
+| 命令                          | 动作                                          |
+| ----------------------------- | --------------------------------------------- |
+| `npm install`                 | 安装依赖                                      |
+| `npm run dev`                 | 启动开发环境 `localhost:4321`                 |
+| `npm run build`               | 打包至目录 `./dist/`                          |
+| `npm run preview`             | 本地打包完预览网站成品                        |
+| `npm run astro ...`           | 运行astro命令, 如：`astro add`, `astro check` |
+| `npm run astro -- --help`     | 获取astro命令帮助                             |
+| `npm run auto-deploy-website` | 打包并将成本上传到github仓库                  |
+| `npm run compress-images`     | 图片压缩并放入`./public/images/works/`        |
 
 ## 快速开始
 
@@ -89,4 +89,3 @@ fukunaga-print idea-mag
 ./source-image/typo-d:
 1.png    10.jpg   11.jpg   2.jpeg   3.jpeg   4.jpg    5.jpeg   6.jpg    7.png    8.png    9.png    main.jpg main.md
 ```
-

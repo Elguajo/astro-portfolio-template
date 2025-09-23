@@ -1,10 +1,11 @@
 export default {
   mate: {
-    description: "Designers, photographers, and creative artists — showcase your best work here.",
-    title: "Designer Portfolio",
+    description:
+      'Designers, photographers, and creative artists — showcase your best work here.',
+    title: 'Designer Portfolio',
   },
   btns: {
-    backToTop: 'Back to Top'
+    backToTop: 'Back to Top',
   },
   page_works: {
     title: '{{name}} - Portfolio',
@@ -42,6 +43,5 @@ export default {
     close: 'Close',
     share: 'Share',
     download: 'Download',
-  }
-}
-
+  },
+};

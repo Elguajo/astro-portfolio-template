@@ -1,6 +1,7 @@
 ---
-base: "/images/works/studionaeo"
+base: '/images/works/studionaeo'
 ---
+
 **website: https://khusan-design.uz/**
 
 ## Interior Design Visualization
@@ -10,6 +11,7 @@ base: "/images/works/studionaeo"
 High-quality interior design visualization project featuring realistic lighting, material textures, and detailed 3D modeling. This project showcases expertise in architectural visualization and interior design presentation.
 
 **Key Features:**
+
 - Photorealistic interior renderings
 - Detailed material and texture work
 - Professional lighting setups

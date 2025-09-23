@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme animate {
   --animate-works-label-slide-in: works-label-slide-in 300ms forwards;

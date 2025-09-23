@@ -12,7 +12,7 @@ const sizeInfoDir = path.resolve('./src/data/imageInfo.json');
 const worksPageDir = path.resolve('./src/data/works');
 const saveDir = path.resolve('./public/images/works');
 const targetDirBase = path.resolve('./source-image');
-const watermark = ''
+const watermark = '';
 const targetDirSub = '';
 const targetDir = path.join(targetDirBase, targetDirSub);
 
@@ -31,7 +31,7 @@ function findAndMoveMd(dir) {
   fs.readdirSync(dir)
     .filter(file => /\.md$/i.test(file))
     .forEach(file => {
-      const fileName = file === 'main.md' ? `${name}.md` : file
+      const fileName = file === 'main.md' ? `${name}.md` : file;
       const filePath = path.join(dir, file);
       const targetPath = path.join(worksPageDir, fileName);
       console.log(`页面配置文件生成成功：${targetPath}`);
@@ -59,7 +59,7 @@ function generateTextWatermark(text, imageWidth, imageHeight) {
 
   return {
     svgBuffer: Buffer.from(svg),
-    svgHeight
+    svgHeight,
   };
 }
 
@@ -80,11 +80,10 @@ function getAllImageFiles(dir) {
   return results;
 }
 
-
 function saveImageInfo(sizeInfo, imgPath, metadata) {
   const filepath = imgPath.replace(publicPath, '');
-  const dir = path.dirname(filepath)
-  const name = path.basename(filepath)
+  const dir = path.dirname(filepath);
+  const name = path.basename(filepath);
   if (!sizeInfo[dir]) sizeInfo[dir] = {};
   sizeInfo[dir][name] = [metadata.width, metadata.height];
 }
@@ -124,7 +123,10 @@ async function compressImage(filePath, idx, sizeInfo) {
   let watermarkWidthHeight = [metadata.width, metadata.height];
 
   if (metadata.width > MAX_WEBP_DIM || metadata.height > MAX_WEBP_DIM) {
-    const scale = Math.min(MAX_WEBP_DIM / metadata.width, MAX_WEBP_DIM / metadata.height);
+    const scale = Math.min(
+      MAX_WEBP_DIM / metadata.width,
+      MAX_WEBP_DIM / metadata.height
+    );
     const newWidth = Math.floor(metadata.width * scale);
     const newHeight = Math.floor(metadata.height * scale);
 
@@ -137,34 +139,40 @@ async function compressImage(filePath, idx, sizeInfo) {
   }
 
   if (watermark) {
-    const { svgBuffer, svgHeight } = generateTextWatermark(watermark, ...watermarkWidthHeight);
+    const { svgBuffer, svgHeight } = generateTextWatermark(
+      watermark,
+      ...watermarkWidthHeight
+    );
     image = image.composite([
       {
         input: svgBuffer,
         top: Math.floor((metadata.height - svgHeight) / 2),
-        left: 0
-      }
+        left: 0,
+      },
     ]);
   }
 
   let quality;
-  const multask = []
+  const multask = [];
 
   if (isSmall) {
     quality = 50;
-    multask.push(image.clone().webp({ quality }).toBuffer())
-    multask.push(image.clone().avif({ quality }).toBuffer())
+    multask.push(image.clone().webp({ quality }).toBuffer());
+    multask.push(image.clone().avif({ quality }).toBuffer());
 
     console.log(`  ℹ️ Small image → quality ${quality}`);
   } else {
-    const baseWebp = await image.clone().webp({ quality: MAX_QUALITY }).toBuffer();
+    const baseWebp = await image
+      .clone()
+      .webp({ quality: MAX_QUALITY })
+      .toBuffer();
     const baseSize = baseWebp.length;
 
     quality = Math.round(MAX_QUALITY * Math.pow(MAX_SIZE / baseSize, 1 / k));
     quality = Math.min(Math.max(quality, MIN_QUALITY), MAX_QUALITY);
 
-    multask.push(image.clone().webp({ quality }).toBuffer())
-    multask.push(image.clone().avif({ quality }).toBuffer())
+    multask.push(image.clone().webp({ quality }).toBuffer());
+    multask.push(image.clone().avif({ quality }).toBuffer());
   }
   const [webpBuffer, avifBuffer] = await Promise.all(multask);
 
@@ -186,19 +194,21 @@ async function main() {
 
   const jpgFiles = getAllImageFiles(targetDir);
   console.log(`📸 Found ${jpgFiles.length} image files in ${targetDir}\n`);
-  const sizeInfo = {}
+  const sizeInfo = {};
   const dirs = new Set();
-  const tasks = jpgFiles.map((file, idx) => limit(async () => {
-    try {
-      dirs.add(path.dirname(file));
-      await compressImage(file, idx, sizeInfo);
-    } catch (err) {
-      console.log(`❌  Failed to compress: ${file}`, err.message);
-    }
-  }));
+  const tasks = jpgFiles.map((file, idx) =>
+    limit(async () => {
+      try {
+        dirs.add(path.dirname(file));
+        await compressImage(file, idx, sizeInfo);
+      } catch (err) {
+        console.log(`❌  Failed to compress: ${file}`, err.message);
+      }
+    })
+  );
   await Promise.all(tasks);
   fs.writeFileSync(sizeInfoDir, JSON.stringify(sizeInfo));
-  dirs.forEach((dir) => findAndMoveMd(dir));
+  dirs.forEach(dir => findAndMoveMd(dir));
   console.timeEnd('exec time');
 }
 

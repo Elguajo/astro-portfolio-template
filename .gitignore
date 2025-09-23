@@ -25,5 +25,11 @@ pnpm-debug.log*
 # VS Code workspace files
 *.code-workspace
 
+# ESLint cache
+.eslintcache
+
+# Prettier cache
+.prettiercache
+
 website/
 source-image/

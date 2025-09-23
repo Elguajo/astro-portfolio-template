@@ -1,19 +1,21 @@
-@import url("https://fonts.googleapis.com/css2?family=Handjet:wght@200;300&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Handjet:wght@200;300&display=swap');
 @import 'tailwindcss';
-@import "tw-animate-css";
-@import "./animate.css";
+@import 'tw-animate-css';
+@import './animate.css';
 @source '../../node_modules/@hdud/common/**/*.{js,ts,jsx,tsx,astro}';
 @source '../../node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}';
 @plugin "@tailwindcss/typography";
 @plugin "@iconify/tailwind4";
 @config "./prose.config.js";
 @plugin "daisyui" {
-  themes: silk --default, business --prefersdark;
+  themes:
+    silk --default,
+    business --prefersdark;
 }
 @custom-variant dark (&:where([data-theme=business], [data-theme=business] *));
 
 @theme inline {
-  --font-handjet: "Handjet", sans-serif;
+  --font-handjet: 'Handjet', sans-serif;
 }
 
 /* Fix for lg:hidden utility in Tailwind v4 */
@@ -24,7 +26,7 @@
 }
 
 /* Hide screen detection elements */
-[id^="bp-"] {
+[id^='bp-'] {
   display: none !important;
   visibility: hidden !important;
   position: absolute !important;
@@ -63,7 +65,10 @@
 
 .back-to-top-btn {
   @apply opacity-0 pointer-events-none;
-  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out, pointer-events 0.3s ease-in-out;
+  transition:
+    opacity 0.3s ease-in-out,
+    transform 0.3s ease-in-out,
+    pointer-events 0.3s ease-in-out;
 }
 
 .back-to-top-btn.visible {

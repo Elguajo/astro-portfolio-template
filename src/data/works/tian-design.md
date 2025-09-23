@@ -1,6 +1,7 @@
 ---
-base: "/images/works/tian-design"
+base: '/images/works/tian-design'
 ---
+
 **website: https://khusan-design.uz/**
 
 ## Industrial Equipment Visualization
@@ -10,6 +11,7 @@ base: "/images/works/tian-design"
 Professional 3D visualization project for industrial equipment featuring detailed modeling, realistic materials, and technical documentation. This project demonstrates expertise in industrial design visualization and technical communication through 3D graphics.
 
 **Key Features:**
+
 - Detailed industrial equipment modeling
 - Technical material specifications
 - Professional product photography simulation

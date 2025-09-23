@@ -2,17 +2,18 @@
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import HdudHeader from '@hdud/common/components/Header.astro';
 import siteConfig from '@/site.config';
-import { getI18n } from "@/i18n/index"
+import { getI18n } from '@/i18n/index';
 import { getMenus } from '@/config/menus';
 
-const { currentLocale } = Astro
-const i18n = await getI18n(currentLocale || 'en', 'design')
+const { currentLocale } = Astro;
+const i18n = await getI18n(currentLocale || 'en', 'design');
 
 function getTargetUrl() {
   const lang = currentLocale === 'ja' ? 'en' : currentLocale;
-  return siteConfig.site + getRelativeLocaleUrl(lang || 'en', '/')
+  return siteConfig.site + getRelativeLocaleUrl(lang || 'en', '/');
 }
 ---
+
 <HdudHeader
   menus={getMenus(i18n('menus'), currentLocale || 'en')}
   class="max-w-none"
@@ -21,15 +22,23 @@ function getTargetUrl() {
 >
   <div class="flex items-center gap-2">
     <a href={getTargetUrl()} class="inline-block max-md:hidden xl:hidden">
-      <img src="/images/hdud-logo.svg" alt="HDUD Logo" class="size-8 md:size-10 xl:size-12 h-auto" />
+      <img
+        src="/images/hdud-logo.svg"
+        alt="HDUD Logo"
+        class="size-8 md:size-10 xl:size-12 h-auto"
+      />
     </a>
-    <span class="max-md:hidden text-md max-md:text-xl xl:text-xl">Designer</span>
+    <span class="max-md:hidden text-md max-md:text-xl xl:text-xl">Designer</span
+    >
   </div>
   <div class="flex items-center gap-2" slot="center">
     <a href={getTargetUrl()} class="md:hidden xl:block">
-      <img src="/images/hdud-logo.svg" alt="HDUD Logo" class="size-8 md:size-10 xl:size-12 h-auto" />
+      <img
+        src="/images/hdud-logo.svg"
+        alt="HDUD Logo"
+        class="size-8 md:size-10 xl:size-12 h-auto"
+      />
     </a>
     <span class="md:hidden text-md xl:text-xl">Designer</span>
   </div>
 </HdudHeader>
-

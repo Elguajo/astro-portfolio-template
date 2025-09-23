@@ -1,7 +1,7 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 @theme animate {
   --animate-slide-in: slide-in 500ms forwards;
-  @keyframes slide-in{
+  @keyframes slide-in {
     from {
       opacity: 0;
       bottom: -100%;

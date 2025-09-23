@@ -1,6 +1,7 @@
 ---
-base: "/images/works/typo-d"
+base: '/images/works/typo-d'
 ---
+
 **website: https://khusan-design.uz/**
 
 ## AI Integration & Digital Innovation
@@ -10,6 +11,7 @@ base: "/images/works/typo-d"
 Cutting-edge project showcasing the integration of artificial intelligence tools into the creative design process. This project demonstrates expertise in AI-assisted design, prompt engineering, and modern digital workflows that enhance creative output.
 
 **Key Features:**
+
 - AI-generated concept development
 - Prompt engineering optimization
 - AI-assisted image generation and editing

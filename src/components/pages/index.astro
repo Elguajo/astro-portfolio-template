@@ -1,35 +1,46 @@
 ---
 import CustomFloatBtns from '@/components/common/CustomFloatBtns.astro';
 import PageLayout from '@/layouts/PageLayout.astro';
-import MemberGrid from '@/components/index/AllImageGrid.tsx'
-import { getCollection } from "astro:content";
-import { getI18n } from "@/i18n/index"
+import MemberGrid from '@/components/index/AllImageGrid.tsx';
+import { getCollection } from 'astro:content';
+import { getI18n } from '@/i18n/index';
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import { siteConfig } from '@/site.config';
 
-const { currentLocale } = Astro
-const i18n = await getI18n(currentLocale, 'design')
+const { currentLocale } = Astro;
+const i18n = await getI18n(currentLocale || 'en', 'design');
 
 const imageInfo = await getCollection('imageInfo');
-const members = imageInfo.reduce((ans, item) => {
-  return [
-    ...ans,
-    ...Object.entries(item.data).map(([it, info]) => ({ name: `${item.id}/${it}`, width: info[0], height: info[1] }))
-  ];
-}, []).sort(() => Math.random() - 0.5);
+const members = imageInfo
+  .reduce((ans: Array<{name: string, width: number, height: number}>, item) => {
+    return [
+      ...ans,
+      ...Object.entries(item.data).map(([it, info]) => ({
+        name: `${item.id}/${it}`,
+        width: (info as [number, number])[0],
+        height: (info as [number, number])[1],
+      })),
+    ];
+  }, [])
+  .sort(() => Math.random() - 0.5);
 const mates = {
   title: i18n('menus.all'),
-	description: i18n('mate.description'),
-	author: siteConfig.author,
-	email: siteConfig.email,
-	local: currentLocale,
-	ogImage: getRelativeLocaleUrl(currentLocale, '/og-image/site-image.png'),
-}
+  description: i18n('mate.description'),
+  author: siteConfig.author,
+  email: siteConfig.email,
+  local: currentLocale,
+  ogImage: getRelativeLocaleUrl(currentLocale || 'en', '/og-image/site-image.png'),
+};
 ---
+
 <PageLayout {...mates}>
   <MemberGrid members={members} client:load />
-  <CustomFloatBtns btns={[{
-    type: 'top',
-    label: i18n('btns.backToTop'),
-  }]} />
+  <CustomFloatBtns
+    btns={[
+      {
+        type: 'top',
+        label: i18n('btns.backToTop'),
+      },
+    ]}
+  />
 </PageLayout>

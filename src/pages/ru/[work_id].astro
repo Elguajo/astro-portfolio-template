@@ -1,10 +1,11 @@
 ---
-import App from '@/components/pages/detail.astro'
+import App from '@/components/pages/detail.astro';
 import getWorks from '@/lib/getWorks.ts';
 
 export const getStaticPaths = async () => {
-  const works = await getWorks()
-  const paths = works.map((work) => {
+  const works = await getWorks();
+  const worksArray = Array.isArray(works) ? works : [];
+  const paths = worksArray.map((work: any) => {
     return {
       params: { work_id: work.id },
       props: { work },
@@ -15,4 +16,4 @@ export const getStaticPaths = async () => {
 };
 ---
 
-<App {...Astro.props}/> 
+<App {...Astro.props} />

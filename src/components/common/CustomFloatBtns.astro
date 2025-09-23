@@ -12,64 +12,62 @@ const { btns } = Astro.props;
 ---
 
 <div class="custom-float-btns">
-  {btns.map((btn) => {
-    if (btn.type === 'top') {
-      return (
-        <button
-          id="back-to-top"
-          class="custom-float-btn back-to-top-btn"
-          aria-label={btn.label || 'Back to top'}
-        >
-          <span class="icon-[material-symbols--keyboard-arrow-up] text-xl"></span>
-        </button>
-      );
-    }
-    
-    if (btn.type === 'link') {
-      return (
-        <a
-          href={btn.href}
-          class="custom-float-btn"
-          aria-label={btn.label}
-        >
-          <span class={`${btn.icon} text-xl`}></span>
-        </a>
-      );
-    }
-  })}
+  {
+    btns.map(btn => {
+      if (btn.type === 'top') {
+        return (
+          <button
+            id="back-to-top"
+            class="custom-float-btn back-to-top-btn"
+            aria-label={btn.label || 'Back to top'}
+          >
+            <span class="icon-[material-symbols--keyboard-arrow-up] text-xl" />
+          </button>
+        );
+      }
+
+      if (btn.type === 'link') {
+        return (
+          <a href={btn.href} class="custom-float-btn" aria-label={btn.label}>
+            <span class={`${btn.icon} text-xl`} />
+          </a>
+        );
+      }
+    })
+  }
 </div>
 
 <script>
   // Back to top button functionality
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
     const backToTopBtn = document.getElementById('back-to-top');
-    
+
     if (!backToTopBtn) return;
-    
+
     // Show button when user scrolls to middle or end of page
-    window.addEventListener('scroll', function() {
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    window.addEventListener('scroll', function () {
+      const scrollTop =
+        window.pageYOffset || document.documentElement.scrollTop;
       const windowHeight = window.innerHeight;
       const documentHeight = document.documentElement.scrollHeight;
-      
+
       // Show when scrolled past 50% of the page or at the end
       const shouldShow = scrollTop > (documentHeight - windowHeight) * 0.5;
-      
+
       if (shouldShow) {
         backToTopBtn.classList.add('visible');
       } else {
         backToTopBtn.classList.remove('visible');
       }
     });
-    
+
     // Smooth scroll to top
-    backToTopBtn.addEventListener('click', function(e) {
+    backToTopBtn.addEventListener('click', function (e) {
       e.preventDefault();
       window.scrollTo({
         top: 0,
-        behavior: 'smooth'
+        behavior: 'smooth',
       });
     });
   });
 </script>
-

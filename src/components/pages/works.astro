@@ -1,30 +1,34 @@
 ---
 import CustomFloatBtns from '@/components/common/CustomFloatBtns.astro';
 import Layout from '@/layouts/PageLayout.astro';
-import WorksGrid from "@/components/works/WorksGrid.astro";
+import WorksGrid from '@/components/works/WorksGrid.astro';
 import getWorks from '@/lib/getWorks.ts';
-import { getI18n } from "@/i18n/index"
+import { getI18n } from '@/i18n/index';
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import { siteConfig } from '@/site.config';
 
-const { currentLocale } = Astro
-const i18n = await getI18n(currentLocale, 'design')
+const { currentLocale } = Astro;
+const i18n = await getI18n(currentLocale, 'design');
 
 const mates = {
   title: i18n('menus.works'),
-	description: i18n('mate.description'),
-	author: siteConfig.author,
-	email: siteConfig.email,
-	local: currentLocale,
-	ogImage: getRelativeLocaleUrl(currentLocale, '/og-image/site-image.png'),
-}
-const works = await getWorks()
+  description: i18n('mate.description'),
+  author: siteConfig.author,
+  email: siteConfig.email,
+  local: currentLocale,
+  ogImage: getRelativeLocaleUrl(currentLocale, '/og-image/site-image.png'),
+};
+const works = await getWorks();
 ---
 
 <Layout {...mates}>
-	<WorksGrid works={works}/>
-  <CustomFloatBtns btns={[{
-    type: 'top',
-    label: i18n('btns.backToTop'),
-  }]} />
+  <WorksGrid works={works} />
+  <CustomFloatBtns
+    btns={[
+      {
+        type: 'top',
+        label: i18n('btns.backToTop'),
+      },
+    ]}
+  />
 </Layout>

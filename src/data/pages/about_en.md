@@ -1,5 +1,5 @@
 ---
-name: "about"
+name: 'about'
 ---
 
 ## About Khusan Turaev
@@ -11,23 +11,28 @@ I am a passionate and experienced designer with over 8 years in the creative ind
 ### Professional Experience
 
 **Current Role**: Lead 2D & 3D Graphic and Motion Designer at LG Electronics Uzbekistan (March 2024 - Present)
+
 - 3D visualization and artistic design work
 - Development of comprehensive design solutions for print media, outdoor advertising, clothing, automotive, industrial equipment, landscape, and interior design
 
 **Freelance Practice**: Graphic and 3D Designer (April 2020 - Present)
+
 - Creating 2D, 3D, and motion designs for diverse clients
 - Specializing in SMM, marketing, advertising, BTL, PR, design, and production
 
 **Teaching Experience**: Computer Science Teacher at School #3 (September 2023 - May 2025)
+
 - Sharing knowledge and expertise in computer science education
 
-**Previous Experience**: 
+**Previous Experience**:
+
 - Graphic and 3D Designer at OOO "Avtotest Report" (May 2018 - March 2020)
 - Junior Designer at KOICA (September 2017 - March 2018)
 
 ### Technical Skills
 
 **Advanced Level:**
+
 - Adobe Creative Suite (Photoshop, Illustrator, Premier Pro, Media Encoder)
 - 3D Software (Blender 3D, Autodesk 3ds Max, Keyshot)
 - Design Tools (CorelDRAW, Figma)
@@ -36,6 +41,7 @@ I am a passionate and experienced designer with over 8 years in the creative ind
 - Project Management and Team Leadership
 
 **Specializations:**
+
 - 3D Modeling and Visualization
 - Motion Graphics and Animation
 - Print Design and Branding
@@ -57,7 +63,7 @@ I am a passionate and experienced designer with over 8 years in the creative ind
 
 ### Philosophy
 
-*"Long-term satisfaction cannot be found in an object or state. It lies precisely in the path, in the process of realizing a vision — in the opportunity to do what you truly see meaning in."*
+_"Long-term satisfaction cannot be found in an object or state. It lies precisely in the path, in the process of realizing a vision — in the opportunity to do what you truly see meaning in."_
 
 ### Contact Information
 
@@ -69,4 +75,4 @@ I am a passionate and experienced designer with over 8 years in the creative ind
 
 ---
 
-*This portfolio showcases my journey as a designer, from early freelance projects to leading design initiatives at major corporations. Each project represents a step forward in my creative evolution and commitment to excellence in visual communication.*
+_This portfolio showcases my journey as a designer, from early freelance projects to leading design initiatives at major corporations. Each project represents a step forward in my creative evolution and commitment to excellence in visual communication._
