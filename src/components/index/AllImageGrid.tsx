@@ -1,10 +1,10 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import _debounce from 'lodash/debounce';
 import { Modal, ModalContent, Button, useDisclosure } from '@heroui/react';
 
 import Image from '@/components/common/Image.tsx';
 import ErrorBoundaryWrapper from '@/components/common/ErrorBoundaryWrapper.tsx';
-import { preloadGalleryImages } from '@/lib/imagePreloader';
+import { preloadGalleryImagesSafe } from '@/lib/imagePreloader';
 
 interface Member {
   name: string;
@@ -43,25 +43,61 @@ export default function App({ members }: AppProps) {
     ),
     []
   );
-  const debouncedSetCurrent = useCallback(
+  // Немедленное обновление current для отзывчивости
+  const setCurrentImmediate = useCallback((value: number) => {
+    setCurrent(value);
+  }, []);
+
+  // Debounced preloading для оптимизации производительности
+  const debouncedPreload = useCallback(
     _debounce(
       (value: number) => {
-        setCurrent(value);
-
-        // Preload adjacent images when navigating
         if (isOpen) {
           const imageSrcs = processedMembers.map(member => member.name);
-          preloadGalleryImages(value, imageSrcs, { priority: 'high' });
+          preloadGalleryImagesSafe(value, imageSrcs, { priority: 'high' });
         }
       },
-      300,
+      200, // Задержка только для preloading
       {
-        leading: true,
-        trailing: false,
+        leading: false,
+        trailing: true,
       }
     ),
     [isOpen, processedMembers]
   );
+
+  // Комбинированная функция для навигации
+  const handleNavigation = useCallback((value: number) => {
+    setCurrentImmediate(value); // Немедленное обновление UI
+    debouncedPreload(value); // Отложенный preloading
+  }, [setCurrentImmediate, debouncedPreload]);
+
+  // Клавиатурная навигация
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (current === undefined) return;
+
+      switch (event.key) {
+        case 'ArrowLeft':
+          event.preventDefault();
+          handleNavigation(current - 1 < 0 ? mems.length - 1 : current - 1);
+          break;
+        case 'ArrowRight':
+          event.preventDefault();
+          handleNavigation(current + 1 >= mems.length ? 0 : current + 1);
+          break;
+        case 'Escape':
+          event.preventDefault();
+          onOpenChange();
+          break;
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, current, mems.length, handleNavigation, onOpenChange]);
   return (
     <ErrorBoundaryWrapper
       fallback={
@@ -130,7 +166,7 @@ export default function App({ members }: AppProps) {
 
                 // Preload adjacent images when opening modal
                 const imageSrcs = processedMembers.map(member => member.name);
-                preloadGalleryImages(idx, imageSrcs, { priority: 'high' });
+                preloadGalleryImagesSafe(idx, imageSrcs, { priority: 'high' });
               }}
             />
           </div>
@@ -162,7 +198,7 @@ export default function App({ members }: AppProps) {
                 <Button
                   onPress={() =>
                     current !== undefined &&
-                    debouncedSetCurrent(
+                    handleNavigation(
                       current - 1 < 0 ? mems.length - 1 : current - 1
                     )
                   }
@@ -198,7 +234,7 @@ export default function App({ members }: AppProps) {
                 <Button
                   onPress={() =>
                     current !== undefined &&
-                    debouncedSetCurrent(
+                    handleNavigation(
                       current + 1 >= mems.length ? 0 : current + 1
                     )
                   }

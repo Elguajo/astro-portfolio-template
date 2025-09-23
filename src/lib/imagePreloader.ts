@@ -121,7 +121,42 @@ export function preloadGalleryImages(
     toPreload.push(images[currentIndex - 1]);
   }
 
-  return preloadImages(toPreload, options);
+  // Preload images with proper format handling
+  // The images array contains paths without extensions, so we use preloadImageFormats
+  return Promise.all(toPreload.map(src => preloadImageFormats(src, options)));
+}
+
+/**
+ * Preload gallery images with proper error handling
+ * This function is specifically designed for the AllImageGrid component
+ */
+export function preloadGalleryImagesSafe(
+  currentIndex: number,
+  images: string[],
+  options: PreloadOptions = {}
+): Promise<PreloadResult[]> {
+  const toPreload: string[] = [];
+
+  // Preload next image
+  if (currentIndex + 1 < images.length) {
+    toPreload.push(images[currentIndex + 1]);
+  }
+
+  // Preload previous image
+  if (currentIndex - 1 >= 0) {
+    toPreload.push(images[currentIndex - 1]);
+  }
+
+  // Preload images with error handling
+  return Promise.all(
+    toPreload.map(src => 
+      preloadImageFormats(src, options).catch(error => {
+        // Log error but don't fail the entire preload operation
+        console.warn(`Failed to preload image: ${src}`, error);
+        return { success: false, error, loadTime: 0 };
+      })
+    )
+  );
 }
 
 /**

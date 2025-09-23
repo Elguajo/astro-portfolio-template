@@ -70,7 +70,10 @@ export default React.memo(function ({
   // Preload on hover
   const handleMouseEnter = useCallback(() => {
     if (preloadOnHover && !isLoad) {
-      preloadImageFormats(src, { priority: 'high' });
+      preloadImageFormats(src, { priority: 'high' }).catch(error => {
+        // Log error but don't show it to user
+        console.warn(`Failed to preload image on hover: ${src}`, error);
+      });
     }
   }, [preloadOnHover, src, isLoad]);
 
