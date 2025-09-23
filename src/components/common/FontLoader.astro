@@ -1,0 +1,53 @@
+---
+import { defaultFontConfig, generateGoogleFontsUrl, generateFontPreloadUrls } from '@/lib/fontUtils';
+
+// FontLoader component for optimized Google Fonts loading
+export interface Props {
+  config?: any;
+  preload?: boolean;
+}
+
+const { config = defaultFontConfig, preload = true } = Astro.props;
+
+// Generate optimized Google Fonts URL
+const fontUrl = generateGoogleFontsUrl(config);
+
+// Generate preload URLs for critical fonts
+const preloadUrls = generateFontPreloadUrls(config);
+---
+
+{preload && (
+  <>
+    <!-- Preload critical font files -->
+    {preloadUrls.map(url => (
+      <link
+        rel="preload"
+        href={url}
+        as="font"
+        type="font/woff2"
+        crossorigin="anonymous"
+      />
+    ))}
+    
+    <!-- Preload Google Fonts CSS -->
+    <link
+      rel="preload"
+      href={fontUrl}
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    
+    <!-- Fallback for no-JS -->
+    <noscript>
+      <link rel="stylesheet" href={fontUrl} />
+    </noscript>
+  </>
+)}
+
+{!preload && (
+  <link rel="stylesheet" href={fontUrl} />
+)}
+
+<!-- DNS prefetch for Google Fonts -->
+<link rel="dns-prefetch" href="//fonts.googleapis.com" />
+<link rel="dns-prefetch" href="//fonts.gstatic.com" />

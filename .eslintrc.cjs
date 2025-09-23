@@ -21,13 +21,13 @@ module.exports = {
     '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
     '@typescript-eslint/no-explicit-any': 'warn',
     '@typescript-eslint/prefer-const': 'error',
-    
+
     // General rules
     'no-console': 'warn',
     'no-debugger': 'error',
     'prefer-const': 'error',
     'no-var': 'error',
-    
+
     // Astro specific
     'astro/no-conflict-set-directives': 'error',
     'astro/no-unused-define-vars-in-style': 'error',
@@ -50,7 +50,10 @@ module.exports = {
       files: ['*.ts', '*.tsx'],
       rules: {
         // TypeScript specific rules
-        '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+        '@typescript-eslint/no-unused-vars': [
+          'error',
+          { argsIgnorePattern: '^_' },
+        ],
         '@typescript-eslint/explicit-function-return-type': 'off',
         '@typescript-eslint/explicit-module-boundary-types': 'off',
       },

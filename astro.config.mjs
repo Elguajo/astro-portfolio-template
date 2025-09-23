@@ -1,4 +1,5 @@
 // @ts-check
+import fs from 'fs';
 import { visualizer } from 'rollup-plugin-visualizer';
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
@@ -59,7 +60,11 @@ export default defineConfig({
             // UI component libraries
             'ui-vendor': ['@heroui/react', '@heroicons/react'],
             // Animation libraries
-            'animation-vendor': ['framer-motion', 'keen-slider', 'canvas-confetti'],
+            'animation-vendor': [
+              'framer-motion',
+              'keen-slider',
+              'canvas-confetti',
+            ],
             // Utility libraries
             'utils-vendor': ['clsx', 'tailwind-merge', 'dayjs', 'lodash'],
             // Icon libraries

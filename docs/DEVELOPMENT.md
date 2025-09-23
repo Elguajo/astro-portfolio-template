@@ -90,6 +90,7 @@ npm run auto-deploy-website # Деплой на GitHub Pages
 ### Управление кнопкой обновления
 
 #### Текущее состояние
+
 Кнопка обновления на главной странице **скрыта** по умолчанию.
 
 #### Как включить кнопку обновления
@@ -99,18 +100,23 @@ npm run auto-deploy-website # Деплой на GitHub Pages
 3. Удалите класс `hidden`:
 
 **Было (скрыто):**
+
 ```tsx
-className = 'hidden bg-white border border-black rounded-full fixed z-10 top-[95dvh] left-1/2 -translate-x-1/2 -translate-y-1/2 transition-tansform duration-1000 hover:scale-150 p-0';
+className =
+  'hidden bg-white border border-black rounded-full fixed z-10 top-[95dvh] left-1/2 -translate-x-1/2 -translate-y-1/2 transition-tansform duration-1000 hover:scale-150 p-0';
 ```
 
 **Должно стать (видимо):**
+
 ```tsx
-className = 'bg-white border border-black rounded-full fixed z-10 top-[95dvh] left-1/2 -translate-x-1/2 -translate-y-1/2 transition-tansform duration-1000 hover:scale-150 p-0';
+className =
+  'bg-white border border-black rounded-full fixed z-10 top-[95dvh] left-1/2 -translate-x-1/2 -translate-y-1/2 transition-tansform duration-1000 hover:scale-150 p-0';
 ```
 
 #### Альтернативные способы управления
 
 **Через переменную окружения:**
+
 ```env
 VITE_SHOW_REFRESH_BUTTON=false
 ```
@@ -121,6 +127,7 @@ const showRefreshButton = import.meta.env.VITE_SHOW_REFRESH_BUTTON !== 'false';
 ```
 
 **Через конфигурационный файл:**
+
 ```ts
 // src/site.config.ts
 export const siteConfig = {
@@ -241,15 +248,18 @@ chore: обновление задач сборки, конфигурации м
 
 ```markdown
 ## Описание
+
 Краткое описание изменений
 
 ## Тип изменений
+
 - [ ] Исправление бага
 - [ ] Новая функциональность
 - [ ] Breaking change
 - [ ] Обновление документации
 
 ## Чеклист
+
 - [ ] Код соответствует стандартам проекта
 - [ ] Добавлены тесты для новой функциональности
 - [ ] Обновлена документация
@@ -257,9 +267,11 @@ chore: обновление задач сборки, конфигурации м
 - [ ] Проверено на разных браузерах
 
 ## Скриншоты (если применимо)
+
 Добавьте скриншоты для визуальных изменений
 
 ## Дополнительная информация
+
 Любая дополнительная информация для ревьюеров
 ```
 
@@ -270,6 +282,7 @@ chore: обновление задач сборки, конфигурации м
 Проект настроен с ESLint и Prettier для поддержания высокого качества кода:
 
 #### ESLint правила
+
 ```javascript
 // Основные правила
 '@typescript-eslint/no-explicit-any': 'error',
@@ -282,16 +295,12 @@ chore: обновление задач сборки, конфигурации м
 ```
 
 #### Pre-commit хуки
+
 ```json
 {
   "lint-staged": {
-    "*.{js,ts,tsx,astro}": [
-      "eslint --fix",
-      "prettier --write"
-    ],
-    "*.{json,md,yml,yaml}": [
-      "prettier --write"
-    ]
+    "*.{js,ts,tsx,astro}": ["eslint --fix", "prettier --write"],
+    "*.{json,md,yml,yaml}": ["prettier --write"]
   }
 }
 ```
@@ -315,6 +324,7 @@ chore: обновление задач сборки, конфигурации м
 ### Обработка ошибок
 
 #### Error Boundaries
+
 ```tsx
 // Оборачивание компонента в ErrorBoundary
 <ErrorBoundaryWrapper
@@ -328,6 +338,7 @@ chore: обновление задач сборки, конфигурации м
 ```
 
 #### Глобальная обработка ошибок
+
 ```typescript
 // Использование централизованной обработки ошибок
 import { handleAsyncError, createError } from '@/lib/errorHandler';
@@ -344,6 +355,7 @@ const data = await handleAsyncError(
 ### Доступность (Accessibility)
 
 #### Alt-тексты для изображений
+
 Все изображения имеют alt-тексты для улучшения доступности:
 
 - **Автоматическая генерация**: Компонент `Image.tsx` автоматически генерирует осмысленные alt-тексты
@@ -351,11 +363,13 @@ const data = await handleAsyncError(
 - **Контекстная информация**: Alt-тексты включают название работы и тип изображения
 
 **Примеры alt-текстов:**
+
 - `"6d-k - Main portfolio image"` - для главного изображения работы
 - `"by702 - Portfolio work image 3"` - для дополнительных изображений
 - `"HDUD Logo"` - для логотипа в шапке
 
 #### Улучшения доступности
+
 - ✅ Alt-тексты для всех изображений
 - ✅ Семантическая HTML разметка
 - ✅ Поддержка клавиатурной навигации
@@ -368,26 +382,31 @@ const data = await handleAsyncError(
 Перед деплоем протестируйте:
 
 #### Адаптивный дизайн
+
 - [ ] **Мобильные устройства** (320px - 768px)
 - [ ] **Планшеты** (768px - 1024px)
 - [ ] **Десктоп** (1024px+)
 
 #### Переключение тем
+
 - [ ] Функциональность светлой темы
 - [ ] Функциональность темной темы
 - [ ] Сохранение выбранной темы
 
 #### Загрузка изображений
+
 - [ ] Lazy loading работает
 - [ ] Обработка ошибок для неудачных загрузок
 - [ ] Механизм повторных попыток функционирует
 
 #### Навигация
+
 - [ ] Все внутренние ссылки работают
 - [ ] Навигация назад/вперед
 - [ ] Функциональность мобильного меню
 
 #### Производительность
+
 - [ ] Core Web Vitals показатели
 - [ ] Оптимизация изображений
 - [ ] Размер бандла в пределах нормы
@@ -437,16 +456,19 @@ VITE_GA_ID=your-analytics-id
 ### Платформы деплоя
 
 #### GitHub Pages
+
 ```bash
 npm run auto-deploy-website
 ```
 
 #### Netlify
+
 1. Подключите репозиторий к Netlify
 2. Настройте команду сборки: `npm run build`
 3. Укажите папку публикации: `dist`
 
 #### Vercel
+
 1. Подключите репозиторий к Vercel
 2. Настройки по умолчанию подойдут автоматически
 
@@ -469,6 +491,7 @@ npm run auto-deploy-website
 ### Частые проблемы
 
 #### Ошибки сборки
+
 ```bash
 # Очистить кэш и переустановить
 rm -rf node_modules package-lock.json
@@ -476,6 +499,7 @@ npm install
 ```
 
 #### Ошибки TypeScript
+
 ```bash
 # Проверить типы
 npm run type-check
@@ -485,12 +509,14 @@ Ctrl+Shift+P -> "TypeScript: Restart TS Server"
 ```
 
 #### Проблемы с обработкой изображений
+
 ```bash
 # Пересжать изображения
 npm run compress-images
 ```
 
 #### Проблемы с линтингом
+
 ```bash
 # Автоисправление проблем линтинга
 npm run lint:fix

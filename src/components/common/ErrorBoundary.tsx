@@ -1,11 +1,12 @@
-import React, { Component } from 'react';
-import type { ErrorInfo, ReactNode } from 'react';
-import { logError, createError, errorCodes } from '@/lib/errorHandler';
+import React, { Component, type ErrorInfo, type ReactNode } from 'react';
+
+import { logError, createError } from '@/lib/errorHandler';
 
 interface Props {
   children: ReactNode;
   fallback?: ReactNode;
-  onError?: (error: Error, errorInfo: ErrorInfo) => void;
+  // eslint-disable-next-line no-unused-vars
+  onError?: (error: Error, errorInfo: ErrorInfo) => void; // Used in componentDidCatch
 }
 
 interface State {
@@ -77,7 +78,9 @@ class ErrorBoundary extends Component<Props, State> {
               We're sorry, but something unexpected happened.
             </p>
             <button
-              onClick={() => this.setState({ hasError: false, error: undefined })}
+              onClick={() =>
+                this.setState({ hasError: false, error: undefined })
+              }
               className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
             >
               Try again

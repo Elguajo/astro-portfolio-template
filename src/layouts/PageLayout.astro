@@ -7,8 +7,8 @@ import { getI18n } from '@/i18n/index';
 import { getMenus } from '@/config/menus';
 
 const { currentLocale } = Astro;
-const i18n = await getI18n(currentLocale, 'design');
-const links = getMenus(i18n('menus'), currentLocale);
+const i18n = await getI18n(currentLocale || 'en', 'design');
+const links = getMenus(i18n('menus'), currentLocale || 'en');
 ---
 
 <BaseLayout {...Astro.props}>

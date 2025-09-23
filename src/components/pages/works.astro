@@ -8,17 +8,20 @@ import { getRelativeLocaleUrl } from 'astro:i18n';
 import { siteConfig } from '@/site.config';
 
 const { currentLocale } = Astro;
-const i18n = await getI18n(currentLocale, 'design');
+const i18n = await getI18n(currentLocale || 'en', 'design');
 
 const mates = {
   title: i18n('menus.works'),
   description: i18n('mate.description'),
   author: siteConfig.author,
   email: siteConfig.email,
-  local: currentLocale,
-  ogImage: getRelativeLocaleUrl(currentLocale, '/og-image/site-image.png'),
+  local: currentLocale || 'en',
+  ogImage: getRelativeLocaleUrl(
+    currentLocale || 'en',
+    '/og-image/site-image.png'
+  ),
 };
-const works = await getWorks();
+const works = (await getWorks()) as unknown as any[];
 ---
 
 <Layout {...mates}>

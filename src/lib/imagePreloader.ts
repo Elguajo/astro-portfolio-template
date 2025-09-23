@@ -17,7 +17,7 @@ const preloadCache = new Map<string, Promise<PreloadResult>>();
  * Preload a single image
  */
 export function preloadImage(
-  src: string, 
+  src: string,
   options: PreloadOptions = {}
 ): Promise<PreloadResult> {
   // Return cached promise if already preloading
@@ -28,9 +28,9 @@ export function preloadImage(
   const { priority = 'low', timeout = 10000 } = options;
   const startTime = performance.now();
 
-  const preloadPromise = new Promise<PreloadResult>((resolve) => {
+  const preloadPromise = new Promise<PreloadResult>(resolve => {
     const img = new Image();
-    
+
     // Set priority for high-priority images
     if (priority === 'high' && 'fetchPriority' in img) {
       (img as any).fetchPriority = 'high';
@@ -52,7 +52,7 @@ export function preloadImage(
       });
     };
 
-    img.onerror = (error) => {
+    img.onerror = () => {
       clearTimeout(timeoutId);
       resolve({
         success: false,
@@ -79,7 +79,7 @@ export function preloadImage(
  * Preload multiple images
  */
 export function preloadImages(
-  srcs: string[], 
+  srcs: string[],
   options: PreloadOptions = {}
 ): Promise<PreloadResult[]> {
   return Promise.all(srcs.map(src => preloadImage(src, options)));
@@ -110,12 +110,12 @@ export function preloadGalleryImages(
   options: PreloadOptions = {}
 ): Promise<PreloadResult[]> {
   const toPreload: string[] = [];
-  
+
   // Preload next image
   if (currentIndex + 1 < images.length) {
     toPreload.push(images[currentIndex + 1]);
   }
-  
+
   // Preload previous image
   if (currentIndex - 1 >= 0) {
     toPreload.push(images[currentIndex - 1]);
@@ -137,7 +137,10 @@ export function createHoverPreloader(
 
   const handleMouseEnter = () => {
     if (!isPreloaded && !preloadPromise) {
-      preloadPromise = preloadImages(imageSrcs, { ...options, priority: 'high' });
+      preloadPromise = preloadImages(imageSrcs, {
+        ...options,
+        priority: 'high',
+      });
       preloadPromise.then(() => {
         isPreloaded = true;
         preloadPromise = null;

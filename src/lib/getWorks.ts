@@ -1,12 +1,13 @@
 import { getCollection } from 'astro:content';
-import { handleAsyncError, createError, errorCodes } from './errorHandler';
+
+import { handleAsyncError, createError } from './errorHandler';
 
 export const getWorks = async () => {
   return handleAsyncError(
     async () => {
       const imageInfo = await getCollection('imageInfo');
       const worksData = await getCollection('works');
-      
+
       if (!imageInfo || imageInfo.length === 0) {
         throw createError(
           'No image info found in content collection',
@@ -14,7 +15,7 @@ export const getWorks = async () => {
           404
         );
       }
-      
+
       if (!worksData || worksData.length === 0) {
         throw createError(
           'No works data found in content collection',
@@ -22,8 +23,8 @@ export const getWorks = async () => {
           404
         );
       }
-      
-      const works = imageInfo.reduce((ans, item) => {
+
+      const works = imageInfo.reduce((ans: any[], item) => {
         const work = worksData.find(it => it.data.base === item.id);
         if (!work) {
           // Log warning but continue processing other works
@@ -47,10 +48,10 @@ export const getWorks = async () => {
           },
         ];
       }, []);
-      
+
       return works;
     },
-    [], // fallback value
+    [] as any[], // fallback value
     'Failed to load works data'
   );
 };

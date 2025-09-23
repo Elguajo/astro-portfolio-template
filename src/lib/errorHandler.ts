@@ -37,15 +37,15 @@ export const errorCodes = {
   // Content errors
   CONTENT_NOT_FOUND: 'CONTENT_NOT_FOUND',
   INVALID_CONTENT_FORMAT: 'INVALID_CONTENT_FORMAT',
-  
+
   // Image errors
   IMAGE_LOAD_FAILED: 'IMAGE_LOAD_FAILED',
   IMAGE_NOT_FOUND: 'IMAGE_NOT_FOUND',
-  
+
   // Configuration errors
   CONFIG_MISSING: 'CONFIG_MISSING',
   INVALID_CONFIG: 'INVALID_CONFIG',
-  
+
   // Build errors
   BUILD_FAILED: 'BUILD_FAILED',
   DEPLOYMENT_FAILED: 'DEPLOYMENT_FAILED',
@@ -59,12 +59,16 @@ export function createError(
   return new AppError(message, errorCodes[code], statusCode);
 }
 
-export function logError(error: Error | AppError, context?: Record<string, unknown>): void {
+export function logError(
+  error: Error | AppError,
+  context?: Record<string, unknown>
+): void {
   const errorInfo: ErrorInfo = {
     message: error.message,
     stack: error.stack,
     timestamp: new Date().toISOString(),
-    userAgent: typeof window !== 'undefined' ? window.navigator?.userAgent : undefined,
+    userAgent:
+      typeof window !== 'undefined' ? window.navigator?.userAgent : undefined,
     url: typeof window !== 'undefined' ? window.location?.href : undefined,
   };
 
@@ -89,7 +93,7 @@ export function handleAsyncError<T>(
   fallbackValue: T,
   errorMessage?: string
 ): Promise<T> {
-  return asyncFn().catch((error) => {
+  return asyncFn().catch(error => {
     logError(error, { fallbackValue, errorMessage });
     return fallbackValue;
   });

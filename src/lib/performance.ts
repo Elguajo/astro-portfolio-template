@@ -8,22 +8,27 @@ export interface PerformanceMetrics {
 }
 
 // Web Vitals measurement
-export function measureWebVitals(onPerfEntry?: (metrics: PerformanceMetrics) => void) {
+export function measureWebVitals(
+  // eslint-disable-next-line no-unused-vars
+  onPerfEntry?: (metrics: PerformanceMetrics) => void
+) {
   if (typeof window === 'undefined' || !onPerfEntry) {
     return;
   }
 
   // Import web-vitals dynamically to avoid bundle bloat
-  import('web-vitals').then((webVitals: any) => {
-    const { getCLS, getFID, getFCP, getLCP, getTTFB } = webVitals;
-    getCLS(onPerfEntry);
-    getFID(onPerfEntry);
-    getFCP(onPerfEntry);
-    getLCP(onPerfEntry);
-    getTTFB(onPerfEntry);
-  }).catch((error) => {
-    console.warn('Failed to load web-vitals:', error);
-  });
+  import('web-vitals')
+    .then((webVitals: any) => {
+      const { getCLS, getFID, getFCP, getLCP, getTTFB } = webVitals;
+      getCLS(onPerfEntry);
+      getFID(onPerfEntry);
+      getFCP(onPerfEntry);
+      getLCP(onPerfEntry);
+      getTTFB(onPerfEntry);
+    })
+    .catch(error => {
+      console.warn('Failed to load web-vitals:', error);
+    });
 }
 
 // Performance observer for custom metrics
@@ -33,12 +38,14 @@ export function observePerformance() {
   }
 
   // Observe navigation timing
-  const navObserver = new PerformanceObserver((list) => {
+  const navObserver = new PerformanceObserver(list => {
     for (const entry of list.getEntries()) {
       if (entry.entryType === 'navigation') {
         const navEntry = entry as PerformanceNavigationTiming;
         console.log('Navigation timing:', {
-          domContentLoaded: navEntry.domContentLoadedEventEnd - navEntry.domContentLoadedEventStart,
+          domContentLoaded:
+            navEntry.domContentLoadedEventEnd -
+            navEntry.domContentLoadedEventStart,
           loadComplete: navEntry.loadEventEnd - navEntry.loadEventStart,
           totalTime: navEntry.loadEventEnd - navEntry.fetchStart,
         });
@@ -53,7 +60,7 @@ export function observePerformance() {
   }
 
   // Observe resource timing
-  const resourceObserver = new PerformanceObserver((list) => {
+  const resourceObserver = new PerformanceObserver(list => {
     for (const entry of list.getEntries()) {
       if (entry.entryType === 'resource') {
         const resourceEntry = entry as PerformanceResourceTiming;
@@ -78,20 +85,20 @@ export function observePerformance() {
 
 // Image loading performance
 export function measureImageLoadTime(src: string): Promise<number> {
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     const startTime = performance.now();
     const img = new Image();
-    
+
     img.onload = () => {
       const loadTime = performance.now() - startTime;
       resolve(loadTime);
     };
-    
+
     img.onerror = () => {
       const loadTime = performance.now() - startTime;
       resolve(loadTime);
     };
-    
+
     img.src = src;
   });
 }
@@ -101,7 +108,7 @@ export function trackLazyLoading() {
   if (typeof window === 'undefined') return;
 
   // Track Intersection Observer usage
-  const observer = new PerformanceObserver((list) => {
+  const observer = new PerformanceObserver(list => {
     for (const entry of list.getEntries()) {
       if (entry.entryType === 'measure') {
         console.log('Lazy loading metric:', {
@@ -119,7 +126,7 @@ export function trackLazyLoading() {
   }
 
   // Track image loading performance
-  const imageObserver = new PerformanceObserver((list) => {
+  const imageObserver = new PerformanceObserver(list => {
     for (const entry of list.getEntries()) {
       if (entry.entryType === 'resource' && entry.name.includes('.webp')) {
         console.log('Image load performance:', {
@@ -145,11 +152,11 @@ export function logBundleSize() {
 
   // Log total JS size
   const scripts = document.querySelectorAll('script[src]');
-  let totalJSSize = 0;
-  
-  scripts.forEach((script) => {
+  // const totalJSSize = 0; // TODO: Implement bundle size calculation
+
+  scripts.forEach(script => {
     const src = (script as HTMLScriptElement).src;
-    if (src && src.includes('assets/')) {
+    if (src?.includes('assets/')) {
       // This is a rough estimate - actual size would need to be fetched
       console.log('JS bundle detected:', src);
     }
@@ -157,9 +164,9 @@ export function logBundleSize() {
 
   // Log total CSS size
   const stylesheets = document.querySelectorAll('link[rel="stylesheet"]');
-  stylesheets.forEach((link) => {
+  stylesheets.forEach(link => {
     const href = (link as HTMLLinkElement).href;
-    if (href && href.includes('assets/')) {
+    if (href?.includes('assets/')) {
       console.log('CSS bundle detected:', href);
     }
   });
@@ -184,9 +191,10 @@ export function monitorMemoryUsage() {
 // Initialize performance monitoring
 export function initPerformanceMonitoring() {
   // Measure Web Vitals
-  measureWebVitals((metrics) => {
+  measureWebVitals(metrics => {
+    // eslint-disable-next-line no-console
     console.log('Web Vitals:', metrics);
-    
+
     // Send to analytics service if needed
     // analytics.track('web-vitals', metrics);
   });
