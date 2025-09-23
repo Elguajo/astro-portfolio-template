@@ -9,8 +9,7 @@ DesignPhotographyPortfolio is an **Astro template** designed for quickly buildin
 **Features supported by this Astro theme**:
 
 1. Light/Dark theme toggle;
-2. Multi-language support based on i18n;
-3. Built with React, Tailwind CSS, DaisyUI, AlpineJS, and HeroUI;
+2. Built with React, Tailwind CSS, DaisyUI, AlpineJS, and HeroUI;
 4. SEO-friendly;
 5. Responsive design;
 6. Highly customizable;

@@ -28,8 +28,8 @@
     "tailwindcss"
   ],
   "author": {
-    "name": "草木一秋",
-    "email": "chinaitlearner@gmail.com"
+    "name": "Khusan Turaev",
+    "email": "elguajo.96@gmail.com"
   },
   "dependencies": {
     "@astrojs/alpinejs": "^0.4.9",

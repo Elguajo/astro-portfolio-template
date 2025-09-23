@@ -46,13 +46,13 @@ Visit `http://localhost:4321` to see your portfolio!
 
 ## 📚 Documentation
 
-We provide comprehensive documentation in multiple languages:
+We provide comprehensive documentation:
 
 - [📖 English Documentation](./docs/README-en.md) - Complete setup and usage guide
-- [📖 中文文档](./docs/README-zh.md) - 完整的中文使用指南
 - [🛠️ Development Guide](./docs/DEVELOPMENT.md) - Development setup and component management
 - [🏗️ Architecture Guide](./docs/ARCHITECTURE.md) - Project structure and design decisions
 - [🤝 Contributing Guide](./docs/CONTRIBUTING.md) - How to contribute to this project
+- [📚 API Documentation](./docs/API.md) - Complete API reference
 
 ## 🛠️ Available Scripts
 

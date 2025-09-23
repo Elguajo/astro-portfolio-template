@@ -115,11 +115,11 @@ export default defineConfig({
     '/blog/posts': '/blog/posts/1',
   },
   markdown: {
-    // 阅读时间
+    // Reading time calculation
     remarkPlugins: [remarkReadingTime],
     rehypePlugins: [
       [
-        // 链接添加图标
+        // Add external link icons
         rehypeExternalLinks,
         {
           content: { type: 'text', value: ' 🔗' },

@@ -6,11 +6,11 @@ import satori, { type SatoriOptions } from 'satori';
 import { html } from 'satori-html';
 import { getI18n } from '@/i18n/index';
 
-const getLang = pathname => {
-  for (const lang of ['en', 'zh-hant', 'ja', 'ko']) {
+const getLang = (pathname: string): string => {
+  for (const lang of ['en', 'ru']) {
     if (pathname.indexOf(`/${lang}/`) === 0) return lang;
   }
-  return 'zh';
+  return 'en';
 };
 
 const ogOptions: SatoriOptions = {
@@ -19,10 +19,10 @@ const ogOptions: SatoriOptions = {
       data: fs.readFileSync(
         path.resolve(
           process.cwd(),
-          'node_modules/@hdud/common/assets/汇文明朝体.otf'
+          'node_modules/@hdud/common/assets/fonts/Inter-Regular.ttf'
         )
       ),
-      name: 'Huiwen',
+      name: 'Inter',
       style: 'normal',
       weight: 400,
     },
@@ -31,7 +31,7 @@ const ogOptions: SatoriOptions = {
   width: 1200,
 };
 
-const markup = i18n =>
+const markup = (i18n: any) =>
   html`<div tw="flex flex-col w-full h-full bg-[#1d1f21] text-[#c9cacc]">
     <div
       tw="flex items-end justify-start w-full p-10 text-xl border-b border-[#2bbc89]"
@@ -117,9 +117,9 @@ const markup = i18n =>
     </div>
   </div>`;
 
-export default async function (context) {
+export default async function (context: any) {
   const i18n = await getI18n(getLang(context.url.pathname), 'design');
-  const svg = await satori(markup(i18n), ogOptions);
+  const svg = await satori(markup(i18n) as any, ogOptions);
   const png = new Resvg(svg).render().asPng();
   return [
     png,

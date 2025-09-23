@@ -34,7 +34,7 @@ function findAndMoveMd(dir) {
       const fileName = file === 'main.md' ? `${name}.md` : file;
       const filePath = path.join(dir, file);
       const targetPath = path.join(worksPageDir, fileName);
-      console.log(`页面配置文件生成成功：${targetPath}`);
+      console.log(`Page configuration file generated successfully: ${targetPath}`);
       fs.copyFileSync(filePath, targetPath);
     });
 }
