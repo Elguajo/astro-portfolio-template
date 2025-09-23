@@ -23,6 +23,8 @@ const { works } = Astro.props;
             width: work.data.members.main[0],
             height: work.data.members.main[1],
           }}
+          lazy={true}
+          preloadOnHover={true}
           classNames={{
             img: 'transition duration-300 ease-in-out hover:scale-108',
           }}

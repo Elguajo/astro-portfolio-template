@@ -1,5 +1,3 @@
-import fs from 'node:fs';
-import path from 'node:path';
 import { siteConfig } from '@/site.config';
 import { Resvg } from '@resvg/resvg-js';
 import satori, { type SatoriOptions } from 'satori';
@@ -14,19 +12,7 @@ const getLang = (pathname: string): string => {
 };
 
 const ogOptions: SatoriOptions = {
-  fonts: [
-    {
-      data: fs.readFileSync(
-        path.resolve(
-          process.cwd(),
-          'node_modules/@hdud/common/assets/fonts/Inter-Regular.ttf'
-        )
-      ),
-      name: 'Inter',
-      style: 'normal',
-      weight: 400,
-    },
-  ],
+  // Use default fonts since Inter font is not available
   height: 630,
   width: 1200,
 };

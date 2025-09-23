@@ -1,8 +1,9 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import _debounce from 'lodash/debounce';
 import { Modal, ModalContent, Button, useDisclosure } from '@heroui/react';
 import Image from '@/components/common/Image.tsx';
 import ErrorBoundaryWrapper from '@/components/common/ErrorBoundaryWrapper.tsx';
+import { preloadGalleryImages } from '@/lib/imagePreloader';
 
 interface Member {
   name: string;
@@ -19,6 +20,17 @@ export default function App({ members }: AppProps) {
   const [mems, setMems] = useState(members);
   const [angle, setAngle] = useState(0);
   const [current, setCurrent] = useState<number | undefined>();
+
+  // Memoize processed members data to avoid recalculation
+  const processedMembers = useMemo(() => {
+    return mems.map(member => ({
+      ...member,
+      aspectRatio: member.width / member.height,
+      // Pre-calculate optimized image paths
+      webpSrc: `${member.name}.webp`,
+      avifSrc: `${member.name}.avif`,
+    }));
+  }, [mems]);
   const refresh = useCallback(
     _debounce(
       () => {
@@ -34,6 +46,12 @@ export default function App({ members }: AppProps) {
     _debounce(
       (value: number) => {
         setCurrent(value);
+        
+        // Preload adjacent images when navigating
+        if (isOpen) {
+          const imageSrcs = processedMembers.map(member => member.name);
+          preloadGalleryImages(value, imageSrcs, { priority: 'high' });
+        }
       },
       300,
       {
@@ -41,7 +59,7 @@ export default function App({ members }: AppProps) {
         trailing: false,
       }
     ),
-    []
+    [isOpen, processedMembers]
   );
   return (
     <ErrorBoundaryWrapper
@@ -86,7 +104,7 @@ export default function App({ members }: AppProps) {
           <span className="icon-[material-symbols-light--refresh-rounded] size-full" />
         </Button>
       )}
-      {mems.map((mem: Member, idx: number) => (
+      {processedMembers.map((mem, idx: number) => (
         <div
           key={mem.name}
           className="relative group overflow-hidden mb-1 shadow-xl"
@@ -94,12 +112,21 @@ export default function App({ members }: AppProps) {
           <Image
             imageInfo={mem}
             src={mem.name}
+            lazy={true}
+            preloadOnHover={true}
             classNames={{
               img: 'transition duration-300 ease-in-out active:scale-108 hover:scale-108 object-cover filter grayscale-95 transition duration-500 group-hover:grayscale-0',
             }}
             onTouchStart={(e: React.TouchEvent) => e.currentTarget.classList.remove('grayscale-95')}
             onTouchEnd={(e: React.TouchEvent) => e.currentTarget.classList.add('grayscale-95')}
-            onClick={() => (setCurrent(idx), onOpen())}
+            onClick={() => {
+              setCurrent(idx);
+              onOpen();
+              
+              // Preload adjacent images when opening modal
+              const imageSrcs = processedMembers.map(member => member.name);
+              preloadGalleryImages(idx, imageSrcs, { priority: 'high' });
+            }}
           />
         </div>
       ))}
@@ -144,17 +171,17 @@ export default function App({ members }: AppProps) {
                 {current !== undefined && (
                   <>
                     <source
-                      srcSet={`${mems[current].name}.avif`}
+                      srcSet={processedMembers[current].avifSrc}
                       type="image/avif"
                     />
                     <source
-                      srcSet={`${mems[current].name}.webp`}
+                      srcSet={processedMembers[current].webpSrc}
                       type="image/webp"
                     />
                     <img
                       className="max-w-full max-h-full w-[90dvw] h-[90dvh] object-contain m-auto mt-[5dvh]"
-                      src={`${mems[current].name}.webp`}
-                      alt={`Portfolio work: ${mems[current].name.split('/').pop()}`}
+                      src={processedMembers[current].webpSrc}
+                      alt={`Portfolio work: ${processedMembers[current].name.split('/').pop()}`}
                       onContextMenu={e => e.preventDefault()}
                       onTouchStart={e => e.preventDefault()}
                       onTouchEnd={e => e.preventDefault()}

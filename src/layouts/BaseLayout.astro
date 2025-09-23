@@ -4,5 +4,48 @@ import '@/styles/global.css';
 ---
 
 <Layout {...Astro.props}>
+  <!-- Preload critical resources -->
+  <Fragment slot="head">
+    <!-- Preload critical CSS -->
+    <link rel="preload" href="/styles/global.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/styles/global.css"></noscript>
+    
+    <!-- Preload logo -->
+    <link rel="preload" href="/images/hdud-logo.svg" as="image" type="image/svg+xml">
+    
+    <!-- Preload favicon -->
+    <link rel="preload" href="/favicon/favicon-192x192.png" as="image" type="image/png">
+    <link rel="preload" href="/favicon/favicon-512x512.png" as="image" type="image/png">
+    
+    <!-- Preload critical fonts if any -->
+    <!-- <link rel="preload" href="/fonts/custom.woff2" as="font" type="font/woff2" crossorigin> -->
+    
+    <!-- DNS prefetch for external domains -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+  </Fragment>
+  
   <slot />
 </Layout>
+
+<script>
+  // Register Service Worker for caching
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js')
+        .then((registration) => {
+          console.log('Service Worker registered successfully:', registration.scope);
+        })
+        .catch((error) => {
+          console.log('Service Worker registration failed:', error);
+        });
+    });
+  }
+
+  // Initialize performance monitoring
+  import('/src/lib/performance.js').then((module: any) => {
+    module.initPerformanceMonitoring();
+  }).catch((error) => {
+    console.warn('Failed to load performance monitoring:', error);
+  });
+</script>

@@ -1,3 +1,4 @@
+/* Optimized font loading with font-display swap */
 @import url('https://fonts.googleapis.com/css2?family=Handjet:wght@200;300&display=swap');
 @import 'tailwindcss';
 @import 'tw-animate-css';
@@ -85,5 +86,38 @@
 @media (max-width: 480px) {
   .custom-float-btns {
     @apply bottom-2 right-2;
+  }
+}
+
+/* Font optimization */
+@font-face {
+  font-family: 'Handjet';
+  font-display: swap; /* Improves LCP by showing fallback font immediately */
+  font-weight: 200 300;
+  src: url('https://fonts.googleapis.com/css2?family=Handjet:wght@200;300&display=swap');
+}
+
+/* Performance optimizations */
+* {
+  /* Improve rendering performance */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Optimize image rendering */
+img {
+  /* Improve image rendering performance */
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+/* Optimize animations for better performance */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

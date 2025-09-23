@@ -1,362 +1,287 @@
 # 🛠️ Development Guide
 
-This guide covers development setup, component management, and best practices for the Design Photography Portfolio project.
+Полное руководство по разработке, настройке окружения, правилам контрибуции и деплою проекта Design Photography Portfolio.
 
-## 📋 Table of Contents
+## 📋 Содержание
 
-- [Development Setup](#development-setup)
-- [Component Management](#component-management)
-- [Error Handling](#error-handling)
-- [Code Quality](#code-quality)
-- [Performance Optimization](#performance-optimization)
-- [Testing](#testing)
-- [Deployment](#deployment)
+- [Настройка окружения](#настройка-окружения)
+- [Workflow разработки](#workflow-разработки)
+- [Правила контрибуции](#правила-контрибуции)
+- [Качество кода](#качество-кода)
+- [Тестирование](#тестирование)
+- [Деплой](#деплой)
+- [Troubleshooting](#troubleshooting)
 
-## 🚀 Development Setup
+## 🚀 Настройка окружения
 
-### Prerequisites
+### Предварительные требования
 
-- Node.js 18+
-- npm or yarn
-- Git
-- Code editor (VS Code recommended)
+- **Node.js 18+** - [Скачать](https://nodejs.org/)
+- **npm или yarn** - Менеджер пакетов
+- **Git** - [Скачать](https://git-scm.com/)
+- **VS Code** (рекомендуется) с расширениями:
+  - Astro
+  - TypeScript
+  - ESLint
+  - Prettier
+  - Tailwind CSS IntelliSense
 
-### Initial Setup
+### Первоначальная настройка
 
 ```bash
-# Clone the repository
+# Клонировать репозиторий
 git clone https://github.com/your-username/DesignPhotographyPortfolio.git
 cd DesignPhotographyPortfolio
 
-# Install dependencies
+# Установить зависимости
 npm install
 
-# Initialize git hooks
+# Инициализировать git хуки
 npm run prepare
 
-# Start development server
+# Запустить сервер разработки
 npm run dev
 ```
 
-### VS Code Extensions
+### Переменные окружения
 
-Recommended extensions for optimal development experience:
-
-- **Astro** - Astro language support
-- **TypeScript** - TypeScript support
-- **ESLint** - Code linting
-- **Prettier** - Code formatting
-- **Tailwind CSS IntelliSense** - Tailwind autocomplete
-- **Auto Rename Tag** - HTML tag management
-- **Bracket Pair Colorizer** - Code readability
-
-### Environment Configuration
-
-Create a `.env` file for local development:
+Создайте файл `.env` для локальной разработки:
 
 ```env
-# Development settings
+# Настройки разработки
 NODE_ENV=development
 VITE_SHOW_REFRESH_BUTTON=true
 
-# Analytics (optional)
+# Аналитика (опционально)
 VITE_GA_ID=your-google-analytics-id
 
-# Comments (optional)
+# Комментарии (опционально)
 VITE_GISCUS_REPO=your-repo
 VITE_GISCUS_REPO_ID=your-repo-id
 VITE_GISCUS_CATEGORY_ID=your-category-id
 ```
 
-## 🧩 Component Management
+## 🔄 Workflow разработки
+
+### Основные команды
+
+```bash
+# Разработка
+npm run dev              # Запуск dev сервера
+npm run dev:debug        # Запуск с отладкой
+
+# Качество кода
+npm run lint             # Проверка ESLint
+npm run lint:fix         # Автоисправление ESLint
+npm run format           # Форматирование Prettier
+npm run format:check     # Проверка форматирования
+npm run type-check       # Проверка TypeScript
+
+# Сборка
+npm run build            # Сборка для продакшена
+npm run preview          # Предварительный просмотр
+npm run analyze          # Анализ размера бандла
+
+# Утилиты
+npm run compress-images  # Сжатие изображений
+npm run auto-deploy-website # Деплой на GitHub Pages
+```
 
 ### Управление кнопкой обновления
 
-### Текущее состояние
+#### Текущее состояние
+Кнопка обновления на главной странице **скрыта** по умолчанию.
 
-Кнопка обновления на главной странице портфолио **скрыта** по умолчанию.
+#### Как включить кнопку обновления
 
-### Как включить кнопку обновления
-
-1. Откройте файл `src/components/index/AllImageGrid.tsx`
-2. Найдите строку 34 с классом `className`
-3. Удалите класс `hidden` из строки:
+1. Откройте `src/components/index/AllImageGrid.tsx`
+2. Найдите строку с классом `className`
+3. Удалите класс `hidden`:
 
 **Было (скрыто):**
-
 ```tsx
-className =
-  'hidden bg-white border border-black rounded-full fixed z-10 top-[95dvh] left-1/2 -translate-x-1/2 -translate-y-1/2 transition-tansform duration-1000 hover:scale-150 p-0';
+className = 'hidden bg-white border border-black rounded-full fixed z-10 top-[95dvh] left-1/2 -translate-x-1/2 -translate-y-1/2 transition-tansform duration-1000 hover:scale-150 p-0';
 ```
 
 **Должно стать (видимо):**
-
 ```tsx
-className =
-  'bg-white border border-black rounded-full fixed z-10 top-[95dvh] left-1/2 -translate-x-1/2 -translate-y-1/2 transition-tansform duration-1000 hover:scale-150 p-0';
+className = 'bg-white border border-black rounded-full fixed z-10 top-[95dvh] left-1/2 -translate-x-1/2 -translate-y-1/2 transition-tansform duration-1000 hover:scale-150 p-0';
 ```
 
-### Как снова скрыть кнопку
+#### Альтернативные способы управления
 
-Добавьте класс `hidden` в начало строки с `className`:
-
-```tsx
-className =
-  'hidden bg-white border border-black rounded-full fixed z-10 top-[95dvh] left-1/2 -translate-x-1/2 -translate-y-1/2 transition-tansform duration-1000 hover:scale-150 p-0';
-```
-
-### Функциональность кнопки
-
-- **Расположение**: Фиксированная кнопка внизу экрана по центру
-- **Функция**: Перемешивает порядок изображений в портфолио
-- **Анимация**: Поворачивается на 720° при нажатии
-- **Видимость**: Скрывается при открытии модального окна с изображением
-
-### Альтернативные способы управления
-
-#### Через переменную окружения (рекомендуется для продакшена)
-
-1. Добавьте в `.env` файл:
-
-```
+**Через переменную окружения:**
+```env
 VITE_SHOW_REFRESH_BUTTON=false
 ```
 
-2. Измените код в `AllImageGrid.tsx`:
-
 ```tsx
 const showRefreshButton = import.meta.env.VITE_SHOW_REFRESH_BUTTON !== 'false';
-
-// В JSX:
 {!isOpen && showRefreshButton && <Button ... />}
 ```
 
-#### Через конфигурационный файл
-
-1. Добавьте в `src/site.config.ts`:
-
+**Через конфигурационный файл:**
 ```ts
+// src/site.config.ts
 export const siteConfig = {
-  // ... существующие настройки
   showRefreshButton: false, // изменить на true для включения
 };
 ```
 
-2. Импортируйте и используйте в компоненте:
+### Структура проекта
 
-```tsx
-import { siteConfig } from '@/site.config';
-
-// В JSX:
-{!isOpen && siteConfig.showRefreshButton && <Button ... />}
+```
+src/
+├── components/           # Компоненты
+│   ├── common/          # Общие компоненты
+│   │   ├── Image.tsx    # Компонент изображения
+│   │   ├── Header.astro # Шапка сайта
+│   │   └── ErrorBoundary.tsx # Обработка ошибок
+│   ├── index/           # Компоненты главной страницы
+│   │   └── AllImageGrid.tsx # Сетка всех изображений
+│   ├── pages/           # Компоненты страниц
+│   └── works/           # Компоненты портфолио
+├── data/                # Данные
+│   ├── pages/           # Markdown страницы
+│   └── works/           # Данные портфолио
+├── i18n/                # Интернационализация
+├── layouts/             # Макеты страниц
+├── lib/                 # Утилиты
+│   ├── errorHandler.ts  # Обработка ошибок
+│   ├── getWorks.ts      # Получение данных работ
+│   ├── performance.ts   # Мониторинг производительности
+│   ├── useIntersectionObserver.ts # Lazy loading
+│   └── imagePreloader.ts # Preloading изображений
+├── pages/               # Страницы Astro
+│   ├── en/              # Английские страницы
+│   ├── ru/              # Русские страницы
+│   └── [work_id].astro  # Динамические страницы работ
+└── styles/              # Стили
+    ├── global.css       # Глобальные стили
+    └── animate.css      # Анимации
 ```
 
-## Доступность (Accessibility)
+## 🤝 Правила контрибуции
 
-### Alt-тексты для изображений
+### Code of Conduct
 
-Все изображения в проекте теперь имеют alt-тексты для улучшения доступности:
+Этот проект следует принципам открытого и дружелюбного сообщества:
 
-- **Автоматическая генерация**: Компонент `Image.tsx` автоматически генерирует осмысленные alt-тексты
-- **Ручное указание**: Можно передать кастомный alt-текст через пропс `alt`
-- **Контекстная информация**: Alt-тексты включают название работы и тип изображения
+- Будьте уважительными и инклюзивными
+- Используйте дружелюбный язык
+- Принимайте конструктивную критику
+- Фокусируйтесь на том, что лучше для сообщества
+- Проявляйте эмпатию к другим участникам
 
-**Примеры alt-текстов:**
+### Процесс контрибуции
 
-- `"6d-k - Main portfolio image"` - для главного изображения работы
-- `"by702 - Portfolio work image 3"` - для дополнительных изображений
-- `"HDUD Logo"` - для логотипа в шапке
+#### 1. Fork и Clone
 
-### Улучшения доступности
+```bash
+# Fork репозитория на GitHub
+git clone https://github.com/YOUR_USERNAME/DesignPhotographyPortfolio.git
+cd DesignPhotographyPortfolio
 
-- ✅ Alt-тексты для всех изображений
-- ✅ Семантическая HTML разметка
-- ✅ Поддержка клавиатурной навигации
-- ✅ Контрастные цвета для текста
-
-## Обработка ошибок
-
-### Error Boundaries
-
-Проект использует React Error Boundaries для graceful обработки ошибок:
-
-**Компоненты:**
-- `ErrorBoundary.tsx` - основной класс-компонент для обработки ошибок
-- `ErrorBoundaryWrapper.tsx` - функциональная обертка для удобства использования
-
-**Функциональность:**
-- Автоматическое перехватывание ошибок в React компонентах
-- Показ fallback UI вместо белого экрана
-- Логирование ошибок в консоль (в режиме разработки)
-- Кнопка "Try again" для восстановления
-
-### Обработка ошибок изображений
-
-**Компонент Image.tsx:**
-- Автоматический retry механизм (до 3 попыток)
-- Exponential backoff (1s, 2s, 4s задержки)
-- Fallback UI для недоступных изображений
-- Логирование ошибок загрузки
-
-**Обработка ошибок данных:**
-- Graceful обработка отсутствующих работ
-- Возврат пустого массива вместо crash
-- Предупреждения в консоль для отладки
-
-### Примеры использования
-
-```tsx
-// Оборачивание компонента в ErrorBoundary
-<ErrorBoundaryWrapper
-  fallback={<div>Custom error message</div>}
-  onError={(error, errorInfo) => {
-    // Custom error handling
-    console.error('Custom error:', error);
-  }}
->
-  <YourComponent />
-</ErrorBoundaryWrapper>
+# Добавить upstream remote
+git remote add upstream https://github.com/original-owner/DesignPhotographyPortfolio.git
 ```
 
-## Качество кода
+#### 2. Создание ветки
+
+```bash
+# Создать новую ветку для фичи
+git checkout -b feature/your-feature-name
+
+# Или для исправления бага
+git checkout -b fix/your-bug-fix
+```
+
+#### 3. Внесение изменений
+
+- Следуйте стандартам кодирования
+- Добавляйте тесты для новой функциональности
+- Обновляйте документацию при необходимости
+- Проверяйте код перед коммитом
+
+#### 4. Коммиты
+
+```bash
+# Добавить изменения
+git add .
+
+# Создать коммит с описательным сообщением
+git commit -m "feat: add new image optimization feature"
+
+# Push в вашу ветку
+git push origin feature/your-feature-name
+```
+
+#### 5. Pull Request
+
+1. Создайте Pull Request на GitHub
+2. Заполните шаблон PR
+3. Убедитесь, что все проверки пройдены
+4. Дождитесь ревью от мейнтейнеров
+
+### Типы коммитов
+
+Используйте [Conventional Commits](https://www.conventionalcommits.org/):
+
+```
+feat: новая функциональность
+fix: исправление бага
+docs: изменения в документации
+style: форматирование, отсутствующие точки с запятой и т.д.
+refactor: рефакторинг кода
+test: добавление тестов
+chore: обновление задач сборки, конфигурации менеджера пакетов и т.д.
+```
+
+### Шаблон Pull Request
+
+```markdown
+## Описание
+Краткое описание изменений
+
+## Тип изменений
+- [ ] Исправление бага
+- [ ] Новая функциональность
+- [ ] Breaking change
+- [ ] Обновление документации
+
+## Чеклист
+- [ ] Код соответствует стандартам проекта
+- [ ] Добавлены тесты для новой функциональности
+- [ ] Обновлена документация
+- [ ] Все тесты проходят
+- [ ] Проверено на разных браузерах
+
+## Скриншоты (если применимо)
+Добавьте скриншоты для визуальных изменений
+
+## Дополнительная информация
+Любая дополнительная информация для ревьюеров
+```
+
+## 🧪 Качество кода
 
 ### ESLint и Prettier
 
 Проект настроен с ESLint и Prettier для поддержания высокого качества кода:
 
-**ESLint правила:**
-- TypeScript поддержка
-- Astro файлы поддержка
-- Предотвращение неиспользуемых переменных
-- Запрет console.log в продакшене
-- Строгие правила для TypeScript
-
-**Prettier настройки:**
-- Автоматическое форматирование кода
-- Поддержка Astro файлов
-- Единообразный стиль кода
-
-**Команды:**
-```bash
-# Проверка кода на ошибки
-npm run lint
-
-# Автоматическое исправление ошибок ESLint
-npm run lint:fix
-
-# Форматирование кода
-npm run format
-
-# Проверка форматирования
-npm run format:check
-
-# Проверка типов TypeScript
-npm run type-check
-```
-
-**Игнорируемые файлы:**
-- `dist/` - собранные файлы
-- `node_modules/` - зависимости
-- `.astro/` - временные файлы Astro
-- `public/` - статические файлы
-
-## Другие настройки разработки
-
-### Сжатие изображений
-
-```bash
-npm run compress-images
-```
-
-### Запуск в режиме разработки
-
-```bash
-npm run dev
-```
-
-### Сборка для продакшена
-
-```bash
-npm run build
-```
-
-### Предварительный просмотр сборки
-
-```bash
-npm run preview
-```
-
-## Структура проекта
-
-- `src/components/index/AllImageGrid.tsx` - Главная сетка портфолио с кнопкой обновления
-- `src/components/common/Image.tsx` - Компонент изображения с ленивой загрузкой
-- `src/data/works/` - Данные о работах в формате Markdown
-- `public/images/works/` - Изображения портфолио (сжатые)
-- `src/i18n/` - Файлы интернационализации
-
-## 🛡️ Error Handling
-
-### Error Boundary System
-
-The project uses a comprehensive error handling system:
-
-```typescript
-// Wrap components in ErrorBoundary
-<ErrorBoundaryWrapper
-  fallback={<div>Custom error message</div>}
-  onError={(error, errorInfo) => {
-    console.error('Custom error:', error);
-  }}
->
-  <YourComponent />
-</ErrorBoundaryWrapper>
-```
-
-### Global Error Handler
-
-```typescript
-// Use centralized error handling
-import { handleAsyncError, createError } from '@/lib/errorHandler';
-
-const data = await handleAsyncError(
-  async () => {
-    // Your async operation
-    return await fetchData();
-  },
-  [], // fallback value
-  'Failed to fetch data'
-);
-```
-
-### Image Error Handling
-
-The `Image` component includes:
-- Automatic retry mechanism (up to 3 attempts)
-- Exponential backoff delays
-- Fallback UI for failed loads
-- Structured error logging
-
-## 🧪 Code Quality
-
-### ESLint Configuration
-
-The project uses strict ESLint rules:
-
+#### ESLint правила
 ```javascript
-// Key rules
+// Основные правила
 '@typescript-eslint/no-explicit-any': 'error',
 '@typescript-eslint/prefer-nullish-coalescing': 'error',
 '@typescript-eslint/prefer-optional-chain': 'error',
-'no-console': 'error', // In production
+'no-console': 'error', // В продакшене
 'no-debugger': 'error',
 'prefer-const': 'error',
 'no-var': 'error',
 ```
 
-### Pre-commit Hooks
-
-Automated code quality checks:
-
+#### Pre-commit хуки
 ```json
 {
   "lint-staged": {
@@ -371,9 +296,9 @@ Automated code quality checks:
 }
 ```
 
-### TypeScript Configuration
+### TypeScript конфигурация
 
-Strict TypeScript settings:
+Строгие настройки TypeScript:
 
 ```json
 {
@@ -387,183 +312,215 @@ Strict TypeScript settings:
 }
 ```
 
-## ⚡ Performance Optimization
+### Обработка ошибок
 
-### Bundle Analysis
-
-```bash
-# Analyze bundle size
-npm run analyze
-
-# Check bundle composition
-npm run size-check
+#### Error Boundaries
+```tsx
+// Оборачивание компонента в ErrorBoundary
+<ErrorBoundaryWrapper
+  fallback={<div>Custom error message</div>}
+  onError={(error, errorInfo) => {
+    console.error('Custom error:', error);
+  }}
+>
+  <YourComponent />
+</ErrorBoundaryWrapper>
 ```
 
-### Image Optimization
+#### Глобальная обработка ошибок
+```typescript
+// Использование централизованной обработки ошибок
+import { handleAsyncError, createError } from '@/lib/errorHandler';
 
-```bash
-# Compress and optimize images
-npm run compress-images
+const data = await handleAsyncError(
+  async () => {
+    return await fetchData();
+  },
+  [], // fallback value
+  'Failed to fetch data'
+);
 ```
 
-This script:
-- Converts images to WebP and AVIF formats
-- Generates multiple sizes for responsive design
-- Creates blur placeholders
-- Updates image metadata
+### Доступность (Accessibility)
 
-### Build Optimizations
+#### Alt-тексты для изображений
+Все изображения имеют alt-тексты для улучшения доступности:
 
-The build process includes:
-- Manual chunk splitting for better caching
-- Terser minification with console.log removal
-- Tree shaking for unused code elimination
-- Asset optimization
+- **Автоматическая генерация**: Компонент `Image.tsx` автоматически генерирует осмысленные alt-тексты
+- **Ручное указание**: Можно передать кастомный alt-текст через пропс `alt`
+- **Контекстная информация**: Alt-тексты включают название работы и тип изображения
 
-## 🧪 Testing
+**Примеры alt-текстов:**
+- `"6d-k - Main portfolio image"` - для главного изображения работы
+- `"by702 - Portfolio work image 3"` - для дополнительных изображений
+- `"HDUD Logo"` - для логотипа в шапке
 
-### Manual Testing Checklist
+#### Улучшения доступности
+- ✅ Alt-тексты для всех изображений
+- ✅ Семантическая HTML разметка
+- ✅ Поддержка клавиатурной навигации
+- ✅ Контрастные цвета для текста
 
-Before deploying, test:
+## 🧪 Тестирование
 
-- [ ] **Responsive Design**
-  - [ ] Mobile (320px - 768px)
-  - [ ] Tablet (768px - 1024px)
-  - [ ] Desktop (1024px+)
+### Чеклист для ручного тестирования
 
-- [ ] **Theme Switching**
-  - [ ] Light mode functionality
-  - [ ] Dark mode functionality
-  - [ ] Theme persistence
+Перед деплоем протестируйте:
 
-- [ ] **Image Loading**
-  - [ ] Lazy loading works
-  - [ ] Error handling for failed loads
-  - [ ] Retry mechanism functions
+#### Адаптивный дизайн
+- [ ] **Мобильные устройства** (320px - 768px)
+- [ ] **Планшеты** (768px - 1024px)
+- [ ] **Десктоп** (1024px+)
 
-- [ ] **Navigation**
-  - [ ] All internal links work
-  - [ ] Back/forward navigation
-  - [ ] Mobile menu functionality
+#### Переключение тем
+- [ ] Функциональность светлой темы
+- [ ] Функциональность темной темы
+- [ ] Сохранение выбранной темы
 
-- [ ] **Performance**
-  - [ ] Core Web Vitals scores
-  - [ ] Image optimization
-  - [ ] Bundle size within limits
+#### Загрузка изображений
+- [ ] Lazy loading работает
+- [ ] Обработка ошибок для неудачных загрузок
+- [ ] Механизм повторных попыток функционирует
 
-### Automated Testing
+#### Навигация
+- [ ] Все внутренние ссылки работают
+- [ ] Навигация назад/вперед
+- [ ] Функциональность мобильного меню
+
+#### Производительность
+- [ ] Core Web Vitals показатели
+- [ ] Оптимизация изображений
+- [ ] Размер бандла в пределах нормы
+
+### Автоматизированное тестирование
 
 ```bash
-# Run all quality checks
+# Запуск всех проверок качества
 npm run lint          # ESLint
 npm run type-check    # TypeScript
 npm run format:check  # Prettier
-npm run build         # Build test
+npm run build         # Тест сборки
 ```
 
-## 🚀 Deployment
+## 🚀 Деплой
 
-### Production Build
+### Сборка для продакшена
 
 ```bash
-# Build for production
+# Сборка для продакшена
 npm run build
 
-# Preview production build
+# Предварительный просмотр сборки
 npm run preview
 ```
 
-### Automated Deployment
+### Автоматизированный деплой
 
 ```bash
-# Build and deploy to GitHub Pages
+# Сборка и деплой на GitHub Pages
 npm run auto-deploy-website
 ```
 
-### Environment Variables
+### Переменные окружения для продакшена
 
-Set these in your deployment platform:
+Установите эти переменные в вашей платформе деплоя:
 
 ```env
-# Required
+# Обязательные
 NODE_ENV=production
 
-# Optional
+# Опциональные
 VITE_SHOW_REFRESH_BUTTON=false
 VITE_GA_ID=your-analytics-id
 ```
 
-## 📊 Monitoring
+### Платформы деплоя
 
-### Performance Monitoring
+#### GitHub Pages
+```bash
+npm run auto-deploy-website
+```
 
-- **Core Web Vitals** - Monitor LCP, FID, CLS
-- **Bundle Size** - Track bundle size changes
-- **Image Optimization** - Monitor image loading performance
+#### Netlify
+1. Подключите репозиторий к Netlify
+2. Настройте команду сборки: `npm run build`
+3. Укажите папку публикации: `dist`
 
-### Error Monitoring
+#### Vercel
+1. Подключите репозиторий к Vercel
+2. Настройки по умолчанию подойдут автоматически
 
-- **Error Boundaries** - Catch React component errors
-- **Global Error Handler** - Log application errors
-- **Image Load Errors** - Track failed image loads
+## 📊 Мониторинг
+
+### Мониторинг производительности
+
+- **Core Web Vitals** - Мониторинг LCP, FID, CLS
+- **Bundle Size** - Отслеживание изменений размера бандла
+- **Image Optimization** - Мониторинг производительности загрузки изображений
+
+### Мониторинг ошибок
+
+- **Error Boundaries** - Перехват ошибок React компонентов
+- **Global Error Handler** - Логирование ошибок приложения
+- **Image Load Errors** - Отслеживание неудачных загрузок изображений
 
 ## 🔧 Troubleshooting
 
-### Common Issues
+### Частые проблемы
 
-**Build Errors:**
+#### Ошибки сборки
 ```bash
-# Clear cache and reinstall
+# Очистить кэш и переустановить
 rm -rf node_modules package-lock.json
 npm install
 ```
 
-**TypeScript Errors:**
+#### Ошибки TypeScript
 ```bash
-# Check types
+# Проверить типы
 npm run type-check
 
-# Restart TypeScript server in VS Code
+# Перезапустить TypeScript сервер в VS Code
 Ctrl+Shift+P -> "TypeScript: Restart TS Server"
 ```
 
-**Image Processing Issues:**
+#### Проблемы с обработкой изображений
 ```bash
-# Recompress images
+# Пересжать изображения
 npm run compress-images
 ```
 
-**Linting Issues:**
+#### Проблемы с линтингом
 ```bash
-# Auto-fix linting issues
+# Автоисправление проблем линтинга
 npm run lint:fix
 ```
 
-## 📚 Useful Commands
+### Полезные команды
 
 ```bash
-# Development
-npm run dev              # Start dev server
-npm run dev:debug        # Start with debugging
+# Разработка
+npm run dev              # Запуск dev сервера
+npm run dev:debug        # Запуск с отладкой
 
-# Code Quality
-npm run lint             # Run ESLint
-npm run lint:fix         # Fix ESLint errors
-npm run format           # Format with Prettier
-npm run format:check     # Check formatting
-npm run type-check       # TypeScript check
+# Качество кода
+npm run lint             # Запуск ESLint
+npm run lint:fix         # Исправление ошибок ESLint
+npm run format           # Форматирование с Prettier
+npm run format:check     # Проверка форматирования
+npm run type-check       # Проверка TypeScript
 
-# Building
-npm run build            # Build for production
-npm run preview          # Preview build
-npm run analyze          # Analyze bundle size
+# Сборка
+npm run build            # Сборка для продакшена
+npm run preview          # Предварительный просмотр
+npm run analyze          # Анализ размера бандла
 
-# Utilities
-npm run compress-images  # Compress images
-npm run auto-deploy-website # Deploy to GitHub Pages
+# Утилиты
+npm run compress-images  # Сжатие изображений
+npm run auto-deploy-website # Деплой на GitHub Pages
 ```
 
-## 🔗 Additional Resources
+## 📚 Дополнительные ресурсы
 
 - [Astro Documentation](https://docs.astro.build/)
 - [React Documentation](https://reactjs.org/docs/)
@@ -571,3 +528,7 @@ npm run auto-deploy-website # Deploy to GitHub Pages
 - [TypeScript Documentation](https://www.typescriptlang.org/docs/)
 - [ESLint Documentation](https://eslint.org/docs/)
 - [Prettier Documentation](https://prettier.io/docs/)
+
+---
+
+**Удачной разработки! 🚀**
