@@ -1,6 +1,7 @@
 @import 'tailwindcss';
 
 @theme animate {
+  /* Existing animations */
   --animate-works-label-slide-in: works-label-slide-in 300ms forwards;
   @keyframes works-label-slide-in {
     from {
@@ -10,6 +11,163 @@
     to {
       opacity: 1;
       bottom: 0;
+    }
+  }
+
+  /* Page transition animations */
+  --animate-page-fade-in: page-fade-in 0.4s ease-in-out forwards;
+  --animate-page-slide-left: page-slide-left 0.4s ease-in-out forwards;
+  --animate-page-slide-right: page-slide-right 0.4s ease-in-out forwards;
+  --animate-page-slide-up: page-slide-up 0.4s ease-in-out forwards;
+  --animate-page-slide-down: page-slide-down 0.4s ease-in-out forwards;
+  --animate-page-scale: page-scale 0.4s ease-in-out forwards;
+  --animate-page-flip: page-flip 0.4s ease-in-out forwards;
+  --animate-page-rotate: page-rotate 0.4s ease-in-out forwards;
+  --animate-page-bounce: page-bounce 0.6s ease-in-out forwards;
+
+  /* Fade animations */
+  @keyframes page-fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  /* Slide animations */
+  @keyframes page-slide-left {
+    from {
+      opacity: 0;
+      transform: translateX(100px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes page-slide-right {
+    from {
+      opacity: 0;
+      transform: translateX(-100px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes page-slide-up {
+    from {
+      opacity: 0;
+      transform: translateY(50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes page-slide-down {
+    from {
+      opacity: 0;
+      transform: translateY(-50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Scale animations */
+  @keyframes page-scale {
+    from {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  /* Flip animations */
+  @keyframes page-flip {
+    from {
+      opacity: 0;
+      transform: rotateY(-90deg);
+    }
+    to {
+      opacity: 1;
+      transform: rotateY(0deg);
+    }
+  }
+
+  /* Rotate animations */
+  @keyframes page-rotate {
+    from {
+      opacity: 0;
+      transform: rotate(-5deg) scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: rotate(0deg) scale(1);
+    }
+  }
+
+  /* Bounce animations */
+  @keyframes page-bounce {
+    0% {
+      opacity: 0;
+      transform: scale(0.3);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+    70% {
+      transform: scale(0.9);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  /* Exit animations */
+  --animate-page-fade-out: page-fade-out 0.3s ease-in-out forwards;
+  --animate-page-slide-out-left: page-slide-out-left 0.3s ease-in-out forwards;
+  --animate-page-slide-out-right: page-slide-out-right 0.3s ease-in-out forwards;
+
+  @keyframes page-fade-out {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+
+  @keyframes page-slide-out-left {
+    from {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateX(-100px);
+    }
+  }
+
+  @keyframes page-slide-out-right {
+    from {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateX(100px);
     }
   }
 }
