@@ -1,6 +1,76 @@
-# Development Guide
+# 🛠️ Development Guide
 
-## Управление кнопкой обновления
+This guide covers development setup, component management, and best practices for the Design Photography Portfolio project.
+
+## 📋 Table of Contents
+
+- [Development Setup](#development-setup)
+- [Component Management](#component-management)
+- [Error Handling](#error-handling)
+- [Code Quality](#code-quality)
+- [Performance Optimization](#performance-optimization)
+- [Testing](#testing)
+- [Deployment](#deployment)
+
+## 🚀 Development Setup
+
+### Prerequisites
+
+- Node.js 18+
+- npm or yarn
+- Git
+- Code editor (VS Code recommended)
+
+### Initial Setup
+
+```bash
+# Clone the repository
+git clone https://github.com/your-username/DesignPhotographyPortfolio.git
+cd DesignPhotographyPortfolio
+
+# Install dependencies
+npm install
+
+# Initialize git hooks
+npm run prepare
+
+# Start development server
+npm run dev
+```
+
+### VS Code Extensions
+
+Recommended extensions for optimal development experience:
+
+- **Astro** - Astro language support
+- **TypeScript** - TypeScript support
+- **ESLint** - Code linting
+- **Prettier** - Code formatting
+- **Tailwind CSS IntelliSense** - Tailwind autocomplete
+- **Auto Rename Tag** - HTML tag management
+- **Bracket Pair Colorizer** - Code readability
+
+### Environment Configuration
+
+Create a `.env` file for local development:
+
+```env
+# Development settings
+NODE_ENV=development
+VITE_SHOW_REFRESH_BUTTON=true
+
+# Analytics (optional)
+VITE_GA_ID=your-google-analytics-id
+
+# Comments (optional)
+VITE_GISCUS_REPO=your-repo
+VITE_GISCUS_REPO_ID=your-repo-id
+VITE_GISCUS_CATEGORY_ID=your-category-id
+```
+
+## 🧩 Component Management
+
+### Управление кнопкой обновления
 
 ### Текущее состояние
 
