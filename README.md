@@ -31,5 +31,3 @@ Please check the files in the `docs` directory for more details:
 **You can submit your website to be displayed here.**
 
 Tutu Designer: https://rabbitit.fun
-
-![DesignPhotographyPortfolio Stars](https://api.star-history.com/svg?repos=pysunday/DesignPhotographyPortfolio)
