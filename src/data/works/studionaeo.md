@@ -1,6 +1,18 @@
 ---
 base: "/images/works/studionaeo"
 ---
-**website: https://studionaeo.com/**
+**website: https://khusan-design.uz/**
 
-立入禁止于2015年重组，核心成员包括刘治治、迷盒、张琦。立入禁止的成员由设计取向完全不同的创意人组成，他们从事平面设计、插图、交互界面、出版、策划展览……几乎涵盖了平面设计的所能接触到的方方面面，艺术、时尚、产品、建筑、媒体、互联网、音乐、文学、教育等， 具有极强的跨域性。
+## Interior Design Visualization
+
+**3D Interior Rendering Project**
+
+High-quality interior design visualization project featuring realistic lighting, material textures, and detailed 3D modeling. This project showcases expertise in architectural visualization and interior design presentation.
+
+**Key Features:**
+- Photorealistic interior renderings
+- Detailed material and texture work
+- Professional lighting setups
+- Multiple camera perspectives
+
+**Technologies Used:** Blender 3D, Autodesk 3ds Max, Keyshot, Adobe Photoshop

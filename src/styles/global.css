@@ -15,3 +15,70 @@
 @theme inline {
   --font-handjet: "Handjet", sans-serif;
 }
+
+/* Fix for lg:hidden utility in Tailwind v4 */
+@media (min-width: 64rem) {
+  .lg\:hidden {
+    display: none !important;
+  }
+}
+
+/* Hide screen detection elements */
+[id^="bp-"] {
+  display: none !important;
+  visibility: hidden !important;
+  position: absolute !important;
+  left: -9999px !important;
+  top: -9999px !important;
+  width: 0 !important;
+  height: 0 !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Custom floating buttons styling */
+.custom-float-btns {
+  @apply fixed bottom-4 right-4 md:bottom-6 md:right-6 xl:bottom-8 xl:right-8 z-50 flex flex-col gap-2;
+}
+
+.custom-float-btn {
+  @apply w-12 h-12 md:w-14 md:h-14 xl:w-16 xl:h-16;
+  @apply bg-white/90 dark:bg-gray-800/90;
+  @apply border border-gray-200/50 dark:border-gray-700/50;
+  @apply rounded-full shadow-lg;
+  @apply flex items-center justify-center;
+  @apply backdrop-blur-sm;
+  @apply transition-all duration-300 ease-in-out;
+  @apply hover:scale-110 hover:shadow-xl;
+  @apply focus:outline-none focus:ring-2 focus:ring-blue-500/50;
+  @apply text-gray-700 dark:text-gray-300;
+}
+
+.custom-float-btn:hover {
+  @apply bg-white dark:bg-gray-700;
+  @apply text-gray-900 dark:text-white;
+  @apply border-gray-300 dark:border-gray-600;
+  @apply transform -translate-y-1;
+}
+
+.back-to-top-btn {
+  @apply opacity-0 pointer-events-none;
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out, pointer-events 0.3s ease-in-out;
+}
+
+.back-to-top-btn.visible {
+  @apply opacity-100 pointer-events-auto;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .custom-float-btn {
+    @apply w-10 h-10;
+  }
+}
+
+@media (max-width: 480px) {
+  .custom-float-btns {
+    @apply bottom-2 right-2;
+  }
+}

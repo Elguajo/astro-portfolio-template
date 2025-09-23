@@ -1,14 +1,18 @@
 ---
 base: "/images/works/more/fukunaga-print"
 ---
-**website: https://www.fukunaga-print.co.jp/**
+**website: https://khusan-design.uz/**
 
-お問い合わせ
+## Landscape Design Visualization
 
-電話でのお問い合わせ
+**3D Landscape & Environment Project**
 
-ご相談・お見積り・取材のご依頼は、お電話でも承っています。
+Comprehensive landscape design visualization project featuring environmental modeling, vegetation systems, and atmospheric rendering. This project demonstrates expertise in environmental design, landscape architecture visualization, and outdoor scene composition.
 
-下記電話番号までご連絡をお願い致します。
+**Key Features:**
+- Detailed landscape modeling
+- Vegetation and ecosystem simulation
+- Atmospheric and lighting effects
+- Environmental storytelling
 
-TEL 042-523-1515
+**Technologies Used:** Blender 3D, Autodesk 3ds Max, Keyshot, Adobe Photoshop, World Creator

@@ -1,10 +1,18 @@
 ---
 base: "/images/works/reflexdesign"
 ---
-**website: http://reflexdesign.cn/**
+**website: https://khusan-design.uz/**
 
-ReflexDesign是一家设计及创新工作室
+## Outdoor Advertising Campaign
 
-我们认为品牌本质上是一种条件反射，建立的是用户特定认知及需求与某个品牌的关联。
+**Large Format Design & 3D Visualization**
 
-我们的工作即是通过可视化的手段构建并强化这种联系，为不同领域的客户提供咨询与设计。
+Comprehensive outdoor advertising campaign featuring billboard designs, 3D mockups, and installation visualizations. This project showcases expertise in large format design, environmental graphics, and spatial design visualization.
+
+**Key Features:**
+- Large format billboard designs
+- 3D environmental mockups
+- Installation and placement visualizations
+- Multiple format adaptations
+
+**Technologies Used:** Adobe Photoshop, Blender 3D, Adobe Illustrator, Autodesk 3ds Max

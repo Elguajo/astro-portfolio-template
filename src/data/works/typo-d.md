@@ -1,6 +1,18 @@
 ---
 base: "/images/works/typo-d"
 ---
-**website: https://typo-d.com/**
+**website: https://khusan-design.uz/**
 
-**打错平面设计工作室(typo_d)**主要致力于公众出版 领域的设计,与众多出版机构合作,试图将更开放的设计观念与形式介绍给大众消费市场。我们希望通过更具普及性的出版行为向更多的客户与受众证明,设计应该超越一般意义上 的“审美”,并且用理性的方式来看待和消费现代设计。typo_d 坚持积极参与畅销书的设计, 并且尽可能尝试“反市场”的风格。
+## AI Integration & Digital Innovation
+
+**AI-Enhanced Design Workflow Project**
+
+Cutting-edge project showcasing the integration of artificial intelligence tools into the creative design process. This project demonstrates expertise in AI-assisted design, prompt engineering, and modern digital workflows that enhance creative output.
+
+**Key Features:**
+- AI-generated concept development
+- Prompt engineering optimization
+- AI-assisted image generation and editing
+- Workflow automation and efficiency
+
+**Technologies Used:** Adobe Creative Suite, Midjourney, DALL-E, ChatGPT, Blender 3D, Custom AI Tools

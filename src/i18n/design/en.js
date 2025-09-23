@@ -1,7 +1,7 @@
 export default {
   mate: {
     description: "Designers, photographers, and creative artists — showcase your best work here.",
-    title: "Designer",
+    title: "Designer Portfolio",
   },
   btns: {
     backToTop: 'Back to Top'
@@ -9,9 +9,15 @@ export default {
   page_works: {
     title: '{{name}} - Portfolio',
   },
+  page_about: {
+    title: 'About - Portfolio',
+  },
+  page_index: {
+    title: 'Portfolio - Design & Photography',
+  },
   footer: {
     cr: 'All rights reserved.',
-    icp: 'ICP No. 2022020686 (Shanghai)',
+    icp: '',
   },
   menus: {
     all: 'All',
@@ -27,6 +33,15 @@ export default {
   page_detail: {
     prev: 'Previous',
     next: 'Next',
+  },
+  common: {
+    loading: 'Loading...',
+    error: 'An error occurred',
+    readMore: 'Read More',
+    viewProject: 'View Project',
+    close: 'Close',
+    share: 'Share',
+    download: 'Download',
   }
 }
 

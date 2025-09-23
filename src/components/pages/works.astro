@@ -1,5 +1,5 @@
 ---
-import FloatBtns from '@hdud/common/components/FloatBtns.astro';
+import CustomFloatBtns from '@/components/common/CustomFloatBtns.astro';
 import Layout from '@/layouts/PageLayout.astro';
 import WorksGrid from "@/components/works/WorksGrid.astro";
 import getWorks from '@/lib/getWorks.ts';
@@ -23,10 +23,8 @@ const works = await getWorks()
 
 <Layout {...mates}>
 	<WorksGrid works={works}/>
-  <FloatBtns btns={[{
-    type: 'theme',
-    props: { themes: siteConfig.themes }
-  }, {
+  <CustomFloatBtns btns={[{
     type: 'top',
+    label: i18n('btns.backToTop'),
   }]} />
 </Layout>

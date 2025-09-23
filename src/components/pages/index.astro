@@ -1,5 +1,5 @@
 ---
-import FloatBtns from '@hdud/common/components/FloatBtns.astro';
+import CustomFloatBtns from '@/components/common/CustomFloatBtns.astro';
 import PageLayout from '@/layouts/PageLayout.astro';
 import MemberGrid from '@/components/index/AllImageGrid.tsx'
 import { getCollection } from "astro:content";
@@ -28,10 +28,8 @@ const mates = {
 ---
 <PageLayout {...mates}>
   <MemberGrid members={members} client:load />
-  <FloatBtns btns={[{
-    type: 'theme',
-    props: { themes: siteConfig.themes }
-  }, {
+  <CustomFloatBtns btns={[{
     type: 'top',
+    label: i18n('btns.backToTop'),
   }]} />
 </PageLayout>

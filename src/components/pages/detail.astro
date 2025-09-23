@@ -1,7 +1,7 @@
 ---
 import Layout from '@/layouts/PageLayout.astro';
 import { render } from "astro:content";
-import FloatBtns from '@hdud/common/components/FloatBtns.astro';
+import CustomFloatBtns from '@/components/common/CustomFloatBtns.astro';
 import MemberGrid from '@/components/common/MemberGrid.astro'
 import getWorks from '@/lib/getWorks.ts';
 import { getI18n } from "@/i18n/index"
@@ -37,7 +37,7 @@ if (nextIdx >= works.length) nextIdx = 0;
   </div>
   <div class="divider"></div>
   <MemberGrid work={work} />
-  <FloatBtns btns={[{
+  <CustomFloatBtns btns={[{
     type: 'link',
     href: `/${works[preIdx].id}`,
     icon: 'icon-[ooui--arrow-previous-ltr]',
@@ -47,9 +47,6 @@ if (nextIdx >= works.length) nextIdx = 0;
     href: `/${works[nextIdx].id}`,
     icon: 'icon-[ooui--arrow-previous-rtl]',
     label: i18n('page_detail.next'),
-  }, {
-    type: 'theme',
-    props: { themes: siteConfig.themes }
   }, {
     type: 'top',
     label: i18n('btns.backToTop'),
