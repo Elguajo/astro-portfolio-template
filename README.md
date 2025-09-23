@@ -46,7 +46,7 @@ Visit `http://localhost:4321` to see your portfolio!
 
 ## 📚 Documentation
 
-We provide comprehensive documentation:
+We provide comprehensive documentation: 
 
 - [📖 English Documentation](./docs/README-en.md) - Complete setup and usage guide
 - [🛠️ Development Guide](./docs/DEVELOPMENT.md) - Development setup and component management
