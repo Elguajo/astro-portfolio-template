@@ -10,7 +10,7 @@ const i18n = await getI18n(currentLocale || 'en', 'design');
 
 function getTargetUrl() {
   const lang = currentLocale === 'ja' ? 'en' : currentLocale;
-  return siteConfig.site + getRelativeLocaleUrl(lang || 'en', '/');
+  return getRelativeLocaleUrl(lang || 'en', '/');
 }
 ---
 

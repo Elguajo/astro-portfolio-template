@@ -8,6 +8,7 @@ This document provides an overview of the project architecture, design decisions
 - [Technology Stack](#technology-stack)
 - [Project Structure](#project-structure)
 - [Component Architecture](#component-architecture)
+- [Navigation & Page Structure](#navigation--page-structure)
 - [Data Flow](#data-flow)
 - [Performance Optimizations](#performance-optimizations)
 - [Error Handling](#error-handling)
@@ -132,6 +133,118 @@ graph TD
     G[Error Handler] --> D
     H[Image Optimizer] --> E
 ```
+
+## 🧭 Navigation & Page Structure
+
+### Navigation Menu Structure
+
+The portfolio features a clear navigation system with distinct purposes for each section:
+
+#### 1. **"All" Tab (Homepage)**
+- **Purpose**: Visual showcase of all portfolio images
+- **Component**: `AllImageGrid.tsx`
+- **Layout**: 6-column masonry grid (responsive: 2-4-6 columns)
+- **Features**:
+  - Displays **all images** from all projects in random order
+  - **Shuffle functionality** with refresh button
+  - **Modal viewer** for detailed image inspection
+  - **Grayscale effect** with color on hover/touch
+  - **Navigation arrows** in modal for browsing
+- **User Experience**: Quick visual overview and discovery
+
+#### 2. **"Portfolio" Tab (Works)**
+- **Purpose**: Structured project catalog
+- **Component**: `WorksGrid.astro`
+- **Layout**: 4-column grid (responsive: 2-3-4 columns)
+- **Features**:
+  - Shows **main image** from each project
+  - **Project titles** on hover
+  - **Direct navigation** to individual project pages
+  - **Full-color display**
+- **User Experience**: Organized project exploration
+
+#### 3. **"About" Tab**
+- **Purpose**: Personal information and bio
+- **Content**: Markdown-based content with i18n support
+- **Features**: Multi-language support (EN/RU)
+
+#### 4. **"Contact" Tab**
+- **Purpose**: Direct email contact
+- **Implementation**: `mailto:` link to configured email
+
+### Page Routing Structure
+
+```
+/                    # Homepage (All images)
+├── /works/          # Portfolio overview
+├── /about/          # About page
+├── /[work_id]/      # Individual project pages
+├── /en/             # English localized pages
+│   ├── /en/works/
+│   ├── /en/about/
+│   └── /en/[work_id]/
+└── /ru/             # Russian localized pages
+    ├── /ru/works/
+    ├── /ru/about/
+    └── /ru/[work_id]/
+```
+
+### Navigation Logic
+
+```typescript
+// Menu configuration in src/config/menus.ts
+export const getMenus = (textMap, locale) => {
+  const target = locale === 'zh' ? '' : `/${locale}`;
+  return [
+    {
+      label: textMap['all'],        // "All" - Homepage
+      href: getHref('/'),           // Routes to homepage
+      isActive: path => ['/', ''].map(getHref).includes(path),
+    },
+    {
+      label: textMap['works'],      // "Portfolio" - Works overview
+      href: getHref('/works/'),     // Routes to works page
+      isActive: checkActive('\/works\/?$'),
+    },
+    // ... other menu items
+  ];
+};
+```
+
+### Component Usage Patterns
+
+#### Homepage (All Images)
+```typescript
+// src/components/pages/index.astro
+<MemberGrid members={members} client:load />
+// Uses AllImageGrid.tsx for interactive image browsing
+```
+
+#### Portfolio Page (Works)
+```typescript
+// src/components/pages/works.astro
+<WorksGrid works={works} />
+// Uses WorksGrid.astro for project navigation
+```
+
+### Design Rationale
+
+1. **"All" Tab Benefits**:
+   - **Visual Impact**: Creates strong first impression
+   - **Discovery**: Users can stumble upon interesting work
+   - **Quick Overview**: See entire portfolio at a glance
+   - **Engagement**: Interactive features keep users engaged
+
+2. **"Portfolio" Tab Benefits**:
+   - **Organization**: Clear project structure
+   - **Navigation**: Easy access to specific projects
+   - **Context**: Project titles provide context
+   - **Efficiency**: Direct path to detailed project pages
+
+3. **User Journey**:
+   - **Discovery Phase**: "All" tab for browsing and discovery
+   - **Exploration Phase**: "Portfolio" tab for structured exploration
+   - **Detail Phase**: Individual project pages for deep dive
 
 ## 🔄 Data Flow
 
