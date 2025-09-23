@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import clsx from 'clsx';
 import { Skeleton } from '@heroui/react';
 import { logError, createError, errorCodes } from '@/lib/errorHandler';
+import { useImageLazyLoading } from '@/lib/useIntersectionObserver';
+import { preloadImageFormats } from '@/lib/imagePreloader';
 
 interface ImageProps {
   src: string;
@@ -16,6 +18,8 @@ interface ImageProps {
     height: number;
   };
   workTitle?: string;
+  lazy?: boolean; // Enable/disable lazy loading
+  preloadOnHover?: boolean; // Enable preload on hover
   [key: string]: any;
 }
 
@@ -26,6 +30,8 @@ export default React.memo(function ({
   onClick,
   imageInfo,
   workTitle,
+  lazy = true,
+  preloadOnHover = false,
   ...props
 }: ImageProps) {
   const [isLoad, setIsLoad] = useState(false);
@@ -33,11 +39,21 @@ export default React.memo(function ({
   const [mounted, setMounted] = useState(false);
   const [retryCount, setRetryCount] = useState(0);
   
+  // Lazy loading with Intersection Observer
+  const { ref, hasIntersected } = useImageLazyLoading({
+    skip: !lazy,
+  });
+  
   useEffect(() => setMounted(true), []);
-  const radio = Math.round((imageInfo.width / imageInfo.height) * 100) / 100;
+  
+  // Memoize aspect ratio calculation
+  const radio = useMemo(() => 
+    Math.round((imageInfo.width / imageInfo.height) * 100) / 100,
+    [imageInfo.width, imageInfo.height]
+  );
 
-  // Generate meaningful alt text
-  const generateAltText = () => {
+  // Memoize alt text generation
+  const altText = useMemo(() => {
     if (alt) return alt;
 
     const imageName = src.split('/').pop();
@@ -48,16 +64,23 @@ export default React.memo(function ({
     }
 
     return `${workName} - Portfolio work image ${imageName}`;
-  };
+  }, [alt, src, workTitle]);
 
-  // Handle image load success
-  const handleImageLoad = () => {
+  // Preload on hover
+  const handleMouseEnter = useCallback(() => {
+    if (preloadOnHover && !isLoad) {
+      preloadImageFormats(src, { priority: 'high' });
+    }
+  }, [preloadOnHover, src, isLoad]);
+
+  // Memoize event handlers
+  const handleImageLoad = useCallback(() => {
     setIsLoad(true);
     setHasError(false);
-  };
+  }, []);
 
   // Handle image load error with retry mechanism
-  const handleImageError = () => {
+  const handleImageError = useCallback(() => {
     const error = createError(
       `Failed to load image: ${src}`,
       'IMAGE_LOAD_FAILED',
@@ -83,7 +106,7 @@ export default React.memo(function ({
         // Force re-render by updating the key
       }, delay);
     }
-  };
+  }, [src, retryCount, workTitle, imageInfo]);
 
   // Reset error state when src changes
   useEffect(() => {
@@ -125,8 +148,12 @@ export default React.memo(function ({
     );
   }
 
+  // Determine if we should render the image
+  const shouldRenderImage = !lazy || hasIntersected;
+
   return (
     <Skeleton
+      ref={ref}
       classNames={{
         base: clsx([
           'w-full text-white/0',
@@ -138,19 +165,20 @@ export default React.memo(function ({
       }}
       isLoaded={isLoad}
       style={{ aspectRatio: radio }}
+      onMouseEnter={handleMouseEnter}
     >
-      {mounted && (
+      {mounted && shouldRenderImage && (
         <picture className="">
           <source srcSet={`${src}.avif`} type="image/avif" />
           <source srcSet={`${src}.webp`} type="image/webp" />
           <img
             onContextMenu={e => e.preventDefault()}
             key={`${src}-${retryCount}`} // Force re-render on retry
-            loading="lazy"
+            loading={lazy ? "lazy" : "eager"}
             className={clsx('w-full', classNames.img)}
             onClick={onClick}
             src={`${src}.webp`}
-            alt={generateAltText()}
+            alt={altText}
             onLoad={handleImageLoad}
             onError={handleImageError}
             {...props}

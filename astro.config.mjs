@@ -40,16 +40,38 @@ export default defineConfig({
         compress: {
           drop_console: true,
           drop_debugger: true,
+          pure_funcs: ['console.log', 'console.info', 'console.debug'],
+          passes: 2, // Multiple passes for better compression
+        },
+        mangle: {
+          safari10: true, // Fix Safari 10 issues
         },
       },
       rollupOptions: {
         output: {
+          // Optimize chunk naming for better caching
+          chunkFileNames: 'assets/[name]-[hash].js',
+          entryFileNames: 'assets/[name]-[hash].js',
+          assetFileNames: 'assets/[name]-[hash].[ext]',
           manualChunks: {
-            vendor: ['react', 'react-dom'],
-            ui: ['@heroui/react', '@heroicons/react', 'framer-motion'],
-            utils: ['clsx', 'tailwind-merge', 'dayjs'],
-            icons: ['@iconify/react', 'lucide-react'],
-            animation: ['keen-slider', 'canvas-confetti'],
+            // Core React libraries
+            'react-vendor': ['react', 'react-dom'],
+            // UI component libraries
+            'ui-vendor': ['@heroui/react', '@heroicons/react'],
+            // Animation libraries
+            'animation-vendor': ['framer-motion', 'keen-slider', 'canvas-confetti'],
+            // Utility libraries
+            'utils-vendor': ['clsx', 'tailwind-merge', 'dayjs', 'lodash'],
+            // Icon libraries
+            'icons-vendor': ['@iconify/react', 'lucide-react'],
+            // Image processing
+            'image-vendor': ['sharp', '@resvg/resvg-js'],
+            // Internationalization
+            'i18n-vendor': ['i18next', 'astro-i18n'],
+            // Markdown processing
+            'markdown-vendor': ['mdast-util-to-string', 'reading-time'],
+            // Other utilities
+            'misc-vendor': ['qrcode', 'satori', 'satori-html'],
           },
         },
       },
@@ -65,7 +87,7 @@ export default defineConfig({
         emitFile: true,
         filename: 'package_analyze.html',
       }),
-      rawFonts(['.ttf', '.woff']),
+      // rawFonts(['.ttf', '.woff']), // Disabled due to missing font files
     ],
     server: {
       watch: {
