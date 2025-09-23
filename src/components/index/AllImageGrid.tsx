@@ -31,7 +31,7 @@ export default function App({ members }) {
       {
         !isOpen && <Button
           onPress={() => refresh()}
-          className="bg-white border border-black rounded-full fixed z-10 top-[95dvh] left-1/2 -translate-x-1/2 -translate-y-1/2 transition-tansform duration-1000 hover:scale-150 p-0"
+          className="hidden bg-white border border-black rounded-full fixed z-10 top-[95dvh] left-1/2 -translate-x-1/2 -translate-y-1/2 transition-tansform duration-1000 hover:scale-150 p-0"
           isIconOnly
           aria-label="refush"
           variant="faded"

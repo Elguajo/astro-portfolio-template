@@ -11,6 +11,7 @@ Please check the files in the `docs` directory for more details:
 
 - [English documentation](./docs/README-en.md)
 - [中文文档](./docs/README-zh.md)
+- [Development Guide](./docs/DEVELOPMENT.md) - Настройки разработки и управление компонентами
 
 ## Shows
 
