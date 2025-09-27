@@ -124,64 +124,94 @@ export function getAnimationClass(config: AnimationConfig): string {
 /**
  * Generate transition object for Astro
  */
-export function getTransitionConfig(config: AnimationConfig) {
-  const { type, duration, direction, easing } = config;
-  
+type AnimationEasing = AnimationConfig['easing'];
+type TransitionDirection = NonNullable<AnimationConfig['direction']>;
+
+const SLIDE_ANIMATION_MAP: Record<TransitionDirection, { out: string; in: string }> = {
+  left: { out: 'astro-slide-left-out', in: 'astro-slide-left-in' },
+  right: { out: 'astro-slide-right-out', in: 'astro-slide-right-in' },
+  up: { out: 'astro-slide-up-out', in: 'astro-slide-up-in' },
+  down: { out: 'astro-slide-down-out', in: 'astro-slide-down-in' },
+};
+
+function createAnimationPair(
+  outName: string,
+  inName: string,
+  duration: string,
+  easing: AnimationEasing
+) {
+  return {
+    old: [
+      {
+        name: outName,
+        duration,
+        easing,
+        fillMode: 'both',
+      },
+    ],
+    new: [
+      {
+        name: inName,
+        duration,
+        easing,
+        fillMode: 'both',
+      },
+    ],
+  };
+}
+
+function createDirectionalTransition(
+  outName: string,
+  inName: string,
+  duration: string,
+  easing: AnimationEasing
+): TransitionDirectionalAnimations {
+  return {
+    forwards: createAnimationPair(outName, inName, duration, easing),
+    backwards: createAnimationPair(inName, outName, duration, easing),
+  };
+}
+
+type TransitionAnimation = {
+  name: string;
+  delay?: number | string;
+  duration?: number | string;
+  easing?: string;
+  fillMode?: string;
+  direction?: string;
+};
+
+type TransitionAnimationPair = {
+  old: TransitionAnimation | TransitionAnimation[];
+  new: TransitionAnimation | TransitionAnimation[];
+};
+
+export type TransitionDirectionalAnimations = {
+  forwards: TransitionAnimationPair;
+  backwards: TransitionAnimationPair;
+};
+
+export function getTransitionConfig(config: AnimationConfig): TransitionDirectionalAnimations {
+  const { type, duration, direction = 'left', easing } = config;
+
   switch (type) {
-    case 'slide':
-      return {
-        name: 'astro-slide',
-        duration: duration,
-        easing: easing,
-        old: {
-          name: 'astro-slide-out',
-          duration: duration,
-          easing: easing,
-        },
-        new: {
-          name: 'astro-slide-in',
-          duration: duration,
-          easing: easing,
-        },
-      };
-    case 'fade':
-      return {
-        name: 'astro-fade',
-        duration: duration,
-        easing: easing,
-        old: {
-          name: 'astro-fade-out',
-          duration: duration,
-          easing: easing,
-        },
-        new: {
-          name: 'astro-fade-in',
-          duration: duration,
-          easing: easing,
-        },
-      };
+    case 'slide': {
+      const { out, in: inName } = SLIDE_ANIMATION_MAP[direction] ?? SLIDE_ANIMATION_MAP.left;
+      return createDirectionalTransition(out, inName, duration, easing);
+    }
     case 'scale':
-      return {
-        name: 'astro-scale',
-        duration: duration,
-        easing: easing,
-        old: {
-          name: 'astro-scale-out',
-          duration: duration,
-          easing: easing,
-        },
-        new: {
-          name: 'astro-scale-in',
-          duration: duration,
-          easing: easing,
-        },
-      };
+      return createDirectionalTransition('astro-scale-out', 'astro-scale-in', duration, easing);
+    case 'flip':
+      return createDirectionalTransition('astro-flip-out', 'astro-flip-in', duration, easing);
+    case 'rotate':
+      return createDirectionalTransition('astro-rotate-out', 'astro-rotate-in', duration, easing);
+    case 'bounce':
+      return createDirectionalTransition('astro-bounce-out', 'astro-bounce-in', duration, easing);
+    case 'custom':
+      return createDirectionalTransition('astro-custom-out', 'astro-custom-in', duration, easing);
+    case 'fade':
     default:
-      return {
-        name: 'astro-fade',
-        duration: '0.4s',
-        easing: 'ease-in-out',
-      };
+      return createDirectionalTransition('astro-fade-out', 'astro-fade-in', duration, easing);
   }
 }
 
