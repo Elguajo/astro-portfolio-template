@@ -1,0 +1,8 @@
+---
+import tinaConfig from '../../../tina/config';
+import { TinaAdmin, LocalClient } from 'tinacms/dist/admin';
+
+const client = new LocalClient();
+---
+
+<TinaAdmin config={tinaConfig} client={client} />

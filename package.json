@@ -23,6 +23,8 @@
     "fix-all": "npm run lint:fix && npm run format",
     "performance": "npm run build && npx lighthouse http://localhost:4321 --output=html --output-path=./lighthouse-report.html",
     "security": "npm audit && npx audit-ci --config audit-ci.json",
+    "tina:dev": "tinacms dev -c \"npm run dev\"",
+    "tina:build": "tinacms build",
     "test": "echo \"No tests specified\" && exit 0"
   },
   "keywords": [
@@ -52,6 +54,7 @@
     "@iconify/react": "^6.0.0",
     "@resvg/resvg-js": "^2.6.2",
     "@tailwindcss/vite": "^4.1.3",
+    "@tinacms/cli": "^1.10.3",
     "@types/alpinejs": "^3.13.11",
     "@types/canvas-confetti": "^1.9.0",
     "@types/react": "^19.1.8",
@@ -83,7 +86,8 @@
     "satori": "^0.15.2",
     "satori-html": "^0.3.2",
     "tailwind-merge": "^3.3.1",
-    "tailwindcss": "^4.1.3"
+    "tailwindcss": "^4.1.3",
+    "tinacms": "^2.8.3"
   },
   "devDependencies": {
     "@iconify/json": "^2.2.373",

@@ -44,6 +44,16 @@ npm run dev
 
 Visit `http://localhost:4321` to see your portfolio!
 
+## 📝 Content Editing with TinaCMS
+
+This project now ships with a TinaCMS admin UI so you can edit existing works and add new portfolio entries without touching the filesystem manually.
+
+1. Run `npm run tina:dev` to start Astro alongside the TinaCMS local server.
+2. Open `http://localhost:4321/admin` to launch the TinaCMS dashboard.
+3. Select a work entry to edit its content or click **Create new** to add a project. New Markdown files are stored in `src/data/works` and re-used by the site automatically.
+
+When deploying, run `npm run tina:build` to generate the static Tina admin bundle inside `public/admin`.
+
 ## 📚 Documentation
 
 We provide comprehensive documentation:
@@ -69,6 +79,8 @@ We provide comprehensive documentation:
 | `npm run compress-images`     | Compress and optimize images |
 | `npm run analyze`             | Analyze bundle size          |
 | `npm run auto-deploy-website` | Build and deploy to GitHub   |
+| `npm run tina:dev`            | Start TinaCMS with Astro dev |
+| `npm run tina:build`          | Build the TinaCMS admin app  |
 
 ## 📁 Project Structure
 
