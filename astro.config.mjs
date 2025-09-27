@@ -11,23 +11,29 @@ import { remarkReadingTime } from './src/plugins/remark-reading-time.mjs';
 import rehypeExternalLinks from 'rehype-external-links';
 import { siteConfig } from './src/site.config';
 import webmanifest from 'astro-webmanifest';
-
 import vtbot from 'astro-vtbot';
-
 import alpinejs from '@astrojs/alpinejs';
+
+/** @type {any[]} */
+const vitePlugins = [
+  svgr({
+    svgrOptions: {
+      icon: true,
+    },
+  }),
+  tailwindcss(),
+  visualizer({
+    emitFile: true,
+    filename: 'package_analyze.html',
+  }),
+  // The raw font plugin can be re-enabled when bundled font files are available.
+];
 
 // https://astro.build/config
 export default defineConfig({
   site: siteConfig.site,
   devToolbar: {
     enabled: false,
-  },
-  i18n: {
-    locales: siteConfig.langs,
-    defaultLocale: 'en',
-    routing: {
-      prefixDefaultLocale: false,
-    },
   },
   vite: {
     optimizeDeps: {
@@ -71,8 +77,6 @@ export default defineConfig({
             'icons-vendor': ['@iconify/react', 'lucide-react'],
             // Image processing
             'image-vendor': ['sharp', '@resvg/resvg-js'],
-            // Internationalization
-            'i18n-vendor': ['i18next', 'astro-i18n'],
             // Markdown processing
             'markdown-vendor': ['mdast-util-to-string', 'reading-time'],
             // Other utilities
@@ -81,19 +85,7 @@ export default defineConfig({
         },
       },
     },
-    plugins: [
-      svgr({
-        svgrOptions: {
-          icon: true,
-        },
-      }),
-      tailwindcss(),
-      visualizer({
-        emitFile: true,
-        filename: 'package_analyze.html',
-      }),
-      // rawFonts(['.ttf', '.woff']), // Disabled due to missing font files
-    ],
+    plugins: /** @type {any} */ (vitePlugins),
     server: {
       watch: {
         ignored: ['**/.git/**', '**/website/**', '**/dist/**'],
@@ -156,18 +148,24 @@ export default defineConfig({
   },
 });
 
-function rawFonts(ext) {
+/**
+ * Create a Vite plugin that loads font files as raw strings.
+ * @param {string[]} extensions
+ * @returns {import('vite').PluginOption}
+ */
+export function rawFonts(extensions) {
   return {
     name: 'vite-plugin-raw-fonts',
-    // @ts-expect-error:next-line
     transform(_, id) {
-      if (ext.some(e => id.endsWith(e))) {
+      if (extensions.some(ext => id.endsWith(ext))) {
         const buffer = fs.readFileSync(id);
         return {
           code: `export default ${JSON.stringify(buffer)}`,
           map: null,
         };
       }
+
+      return null;
     },
   };
 }

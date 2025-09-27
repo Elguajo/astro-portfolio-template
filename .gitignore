@@ -77,7 +77,9 @@ jspm_packages/
 
 # Gatsby files
 .cache/
-public
+# Gatsby builds use `public/`, but Astro relies on tracked assets in this folder.
+# Ignore only the Gatsby build output directory when present.
+public/build/
 
 # Storybook build outputs
 .out

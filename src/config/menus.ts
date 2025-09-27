@@ -1,10 +1,10 @@
 import { siteConfig } from '@/site.config';
-export const getMenus = (textMap: any, locale: any) => {
-  const target = locale === 'zh' ? '' : `/${locale}`;
-  const hasAnimate = locale === 'en';
-  const getHref = (str: any) => `${target}${str}`;
-  const checkActive = (restr: any) => (path: any) =>
-    new RegExp(`^${target.replace(/\//g, '\\/')}${restr}`).test(path);
+
+export const getMenus = (textMap: Record<string, string>) => {
+  const hasAnimate = true;
+  const getHref = (str: string) => str;
+  const checkActive = (restr: string) => (path: string) =>
+    new RegExp(`^${restr}`).test(path);
   return [
     {
       label: textMap['all'],

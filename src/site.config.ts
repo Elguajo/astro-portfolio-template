@@ -7,7 +7,6 @@ export const siteConfig = {
   lang: 'en-US',
   site: 'https://khusan-design.uz',
   themes: { dark: 'business', light: 'silk' },
-  langs: ['en', 'ru'],
 };
 
 export default siteConfig;

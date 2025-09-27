@@ -67,7 +67,7 @@ import '@/styles/global.css';
   }
 
   // Initialize performance monitoring
-  import('/src/lib/performance.js')
+  import('@/lib/performance')
     .then((module: any) => {
       if (module && module.initPerformanceMonitoring) {
         module.initPerformanceMonitoring();

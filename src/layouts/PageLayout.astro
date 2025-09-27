@@ -2,35 +2,17 @@
 import Header from '@/components/common/Header.astro';
 import Footer from '@hdud/common/components/Footer.astro';
 import BaseLayout from './BaseLayout.astro';
-import { slide, fade } from 'astro:transitions';
 import { getI18n } from '@/i18n/index';
 import { getMenus } from '@/config/menus';
 import { getAnimationConfig, getTransitionConfig } from '@/config/animations';
 
-const { currentLocale, url } = Astro;
-const i18n = await getI18n(currentLocale || 'en', 'design');
-const links = getMenus(i18n('menus'), currentLocale || 'en');
+const { url } = Astro;
+const i18n = await getI18n('en', 'design');
+const links = getMenus(i18n('menus'));
 
 // Get animation config for current page
 const animationConfig = getAnimationConfig(url.pathname);
-const transitionConfig = getTransitionConfig(animationConfig);
-
-// Use different transitions based on page
-let pageTransition;
-switch (animationConfig.type) {
-  case 'fade':
-    pageTransition = fade({ duration: animationConfig.duration, easing: animationConfig.easing });
-    break;
-  case 'slide':
-    pageTransition = slide({ 
-      duration: animationConfig.duration, 
-      direction: animationConfig.direction || 'left',
-      easing: animationConfig.easing 
-    });
-    break;
-  default:
-    pageTransition = slide({ duration: '0.4s' });
-}
+const pageTransition = getTransitionConfig(animationConfig);
 ---
 
 <BaseLayout {...Astro.props}>

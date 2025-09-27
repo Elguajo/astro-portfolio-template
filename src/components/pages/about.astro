@@ -4,27 +4,22 @@ import Layout from '@/layouts/PageLayout.astro';
 import { getEntry, render } from 'astro:content';
 
 import { getI18n } from '@/i18n/index';
-import { getRelativeLocaleUrl } from 'astro:i18n';
 import { siteConfig } from '@/site.config';
 
-const { currentLocale } = Astro;
-const i18n = await getI18n(currentLocale || 'en', 'design');
+const i18n = await getI18n('en', 'design');
 
 const mates = {
   title: i18n('menus.about'),
   description: i18n('mate.description'),
   author: siteConfig.author,
   email: siteConfig.email,
-  local: currentLocale,
-  ogImage: getRelativeLocaleUrl(
-    currentLocale || 'en',
-    '/og-image/site-image.png'
-  ),
+  local: 'en',
+  ogImage: '/og-image/site-image.png',
 };
-const about = await getEntry('pages', ['about', currentLocale].join('_'));
+const about = await getEntry('pages', 'about_en');
 
 if (!about) {
-  throw new Error(`About page not found for locale: ${currentLocale}`);
+  throw new Error('About page entry is missing.');
 }
 
 const { Content } = await render(about);

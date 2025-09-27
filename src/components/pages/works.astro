@@ -4,22 +4,17 @@ import Layout from '@/layouts/PageLayout.astro';
 import WorksGrid from '@/components/works/WorksGrid.astro';
 import getWorks from '@/lib/getWorks.ts';
 import { getI18n } from '@/i18n/index';
-import { getRelativeLocaleUrl } from 'astro:i18n';
 import { siteConfig } from '@/site.config';
 
-const { currentLocale } = Astro;
-const i18n = await getI18n(currentLocale || 'en', 'design');
+const i18n = await getI18n('en', 'design');
 
 const mates = {
   title: i18n('menus.works'),
   description: i18n('mate.description'),
   author: siteConfig.author,
   email: siteConfig.email,
-  local: currentLocale || 'en',
-  ogImage: getRelativeLocaleUrl(
-    currentLocale || 'en',
-    '/og-image/site-image.png'
-  ),
+  local: 'en',
+  ogImage: '/og-image/site-image.png',
 };
 const works = (await getWorks()) as unknown as any[];
 ---
