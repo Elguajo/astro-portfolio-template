@@ -123,7 +123,9 @@ export function preloadGalleryImages(
 
   // Preload images with proper format handling
   // The images array contains paths without extensions, so we use preloadImageFormats
-  return Promise.all(toPreload.map(src => preloadImageFormats(src, options)));
+  return Promise.all(toPreload.map(src => preloadImageFormats(src, options))).then(results =>
+    results.flat()
+  );
 }
 
 /**
@@ -149,14 +151,14 @@ export function preloadGalleryImagesSafe(
 
   // Preload images with error handling
   return Promise.all(
-    toPreload.map(src => 
+    toPreload.map(src =>
       preloadImageFormats(src, options).catch(error => {
         // Log error but don't fail the entire preload operation
         console.warn(`Failed to preload image: ${src}`, error);
-        return { success: false, error, loadTime: 0 };
+        return [{ success: false, error, loadTime: 0 }];
       })
     )
-  );
+  ).then(results => results.flat());
 }
 
 /**
