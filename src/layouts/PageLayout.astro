@@ -2,20 +2,42 @@
 import Header from '@/components/common/Header.astro';
 import Footer from '@hdud/common/components/Footer.astro';
 import BaseLayout from './BaseLayout.astro';
-import { slide } from 'astro:transitions';
+import { slide, fade } from 'astro:transitions';
 import { getI18n } from '@/i18n/index';
 import { getMenus } from '@/config/menus';
+import { getAnimationConfig, getTransitionConfig } from '@/config/animations';
 
-const { currentLocale } = Astro;
-const i18n = await getI18n(currentLocale, 'design');
-const links = getMenus(i18n('menus'), currentLocale);
+const { currentLocale, url } = Astro;
+const i18n = await getI18n(currentLocale || 'en', 'design');
+const links = getMenus(i18n('menus'), currentLocale || 'en');
+
+// Get animation config for current page
+const animationConfig = getAnimationConfig(url.pathname);
+const transitionConfig = getTransitionConfig(animationConfig);
+
+// Use different transitions based on page
+let pageTransition;
+switch (animationConfig.type) {
+  case 'fade':
+    pageTransition = fade({ duration: animationConfig.duration, easing: animationConfig.easing });
+    break;
+  case 'slide':
+    pageTransition = slide({ 
+      duration: animationConfig.duration, 
+      direction: animationConfig.direction || 'left',
+      easing: animationConfig.easing 
+    });
+    break;
+  default:
+    pageTransition = slide({ duration: '0.4s' });
+}
 ---
 
 <BaseLayout {...Astro.props}>
   <Header />
   <div
     class="p-2 sm:p-4 xl:p-8 relative min-h-1/2 mx-auto flex flex-col"
-    transition:animate={slide({ duration: '0.4s' })}
+    transition:animate={pageTransition}
   >
     <slot />
   </div>

@@ -1,9 +1,10 @@
 console.time('exec time');
 import fs from 'fs';
 import path from 'path';
+import os from 'os';
+
 import sharp from 'sharp';
 import pLimit from 'p-limit';
-import os from 'os';
 
 const limit = pLimit(os.cpus().length);
 
@@ -34,12 +35,14 @@ function findAndMoveMd(dir) {
       const fileName = file === 'main.md' ? `${name}.md` : file;
       const filePath = path.join(dir, file);
       const targetPath = path.join(worksPageDir, fileName);
-      console.log(`Page configuration file generated successfully: ${targetPath}`);
+      console.log(
+        `Page configuration file generated successfully: ${targetPath}`
+      );
       fs.copyFileSync(filePath, targetPath);
     });
 }
 
-function generateTextWatermark(text, imageWidth, imageHeight) {
+function generateTextWatermark(text, imageWidth, _imageHeight) {
   const fontSize = Math.floor(imageWidth / 40);
   const svgHeight = Math.floor(fontSize * 2);
 
@@ -103,8 +106,8 @@ async function compressImage(filePath, idx, sizeInfo) {
 
   const webpPath = `${baseName}.webp`;
   const avifPath = `${baseName}.avif`;
-  const blurWebpPath = `${baseName}-blur.webp`;
-  const blurAvifPath = `${baseName}-blur.avif`;
+  // const blurWebpPath = `${baseName}-blur.webp`;
+  // const blurAvifPath = `${baseName}-blur.avif`;
   let image = sharp(filePath);
   const metadata = await image.metadata();
   saveImageInfo(sizeInfo, baseName, metadata);

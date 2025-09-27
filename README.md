@@ -25,7 +25,7 @@ A modern, high-performance portfolio template built with **Astro** for designers
 
 ### Prerequisites
 
-- Node.js 18+ 
+- Node.js 18+
 - npm or yarn
 
 ### Installation
@@ -57,18 +57,18 @@ We provide comprehensive documentation:
 
 ## 🛠️ Available Scripts
 
-| Command | Description |
-|---------|-------------|
-| `npm run dev` | Start development server |
-| `npm run build` | Build for production |
-| `npm run preview` | Preview production build |
-| `npm run lint` | Run ESLint |
-| `npm run lint:fix` | Fix ESLint errors |
-| `npm run format` | Format code with Prettier |
-| `npm run type-check` | Run TypeScript checks |
-| `npm run compress-images` | Compress and optimize images |
-| `npm run analyze` | Analyze bundle size |
-| `npm run auto-deploy-website` | Build and deploy to GitHub |
+| Command                       | Description                  |
+| ----------------------------- | ---------------------------- |
+| `npm run dev`                 | Start development server     |
+| `npm run build`               | Build for production         |
+| `npm run preview`             | Preview production build     |
+| `npm run lint`                | Run ESLint                   |
+| `npm run lint:fix`            | Fix ESLint errors            |
+| `npm run format`              | Format code with Prettier    |
+| `npm run type-check`          | Run TypeScript checks        |
+| `npm run compress-images`     | Compress and optimize images |
+| `npm run analyze`             | Analyze bundle size          |
+| `npm run auto-deploy-website` | Build and deploy to GitHub   |
 
 ## 📁 Project Structure
 
@@ -102,12 +102,14 @@ src/
 ### Styling
 
 The project uses Tailwind CSS with DaisyUI components. Customize themes in:
+
 - `src/styles/global.css` - Global styles and theme configuration
 - `src/site.config.ts` - Site configuration and themes
 
 ### Internationalization
 
 Add new languages by:
+
 1. Creating translation files in `src/i18n/design/`
 2. Adding the locale to `src/site.config.ts`
 3. Creating corresponding pages in `src/pages/[locale]/`

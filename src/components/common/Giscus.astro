@@ -4,7 +4,9 @@ const lang =
   {
     zh: 'zh-CN',
     'zh-hant': 'zh-HK',
-  }[currentLocale] || currentLocale;
+  }[currentLocale || 'en'] ||
+  currentLocale ||
+  'en';
 ---
 
 <script

@@ -1,0 +1,166 @@
+---
+// PageTransition component with different animation options
+export interface Props {
+  animation?: 'slide' | 'fade' | 'scale' | 'flip' | 'custom';
+  duration?: string;
+  direction?: 'left' | 'right' | 'up' | 'down';
+  easing?: 'ease' | 'ease-in' | 'ease-out' | 'ease-in-out' | 'linear';
+}
+
+const { 
+  animation = 'slide', 
+  duration = '0.4s', 
+  direction = 'left',
+  easing = 'ease-in-out'
+} = Astro.props;
+
+// Import different transition functions
+import { slide, fade, morph, viewTransitions } from 'astro:transitions';
+
+// Define transition configurations
+const transitions = {
+  slide: slide({ 
+    duration: duration,
+    direction: direction,
+    easing: easing
+  }),
+  fade: fade({ 
+    duration: duration,
+    easing: easing
+  }),
+  scale: {
+    name: 'astro-scale',
+    duration: duration,
+    easing: easing,
+    old: {
+      name: 'astro-scale-out',
+      duration: duration,
+      easing: easing,
+    },
+    new: {
+      name: 'astro-scale-in', 
+      duration: duration,
+      easing: easing,
+    },
+  },
+  flip: {
+    name: 'astro-flip',
+    duration: duration,
+    easing: easing,
+    old: {
+      name: 'astro-flip-out',
+      duration: duration,
+      easing: easing,
+    },
+    new: {
+      name: 'astro-flip-in',
+      duration: duration,
+      easing: easing,
+    },
+  },
+  custom: {
+    name: 'astro-custom',
+    duration: duration,
+    easing: easing,
+    old: {
+      name: 'astro-custom-out',
+      duration: duration,
+      easing: easing,
+    },
+    new: {
+      name: 'astro-custom-in',
+      duration: duration,
+      easing: easing,
+    },
+  }
+};
+
+const selectedTransition = transitions[animation];
+---
+
+<div transition:animate={selectedTransition}>
+  <slot />
+</div>
+
+<style>
+  /* Custom transition animations */
+  @keyframes astro-scale-out {
+    from {
+      opacity: 1;
+      transform: scale(1);
+    }
+    to {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+  }
+
+  @keyframes astro-scale-in {
+    from {
+      opacity: 0;
+      transform: scale(1.2);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes astro-flip-out {
+    from {
+      opacity: 1;
+      transform: rotateY(0deg);
+    }
+    to {
+      opacity: 0;
+      transform: rotateY(-90deg);
+    }
+  }
+
+  @keyframes astro-flip-in {
+    from {
+      opacity: 0;
+      transform: rotateY(90deg);
+    }
+    to {
+      opacity: 1;
+      transform: rotateY(0deg);
+    }
+  }
+
+  @keyframes astro-custom-out {
+    from {
+      opacity: 1;
+      transform: translateX(0) rotate(0deg);
+    }
+    to {
+      opacity: 0;
+      transform: translateX(-100px) rotate(-5deg);
+    }
+  }
+
+  @keyframes astro-custom-in {
+    from {
+      opacity: 0;
+      transform: translateX(100px) rotate(5deg);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0) rotate(0deg);
+    }
+  }
+
+  /* Smooth transitions for all elements */
+  * {
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+  }
+
+  /* Respect user's motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+</style>

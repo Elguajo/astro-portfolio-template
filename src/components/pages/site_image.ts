@@ -1,7 +1,8 @@
-import { siteConfig } from '@/site.config';
 import { Resvg } from '@resvg/resvg-js';
 import satori, { type SatoriOptions } from 'satori';
 import { html } from 'satori-html';
+
+import { siteConfig } from '@/site.config';
 import { getI18n } from '@/i18n/index';
 
 const getLang = (pathname: string): string => {
@@ -15,6 +16,7 @@ const ogOptions: SatoriOptions = {
   // Use default fonts since Inter font is not available
   height: 630,
   width: 1200,
+  fonts: [],
 };
 
 const markup = (i18n: any) =>

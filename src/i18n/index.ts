@@ -1,4 +1,5 @@
 import path from 'path';
+
 import i18next from 'i18next';
 
 const modules = import.meta.glob('./design/*.js');

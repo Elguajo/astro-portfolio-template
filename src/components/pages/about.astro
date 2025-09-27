@@ -16,7 +16,10 @@ const mates = {
   author: siteConfig.author,
   email: siteConfig.email,
   local: currentLocale,
-  ogImage: getRelativeLocaleUrl(currentLocale || 'en', '/og-image/site-image.png'),
+  ogImage: getRelativeLocaleUrl(
+    currentLocale || 'en',
+    '/og-image/site-image.png'
+  ),
 };
 const about = await getEntry('pages', ['about', currentLocale].join('_'));
 

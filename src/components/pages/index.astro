@@ -12,16 +12,19 @@ const i18n = await getI18n(currentLocale || 'en', 'design');
 
 const imageInfo = await getCollection('imageInfo');
 const members = imageInfo
-  .reduce((ans: Array<{name: string, width: number, height: number}>, item) => {
-    return [
-      ...ans,
-      ...Object.entries(item.data).map(([it, info]) => ({
-        name: `${item.id}/${it}`,
-        width: (info as [number, number])[0],
-        height: (info as [number, number])[1],
-      })),
-    ];
-  }, [])
+  .reduce(
+    (ans: Array<{ name: string; width: number; height: number }>, item) => {
+      return [
+        ...ans,
+        ...Object.entries(item.data).map(([it, info]) => ({
+          name: `${item.id}/${it}`,
+          width: (info as [number, number])[0],
+          height: (info as [number, number])[1],
+        })),
+      ];
+    },
+    []
+  )
   .sort(() => Math.random() - 0.5);
 const mates = {
   title: i18n('menus.all'),
@@ -29,7 +32,10 @@ const mates = {
   author: siteConfig.author,
   email: siteConfig.email,
   local: currentLocale,
-  ogImage: getRelativeLocaleUrl(currentLocale || 'en', '/og-image/site-image.png'),
+  ogImage: getRelativeLocaleUrl(
+    currentLocale || 'en',
+    '/og-image/site-image.png'
+  ),
 };
 ---
 

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 interface UseIntersectionObserverOptions {
   threshold?: number | number[];
@@ -42,7 +42,7 @@ export function useIntersectionObserver({
 
           if (isElementIntersecting && !hasIntersected) {
             setHasIntersected(true);
-            
+
             // Disconnect observer if triggerOnce is true
             if (triggerOnce && observer) {
               observer.disconnect();
@@ -80,13 +80,15 @@ export function useIntersectionObserver({
  * Hook specifically for image lazy loading
  * Provides optimized settings for images
  */
-export function useImageLazyLoading(options: {
-  skip?: boolean;
-  rootMargin?: string;
-} = {}) {
+export function useImageLazyLoading(
+  options: {
+    skip?: boolean;
+    rootMargin?: string;
+  } = {}
+) {
   return useIntersectionObserver({
     threshold: 0.01, // Load as soon as 1% of image is visible
-    rootMargin: options.rootMargin || '100px', // Start loading 100px before image enters viewport
+    rootMargin: options.rootMargin ?? '100px', // Start loading 100px before image enters viewport
     triggerOnce: true,
     skip: options.skip,
   });
@@ -96,13 +98,15 @@ export function useImageLazyLoading(options: {
  * Hook for preloading images on hover
  * Uses Intersection Observer to detect when element is near viewport
  */
-export function useHoverPreload(options: {
-  skip?: boolean;
-  rootMargin?: string;
-} = {}) {
+export function useHoverPreload(
+  options: {
+    skip?: boolean;
+    rootMargin?: string;
+  } = {}
+) {
   return useIntersectionObserver({
     threshold: 0.1,
-    rootMargin: options.rootMargin || '200px', // Start preloading 200px before element enters viewport
+    rootMargin: options.rootMargin ?? '200px', // Start preloading 200px before element enters viewport
     triggerOnce: false, // Keep observing for hover events
     skip: options.skip,
   });

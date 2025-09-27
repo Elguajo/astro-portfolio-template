@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import clsx from 'clsx';
 import { Skeleton } from '@heroui/react';
-import { logError, createError, errorCodes } from '@/lib/errorHandler';
+
+import { logError, createError } from '@/lib/errorHandler';
 import { useImageLazyLoading } from '@/lib/useIntersectionObserver';
 import { preloadImageFormats } from '@/lib/imagePreloader';
 
@@ -38,17 +39,17 @@ export default React.memo(function ({
   const [hasError, setHasError] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [retryCount, setRetryCount] = useState(0);
-  
+
   // Lazy loading with Intersection Observer
   const { ref, hasIntersected } = useImageLazyLoading({
     skip: !lazy,
   });
-  
+
   useEffect(() => setMounted(true), []);
-  
+
   // Memoize aspect ratio calculation
-  const radio = useMemo(() => 
-    Math.round((imageInfo.width / imageInfo.height) * 100) / 100,
+  const radio = useMemo(
+    () => Math.round((imageInfo.width / imageInfo.height) * 100) / 100,
     [imageInfo.width, imageInfo.height]
   );
 
@@ -57,7 +58,7 @@ export default React.memo(function ({
     if (alt) return alt;
 
     const imageName = src.split('/').pop();
-    const workName = workTitle || src.split('/').slice(-2, -1)[0];
+    const workName = workTitle ?? src.split('/').slice(-2, -1)[0];
 
     if (imageName === 'main') {
       return `${workName} - Main portfolio image`;
@@ -69,7 +70,10 @@ export default React.memo(function ({
   // Preload on hover
   const handleMouseEnter = useCallback(() => {
     if (preloadOnHover && !isLoad) {
-      preloadImageFormats(src, { priority: 'high' });
+      preloadImageFormats(src, { priority: 'high' }).catch(error => {
+        // Log error but don't show it to user
+        console.warn(`Failed to preload image on hover: ${src}`, error);
+      });
     }
   }, [preloadOnHover, src, isLoad]);
 
@@ -86,17 +90,17 @@ export default React.memo(function ({
       'IMAGE_LOAD_FAILED',
       404
     );
-    
+
     logError(error, {
       src,
       retryCount,
       workTitle,
       imageInfo,
     });
-    
+
     setHasError(true);
     setIsLoad(false);
-    
+
     // Retry up to 3 times with exponential backoff
     if (retryCount < 3) {
       const delay = Math.pow(2, retryCount) * 1000; // 1s, 2s, 4s
@@ -174,7 +178,7 @@ export default React.memo(function ({
           <img
             onContextMenu={e => e.preventDefault()}
             key={`${src}-${retryCount}`} // Force re-render on retry
-            loading={lazy ? "lazy" : "eager"}
+            loading={lazy ? 'lazy' : 'eager'}
             className={clsx('w-full', classNames.img)}
             onClick={onClick}
             src={`${src}.webp`}

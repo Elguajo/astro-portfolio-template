@@ -4,7 +4,7 @@ import getWorks from '@/lib/getWorks.ts';
 
 export const getStaticPaths = async () => {
   const works = await getWorks();
-  const paths = works.map(work => {
+  const paths = (works as any[]).map((work: any) => {
     return {
       params: { work_id: work.id },
       props: { work },

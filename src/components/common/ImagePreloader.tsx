@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+
 import { useHoverPreload } from '@/lib/useIntersectionObserver';
 import { preloadImageFormats } from '@/lib/imagePreloader';
 
@@ -31,17 +32,16 @@ export default function ImagePreloader({
     }
   }, [hasIntersected, src, priority]);
 
-  return (
-    <div ref={containerRef}>
-      {children}
-    </div>
-  );
+  return <div ref={containerRef}>{children}</div>;
 }
 
 /**
  * Hook for preloading images on hover
  */
-export function useImageHoverPreload(src: string, priority: 'high' | 'low' = 'high') {
+export function useImageHoverPreload(
+  src: string,
+  priority: 'high' | 'low' = 'high'
+) {
   const elementRef = useRef<HTMLElement>(null);
 
   useEffect(() => {

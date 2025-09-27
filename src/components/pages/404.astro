@@ -6,15 +6,18 @@ import { getI18n } from '@/i18n/index';
 import { siteConfig } from '@/site.config';
 
 const { currentLocale } = Astro;
-const i18n = await getI18n(currentLocale, 'design');
-const homeUrl = getRelativeLocaleUrl(currentLocale, '/');
+const i18n = await getI18n(currentLocale || 'en', 'design');
+const homeUrl = getRelativeLocaleUrl(currentLocale || 'en', '/');
 const mates = {
   title: '404',
   description: i18n('mate.description'),
   author: siteConfig.author,
   email: siteConfig.email,
   local: currentLocale,
-  ogImage: getRelativeLocaleUrl(currentLocale, '/og-image/site-image.png'),
+  ogImage: getRelativeLocaleUrl(
+    currentLocale || 'en',
+    '/og-image/site-image.png'
+  ),
 };
 ---
 
