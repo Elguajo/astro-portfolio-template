@@ -5,13 +5,6 @@ import { html } from 'satori-html';
 import { siteConfig } from '@/site.config';
 import { getI18n } from '@/i18n/index';
 
-const getLang = (pathname: string): string => {
-  for (const lang of ['en', 'ru']) {
-    if (pathname.indexOf(`/${lang}/`) === 0) return lang;
-  }
-  return 'en';
-};
-
 const ogOptions: SatoriOptions = {
   // Use default fonts since Inter font is not available
   height: 630,
@@ -105,8 +98,8 @@ const markup = (i18n: any) =>
     </div>
   </div>`;
 
-export default async function (context: any) {
-  const i18n = await getI18n(getLang(context.url.pathname), 'design');
+export default async function (_context?: unknown) {
+  const i18n = await getI18n('en', 'design');
   const svg = await satori(markup(i18n) as any, ogOptions);
   const png = new Resvg(svg).render().asPng();
   return [

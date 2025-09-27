@@ -5,7 +5,6 @@ import CustomFloatBtns from '@/components/common/CustomFloatBtns.astro';
 import MemberGrid from '@/components/common/MemberGrid.astro';
 import getWorks from '@/lib/getWorks.ts';
 import { getI18n } from '@/i18n/index';
-import { getRelativeLocaleUrl } from 'astro:i18n';
 import { siteConfig } from '@/site.config';
 
 interface Props {
@@ -14,19 +13,15 @@ interface Props {
 
 const { work }: Props = Astro.props;
 
-const { currentLocale } = Astro;
-const i18n = await getI18n(currentLocale || 'en', 'design');
+const i18n = await getI18n('en', 'design');
 
 const mates = {
   title: i18n('page_works.title', { name: work.id }),
   description: i18n('mate.description'),
   author: siteConfig.author,
   email: siteConfig.email,
-  local: currentLocale,
-  ogImage: getRelativeLocaleUrl(
-    currentLocale || 'en',
-    '/og-image/site-image.png'
-  ),
+  local: 'en',
+  ogImage: '/og-image/site-image.png',
 };
 
 const works = await getWorks();

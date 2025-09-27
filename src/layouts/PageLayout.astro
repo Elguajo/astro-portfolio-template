@@ -6,9 +6,9 @@ import { getI18n } from '@/i18n/index';
 import { getMenus } from '@/config/menus';
 import { getAnimationConfig, getTransitionConfig } from '@/config/animations';
 
-const { currentLocale, url } = Astro;
-const i18n = await getI18n(currentLocale || 'en', 'design');
-const links = getMenus(i18n('menus'), currentLocale || 'en');
+const { url } = Astro;
+const i18n = await getI18n('en', 'design');
+const links = getMenus(i18n('menus'));
 
 // Get animation config for current page
 const animationConfig = getAnimationConfig(url.pathname);

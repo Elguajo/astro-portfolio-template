@@ -35,13 +35,6 @@ export default defineConfig({
   devToolbar: {
     enabled: false,
   },
-  i18n: {
-    locales: siteConfig.langs,
-    defaultLocale: 'en',
-    routing: {
-      prefixDefaultLocale: false,
-    },
-  },
   vite: {
     optimizeDeps: {
       exclude: ['@resvg/resvg-js'],
@@ -84,8 +77,6 @@ export default defineConfig({
             'icons-vendor': ['@iconify/react', 'lucide-react'],
             // Image processing
             'image-vendor': ['sharp', '@resvg/resvg-js'],
-            // Internationalization
-            'i18n-vendor': ['i18next', 'astro-i18n'],
             // Markdown processing
             'markdown-vendor': ['mdast-util-to-string', 'reading-time'],
             // Other utilities

@@ -1,42 +1,43 @@
-import path from 'path';
+import design from './design/en';
 
-import i18next from 'i18next';
+type TranslationNamespace = {
+  design: typeof design;
+};
 
-const modules = import.meta.glob('./design/*.js');
+const translations: TranslationNamespace = {
+  design,
+};
 
-async function i18nInit() {
-  const resources: Record<string, any> = {};
-  for (const p in modules) {
-    const mod = (await modules[p]()) as { default: any };
-    const name = path.basename(p, '.js');
-    resources[name] = {
-      translation: {
-        design: mod.default,
-      },
-    };
-  }
-  i18next.init({
-    lng: 'en',
-    fallbackLng: 'en',
-    resources,
-    interpolation: {
-      escapeValue: false,
-    },
+const interpolate = (template: string, params: Record<string, unknown>) =>
+  template.replace(/{{\s*(.+?)\s*}}/g, (_, token: string) => {
+    const key = token.trim();
+    const value = params[key];
+    return value === undefined || value === null ? '' : String(value);
   });
-}
 
-export const getI18n = async (lang: string, name: string) => {
-  await i18nInit();
-  i18next.changeLanguage(lang || 'en');
-  return (key = '', options = {}) => {
-    if (typeof name === 'string') key = [name, key].filter(it => it).join('.');
-    let ans: any = i18next.t(key, options);
-    if (
-      typeof ans === 'string' &&
-      ans.includes('returned an object instead of strin')
-    ) {
-      ans = i18next.t(key, { ...options, returnObjects: true });
+const resolveKey = (source: Record<string, any>, path: string) => {
+  if (!path) return source;
+  return path.split('.').reduce<any>((acc, part) => {
+    if (acc && typeof acc === 'object') {
+      return acc[part];
     }
-    return ans;
+    return undefined;
+  }, source);
+};
+
+export const getI18n = async <T extends keyof TranslationNamespace>(
+  _lang: string,
+  namespace: T
+) => {
+  const dictionary = translations[namespace];
+
+  return (key = '', options: Record<string, unknown> = {}) => {
+    const value = resolveKey(dictionary as Record<string, any>, key);
+
+    if (typeof value === 'string') {
+      return interpolate(value, options);
+    }
+
+    return value;
   };
 };

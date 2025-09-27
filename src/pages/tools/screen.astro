@@ -1,22 +1,16 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import ScreenComponent from '@hdud/common/pages/screen.astro';
-import { getI18n } from '@/i18n/index';
-import { getRelativeLocaleUrl } from 'astro:i18n';
 import { siteConfig } from '@/site.config';
 
-const { currentLocale } = Astro;
-const i18n = await getI18n(currentLocale || 'en', 'blog');
 const mates = {
   title: 'screen',
-  description: i18n('mate.description'),
+  description:
+    'A diagnostic overlay to inspect responsive breakpoints and layout dimensions.',
   author: siteConfig.author,
   email: siteConfig.email,
-  local: currentLocale,
-  ogImage: getRelativeLocaleUrl(
-    currentLocale || 'en',
-    '/og-image/site-image.png'
-  ),
+  local: 'en',
+  ogImage: '/og-image/site-image.png',
 };
 ---
 

@@ -1,4 +1,4 @@
-export default {
+const designCopy = {
   mate: {
     description:
       'Designers, photographers, and creative artists — showcase your best work here.',
@@ -44,4 +44,6 @@ export default {
     share: 'Share',
     download: 'Download',
   },
-};
+} as const;
+
+export default designCopy;
