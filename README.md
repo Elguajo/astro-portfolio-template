@@ -46,13 +46,31 @@ Visit `http://localhost:4321` to see your portfolio!
 
 ## 📝 Content Editing with TinaCMS
 
-This project now ships with a TinaCMS admin UI so you can edit existing works and add new portfolio entries without touching the filesystem manually.
+This project now ships with a TinaCMS admin UI so you can edit existing works and page content without touching the filesystem manually.
+
+### Setup
+
+1. Copy `.env.example` to `.env` and provide your Tina Cloud credentials:
+   ```bash
+   cp .env.example .env
+   # Fill in TINA_PUBLIC_CLIENT_ID and TINA_TOKEN from app.tina.io
+   ```
+2. (Optional) Update `TINA_BRANCH` if you are editing a branch other than `main`.
+3. Install dependencies if you have not already: `npm install`.
+
+### Local editing
 
 1. Run `npm run tina:dev` to start Astro alongside the TinaCMS local server.
 2. Open `http://localhost:4321/admin` to launch the TinaCMS dashboard.
-3. Select a work entry to edit its content or click **Create new** to add a project. New Markdown files are stored in `src/data/works` and re-used by the site automatically.
+3. Edit portfolio entries (`src/data/works`) or static pages (`src/data/pages`). New Markdown files are created automatically and the site updates live while Tina is running.
 
-When deploying, run `npm run tina:build` to generate the static Tina admin bundle inside `public/admin`.
+### Deployment
+
+1. Ensure `.env` contains valid Tina Cloud credentials (required to generate the admin UI in production).
+2. Run `npm run tina:build` to compile the Tina admin bundle into `public/admin`.
+3. Deploy the site as usual (`npm run build` + hosting). The `/admin` route will now prompt for Tina Cloud authentication.
+
+> ℹ️ The `/admin` page shows setup instructions instead of the editor when Tina credentials are missing. Local development continues to work without cloud credentials.
 
 ## 📚 Documentation
 

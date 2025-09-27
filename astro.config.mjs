@@ -38,7 +38,7 @@ export default defineConfig({
   vite: {
     optimizeDeps: {
       exclude: ['@resvg/resvg-js'],
-      include: ['react', 'react-dom', '@heroui/react'],
+      include: ['react', 'react-dom', '@heroui/react', 'tinacms'],
     },
     build: {
       target: 'esnext',
