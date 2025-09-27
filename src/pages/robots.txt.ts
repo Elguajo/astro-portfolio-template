@@ -1,9 +1,11 @@
 import type { APIRoute } from 'astro';
 import getRobotTxt from '@hdud/common/libs/robot';
 
-const robotTxtFactoryPromise = getRobotTxt() as unknown as Promise<unknown>;
-const robotTxtFactory = (await robotTxtFactoryPromise) as (site: URL | undefined) => string;
+type RobotTxtFactory = Awaited<ReturnType<typeof getRobotTxt>>;
 
-export const GET: APIRoute = ({ site }) => {
+const robotTxtFactoryPromise = getRobotTxt() as Promise<RobotTxtFactory>;
+
+export const GET: APIRoute = async ({ site }) => {
+  const robotTxtFactory = await robotTxtFactoryPromise;
   return new Response(robotTxtFactory(site));
 };
