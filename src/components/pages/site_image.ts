@@ -34,7 +34,7 @@ const markup = (i18n: any) =>
           stroke-width="30"
           stroke-miterlimit="10"
           d="M982.021,418.117
-		      c0,266.215-215.813,482.022-482.025,482.022c-266.212,0-482.021-215.807-482.021-482.022"
+                      c0,266.215-215.813,482.022-482.025,482.022c-266.212,0-482.021-215.807-482.021-482.022"
         />
         <path
           fill="none"
@@ -42,7 +42,7 @@ const markup = (i18n: any) =>
           stroke-width="30"
           stroke-miterlimit="10"
           d="M345.601,745.744
-		      c-180.942,0-327.625-146.686-327.625-327.626c0-180.942,146.683-327.625,327.625-327.625"
+                      c-180.942,0-327.625-146.686-327.625-327.626c0-180.942,146.683-327.625,327.625-327.625"
         />
         <path
           fill="none"
@@ -50,7 +50,7 @@ const markup = (i18n: any) =>
           stroke-width="30"
           stroke-miterlimit="10"
           d="M654.396,90.493
-		      c180.942,0,327.625,146.682,327.625,327.624S835.339,745.742,654.396,745.742"
+                      c180.942,0,327.625,146.682,327.625,327.624S835.339,745.742,654.396,745.742"
         />
 
         <line
@@ -98,7 +98,7 @@ const markup = (i18n: any) =>
     </div>
   </div>`;
 
-export default async function (_context?: unknown) {
+export default async function () {
   const i18n = await getI18n('en', 'design');
   const svg = await satori(markup(i18n) as any, ogOptions);
   const png = new Resvg(svg).render().asPng();

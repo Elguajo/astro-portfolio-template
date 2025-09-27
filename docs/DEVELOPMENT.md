@@ -391,6 +391,7 @@ initPerformanceMonitoring();
 
 | CMS             | Тип              | Цена      | Лучше всего для              | Сложность |
 | --------------- | ---------------- | --------- | ---------------------------- | --------- |
+| **TinaCMS**     | Git-based / Cloud| Free tier | Визуальное редактирование контента | Легкая |
 | **Strapi**      | Self-hosted      | Free/Paid | Полный контроль, кастомные поля | Средняя   |
 | **Sanity**      | Cloud/Self-hosted| Free tier | Real-time collaboration      | Легкая    |
 | **Contentful**  | Cloud            | Free tier | Enterprise функции           | Легкая    |
@@ -398,6 +399,51 @@ initPerformanceMonitoring();
 | **Forestry**    | Git-based        | Paid      | Jekyll/Hugo пользователи     | Легкая    |
 | **Ghost**       | Self-hosted      | Free/Paid | Blog-focused                 | Средняя   |
 | **WordPress**   | Self-hosted      | Free      | Существующие WP пользователи | Сложная   |
+
+### TinaCMS интеграция (Astro + Tina)
+
+**Лучше всего для**: редакторов, которые хотят визуально изменять Markdown/JSON контент прямо в браузере, сохраняя Git workflow.
+
+#### Предварительная настройка
+
+1. Создайте проект на [app.tina.io](https://app.tina.io/) и получите `Client ID` + `Token`.
+2. Скопируйте `.env.example` → `.env` и заполните:
+   ```env
+   TINA_PUBLIC_CLIENT_ID=your-client-id
+   TINA_TOKEN=your-access-token
+   TINA_BRANCH=main
+   ```
+3. Установите зависимости (если ещё не сделано): `npm install`.
+
+#### Режим разработки
+
+```bash
+npm run tina:dev
+```
+
+Команда запускает локальный Tina GraphQL сервер и Astro одновременно. Интерфейс доступен по адресу `http://localhost:4321/admin`.
+
+#### Доступный контент
+
+- `src/data/works` — карточки портфолио (Markdown + тело записи)
+- `src/data/pages` — статические страницы (Markdown)
+
+Создание новых записей выполняется через кнопку **Create new** внутри TinaCMS — файлы и фронтматтер создаются автоматически.
+
+#### Сборка и деплой
+
+```bash
+# Сгенерировать статический бандл админки
+npm run tina:build
+
+# Сборка сайта
+npm run build
+```
+
+- Сгенерированные файлы попадают в `public/admin` и деплоятся вместе с сайтом.
+- Если переменные окружения отсутствуют, страница `/admin` покажет инструкцию по настройке вместо UI.
+
+> Совет: добавьте `.env` в `.gitignore`, а значения переменных храните в CI/CD секретах.
 
 ### Strapi интеграция
 

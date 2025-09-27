@@ -105,7 +105,7 @@ export function getAnimationClass(config: AnimationConfig): string {
   
   switch (type) {
     case 'slide':
-      return `animate-page-slide-${direction || 'left'}`;
+      return `animate-page-slide-${direction ?? 'left'}`;
     case 'fade':
       return 'animate-page-fade-in';
     case 'scale':
