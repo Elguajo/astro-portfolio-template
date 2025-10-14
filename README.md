@@ -32,7 +32,7 @@ A modern, high-performance portfolio template built with **Astro** for designers
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/DesignPhotographyPortfolio.git
+git clone https://github.com/Elguajo/astro-portfolio.git
 cd DesignPhotographyPortfolio
 
 # Install dependencies
