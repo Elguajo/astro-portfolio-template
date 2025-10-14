@@ -1,4 +1,4 @@
-# 🎨 Design Photography Portfolio
+# 🎨 Astro Portfolio
 
 [![Astro](https://img.shields.io/badge/Astro-5.13.9-FF5D01?style=flat-square&logo=astro)](https://astro.build/)
 [![React](https://img.shields.io/badge/React-19.1.0-61DAFB?style=flat-square&logo=react)](https://reactjs.org/)
