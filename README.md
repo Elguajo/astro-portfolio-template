@@ -32,8 +32,8 @@ A modern, high-performance portfolio template built with **Astro** for designers
 
 ```bash
 # Clone the repository
-git clone https://github.com/Elguajo/astro-portfolio.git
-cd DesignPhotographyPortfolio
+git clone https://github.com/Elguajo/astro-portfolio-template.git
+cd astro-portfolio-template
 
 # Install dependencies
 npm install
